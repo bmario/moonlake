@@ -18,15 +18,15 @@
  *       MA 02110-1301, USA.
  */
 
+class sys_Controller extends Moonlake_Controller_ActionController {
+    public function index_Action() {
+        
+    }
+
+    public function refreshView_Action() {
+        $cache = new Moonlake_Cache_Cache('view');
+        $cache->remove($this->request->getParam('template'));
+    }
+}
+
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-  <head>
-    <title><?php echo $this->title; ?></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    Hallo <?php echo $this->name; ?>.<br>
-    <a href="<?php echo $this->simpleUrlBuilder("simplecontroller", "byby", array("name" => $this->name)); ?>">Hier geht's weiter</a>
-  </body>
-</html>

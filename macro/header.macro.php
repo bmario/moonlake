@@ -18,14 +18,17 @@
  *       MA 02110-1301, USA.
  */
 
+class header_Macro extends Moonlake_View_Macro {
+    
+    protected function append() {
+        return '</div>';
+    }
+    protected function content() {
+        return "<span class=\"heading\">{$this->assigns['cms_page_name']} <sub>{$this->assigns['cms_page_title']}</sub></span>";
+    }
+    protected function prepend() {
+        return '<div id="header">';
+    }
+}
+
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-  <head>
-    <title><?php echo $this->title; ?></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    Tschüss <?php echo $this->name; ?>.<br>
-  </body>
-</html>

@@ -19,9 +19,10 @@
  * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+namespace de\Moonlake\Controller;
 
-interface Moonlake_Event_EventHandler {
-    public function handleEvent(Moonlake_Event_Event $event);
+interface PostCommand extends Command {
+    
 }
 
 ?>

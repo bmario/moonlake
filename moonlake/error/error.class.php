@@ -19,8 +19,6 @@
  * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-Moonlake_Autoload_Autoloader::loadInterface('Moonlake_Event_EventHandler');
-
 class Moonlake_Error_Error implements Moonlake_Event_EventHandler {
     public function handleEvent(Moonlake_Event_Event $event) {
         $func = $event->getName();
@@ -33,17 +31,17 @@ class Moonlake_Error_Error implements Moonlake_Event_EventHandler {
         call_user_method('notice', $this, $args[0]);
     }
 
-    private function sys_crit(de_Moonlake_Event_Event $event) {
+    private function sys_crit(Moonlake_Event_Event $event) {
         die("A critical error rised. The application stopped excuting. \n{$event->getInfo()}");
         //TODO add improved error reporting :)
     }
 
-    private function warning(de_Moonlake_Event_Event $event) {
+    private function warning(Moonlake_Event_Event $event) {
         print_r($event);
         //TODO add any error reporting
     }
 
-    private function notice(de_Moonlake_Event_Event $event) {
+    private function notice(Moonlake_Event_Event $event) {
         print_r($event);
         //TODO add any error reporting
     }

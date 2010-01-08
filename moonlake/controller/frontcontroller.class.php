@@ -18,12 +18,15 @@
  *       MA 02110-1301, USA.
  */
 
-Moonlake_Autoload_Autoloader::loadInterface("Moonlake_Controller_Controller");
+namespace de\Moonlake\Controller;
+use de\Moonlake\Request\Request;
+use de\Moonlake\Response\Response;
 
-interface Moonlake_Controller_FrontController {
-    public function handleRequest(Moonlake_Request_Request $request, Moonlake_Response_Response $response);
-    public function setDefaultController($name);
-    public function getDefaultController();
+interface FrontController {
+    public function registerPreCommand(PreCommand $ctrl);
+    public function registerPostCommand(PostCommand $ctrl);
+    public function setDefaultController($ctrl);
+    public function handleRequest(Request $request, Response $response);
 }
 
 ?>

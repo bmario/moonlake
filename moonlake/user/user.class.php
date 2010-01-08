@@ -18,45 +18,47 @@
  *       MA 02110-1301, USA.
  */
 
-class Moonlake_User_User extends Moonlake_User_Identity {
-    private $id;
-    private $name;
+class Moonlake_User_User {
+    private $uid;
+    private $username;
     private $passwort;
+    private $props = array();
 
-    public function __construct($id, $name, $passwort) {
-        $this->id = $id;
-        $this->name = $name;
+    public function __construct($uid, $username, $passwort) {
+        $this->uid = $uid;
+        $this->username = $username;
         $this->passwort = $passwort;
     }
 
     public function __set($key, $val) {
-        return false;
+        switch($key) {
+            case "uid":
+            case "username":
+            case "passwort":
+                return false;
+                break;
+            default:
+                $this->props[$key] = $val;
+                return true;
+                break;
+        }
     }
 
     public function __get($key) {
         switch($key) {
-            case "id":
-                return $this->id;
+            case "uid":
+                return $this->uid;
                 break;
-            case "name":
-                return $this->name;
+            case "username":
+                return $this->username;
                 break;
             case "passwort":
                 return $this->passwort;
                 break;
             default:
-                return null;
+                return isset($this->props[$key]) ? $this->props[$key] : null;
                 break;
         }
-    }
-
-    public function getAllProps() {
-        $props = array();
-        $props['id'] = $this->id;
-        $props['name'] = $this->name;
-        $props['password'] = $this->passwort;
-
-        return $props;
     }
 
     public function authentificate($password) {

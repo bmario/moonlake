@@ -18,28 +18,16 @@
  *       MA 02110-1301, USA.
  */
 
-class simplecontroller_Controller extends Moonlake_Controller_ActionController
-{
-    public function index_Action() {
-        $view = new simplecontroller_View();
-        if($this->request->issetParam("name")) {
-            $view->index_View()->assign("name", $this->request->getParam("name"));
-        }
-        else {
-            $view->index_View()->assign("name", "Gast");
-        }
-        $view->index_View()->render($this->response);
-    }
+class layer_Macro extends Moonlake_View_Macro {
 
-    public function byby_Action() {
-        $view = new simplecontroller_View();
-        if($this->request->issetParam("name")) {
-            $view->byby_View()->assign("name", $this->request->getParam("name"));
-        }
-        else {
-            $view->byby_View()->assign("name", "Gast");
-        }
-        $view->byby_View()->render($this->response);
+    protected function prepend() {
+        return "<td id=\"{$this->attributes['type']}\">";
+    }
+    protected function content() {
+        return $this->content;
+    }
+    protected function append() {
+        return '</td>';
     }
 }
 

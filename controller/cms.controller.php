@@ -18,8 +18,22 @@
  *       MA 02110-1301, USA.
  */
 
-class simplecontroller_View extends Moonlake_View_View {
+use de\Moonlake\Controller\ActionController;
+use de\Moonlake\View\View;
 
+class cms_Controller extends ActionController {
+    public function index_Action() {
+        $view = new View($this->response);
+
+        $view->assign('cms_page_name', 'moonlake.de');
+        $view->assign('cms_page_title', 'Home');
+        $view->assign('cms_page_author', 'Mario Bielert');
+        $view->assign('cms_page_author_mail', 'mario@moonlake.de');
+        $view->assign('cms_page_copy_year', '2009');
+
+
+        $view->render('cms_index');
+    }
 }
 
 ?>

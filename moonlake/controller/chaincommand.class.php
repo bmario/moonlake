@@ -19,13 +19,31 @@
  * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-namespace de\Moonlake;
-
+namespace de\Moonlake\Controller;
+use de\Moonlake\Request\Request;
+use de\Moonlake\Response\Response;
 /*
- * Starting outputbuffering, because this is called at very first, so we are sure
+ * This class allows to create a chain of PrePostcontrollers
  */
-ob_start();
-
-include("moonlake/autoload/autoloader.class.php");
-
-?>
+class ChainCommand implements Command {
+    private $controllers = array();
+    
+    /*
+     * fullfill the interface
+     */
+    public function run(Request $request, Response $response) {
+        foreach($this->controllers as $cmd) {
+            $cmd->run($request,$response);
+        }
+    }
+    
+    /*
+     * This methode adds a PrePostController to the chain.
+     * The controllers will be called in the same order, they are added.
+     * 
+     * @param Moonlake_Controller_PrePostController the instanze of a controller
+     */
+    public function addCommand(Command $ctrl) {
+        $this->controllers[] = $ctrl;        
+    }
+}

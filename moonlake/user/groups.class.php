@@ -18,8 +18,9 @@
  *       MA 02110-1301, USA.
  */
 
-final class Moonlake_User_Groups extends Moonlake_Model_Model {
-    protected $properities = array("name" => "str");
+class Moonlake_User_Groups extends Moonlake_Model_Model {
+    protected $properities = array("groupname" => "str",
+                                   "gid" => "int");
 
     public function  __construct() {
         parent::__construct();
@@ -27,43 +28,6 @@ final class Moonlake_User_Groups extends Moonlake_Model_Model {
 
     public function  __destruct() {
         parent::__destruct();
-    }
-
-
-    public function createGroup(Moonlake_User_Group $group) {
-        $id = $this->addEntry($group->getAllProps());
-
-        return $this->getGroup($id);
-    }
-
-    public function getGroup($id) {
-        return $this->getGroupById($id);
-    }
-
-
-    public function getGroupById($id) {
-        return $this->arrayToGroup($this->getEntry($id));
-    }
-
-    public function getGroupByName($name) {
-        return $this->arrayToGroup($this->findUniqueEntry("name", $name));
-    }
-
-    public function deleteGroup($id) {
-        return $this->removeEntry($id);
-    }
-
-    public function updateGroup(Moonlake_User_Group $group) {
-        $this->editEntry($group->id, $group->getAllProps());
-    }
-
-    protected function arrayToGroup($group) {
-        if(is_array($group)) {
-            $g = new Moonlake_User_Group($group['id'], $group['name']);
-
-            return $g;
-        }
-        return null;
     }
 }
 

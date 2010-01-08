@@ -18,8 +18,30 @@
  *       MA 02110-1301, USA.
  */
 
-class empty_View extends Moonlake_View_View {
-    
+class value_Macro extends Moonlake_View_Macro {
+
+    protected function prepend() {
+        return '';
+    }
+
+    protected function append() {
+        return '';
+    }
+
+    protected function content() {
+        $id = $this->attributes['varname'];
+
+        if(isset($this->assigns[$id]) and $this->attributes['cacheable'] == "yes") {
+            // write value
+
+            return $this->assigns[$id];
+        }
+        else {
+            // write value query
+            return '<?php echo $this->'.$id.'; ?>';
+        }
+    }
+
 }
 
 ?>

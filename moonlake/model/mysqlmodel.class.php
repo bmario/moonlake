@@ -18,32 +18,45 @@
  *       MA 02110-1301, USA.
  */
 
-class Moonlake_Model_MySQLModel {
-    protected static $hcon=null;
+namespace de\Moonlake\Model;
+use de\Moonlake\Config\Config;
 
-    protected static $cons = 0;
+/**
+ * this class handles lowlevel mysql connections 
+ */
+class MySQLModel {
+    protected $hcon;
 
     protected $queries = array();
 
+    /**
+     * Constructor, opens mysql connection, read config from class Mysql_Config under config/mysql.conf.php
+     */
     public function  __construct() {
-        if(self::$hcon === null) {
-            $config = new Mysql_Config();
+        $config = new Config('mysql');
 
-            $server = $config->hostname;
-            $username = $config->username;
-            $password = $config->password;
-            $database = $config->database;
+        $server = $config->hostname;
+        $username = $config->username;
+        $password = $config->password;
+        $database = $config->database;
 
-            $this->hcon = mysql_connect($server, $username, $password);
-            mysql_select_db($database, $this->hcon);
-        }
-        self::$cons++;
+        $this->hcon = mysql_connect($server, $username, $password);
+        mysql_select_db($database, $this->hcon);
     }
 
+    /**
+     * destructor, quits connection to mysql
+     */
     public function  __destruct() {
-        if(self::$cons == 1) mysql_close($this->hcon);
+        mysql_close($this->hcon);
     }
 
+    /**
+     * This methode queries the mysql database.
+     * 
+     * @param String the query SQL
+     * @return int an id for this query, use this id in further functions, if there is aske for an query id
+     */
     public function query($sql) {
         $qid = count($this->queries);
 
@@ -55,14 +68,28 @@ class Moonlake_Model_MySQLModel {
         return $qid;
     }
 
+    /**
+     * this methode returns the id of the last inserted row
+     * @return int id
+     */
     public function insertId() {
         return mysql_insert_id($this->hcon);
     }
 
+    /**
+     * This method returns the count of affected rows by the query given by the id
+     * @param int $qid
+     * @return int count
+     */
     public function affected_rows($qid) {
         return $this->queries[$qid]['rows'];
     }
 
+    /**
+     * Returns an associated array with values from the mysql database
+     * @param Int query id
+     * @return Array data || false
+     */
     public function fetch($qid) {
         if($this->queries[$qid]['rows'] > $this->queries[$qid]['seek']) {
             $this->queries[$qid]['seek']++;

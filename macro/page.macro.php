@@ -18,9 +18,17 @@
  *       MA 02110-1301, USA.
  */
 
-class guestbook_View extends Moonlake_View_View {
-
-
+class page_Macro extends Moonlake_View_Macro {
+    
+    protected function prepend() {
+        return "<html>\n\t<head>\n\t\t<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\" />\n\t\t<link rel=\"stylesheet\" href=\"view/css/default.css\" type=\"text/css\" media=\"screen\" />";
+    }
+    protected function append() {
+        return "\n\t</body>\n</html>";
+    }
+    protected function content() {
+        return str_replace('</title>', "</title>\n\t</head>\n\t<body>", $this->content);
+    }
 }
 
 ?>

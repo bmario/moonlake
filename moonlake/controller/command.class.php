@@ -19,13 +19,16 @@
  * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-namespace de\Moonlake;
+namespace de\Moonlake\Controller;
+use de\Moonlake\Request\Request;
+use de\Moonlake\Response\Response;
 
-/*
- * Starting outputbuffering, because this is called at very first, so we are sure
+/**
+ * parentclass for all commands, but don't use it! use pre- or postcommand.
+ * otherwise the frontcontroller won't except your commands on registering.
  */
-ob_start();
-
-include("moonlake/autoload/autoloader.class.php");
+interface Command {
+    public function run(Request $request, Response $response);
+}
 
 ?>

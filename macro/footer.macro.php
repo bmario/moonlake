@@ -17,20 +17,21 @@
  *       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  *       MA 02110-1301, USA.
  */
-?>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-  <head>
-    <title>Moonlake.de</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    Login:<br>
-    <?php echo $this->simpleFormBuilder('empty', 'login'); ?>
-    Name: <input type="text" name="name"><br>
-    Passwort: <input type="password" name="password"><br>
-    <input type="reset"> <input type="submit">
-    </form>
-  </body>
-</html>
+class footer_Macro extends Moonlake_View_Macro {
+
+    protected function prepend() {
+        return '';
+    }
+
+    protected function content() {
+        return "<div id=\"copy\">\n copyright {$this->assigns['cms_page_copy_year']} by <a href=\"mailto:{$this->assigns['cms_page_author_mail']}\">{$this->assigns['cms_page_author']}</a> - powered by <a href=\"http://cms.moonlake.de\">MoonlakeCMS</a>\n</div>";
+
+    }
+
+    protected function append() {
+        return '';
+    }
+}
+
+?>

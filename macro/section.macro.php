@@ -18,20 +18,23 @@
  *       MA 02110-1301, USA.
  */
 
+class section_Macro extends Moonlake_View_Macro {
+
+    protected function prepend() {
+        if($this->attributes['type'] == 'mid') {
+            return '<table id="mid"><tr>';
+        }
+        return '';
+    }
+    protected function content() {
+        return $this->content;
+    }
+    protected function append() {
+        if($this->attributes['type'] == 'mid') {
+            return '</tr></table>';
+        }
+        return '';
+    }
+}
+
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-  <head>
-    <title>Moonlake.de</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <?php if($this->login) { ?>
-    Hallo, <?php echo $this->username; ?>.<br>
-    Schön das der Login funktioniert.<br>
-    <a href="<?php $this->simpleUrlBuilder("empty", "index"); ?>">Hier geht's weiter</a>
-    <?php } else { ?>
-    Deine Logindaten waren falsch.<br>
-    <?php } ?>
-  </body>
-</html>

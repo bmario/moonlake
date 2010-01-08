@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+    <title>
+        <value name="title" cacheable="yes" />
+    </title>
+    <section type="top">
+        <macro name="header" />
+    </section>
+    <section type="mid">
+        <layer type="left">
+
+        </layer>
+        <layer type="mid">
+            <macro name="foreach" from="entries">
+                <b>Benutzer:</b> <ref name="name" /><br />
+                <b>Mail:</b> <ref name="mail" /><br />
+                <b>Message:</b> <ref name="message" /><hr />
+            </macro>
+        </layer>
+        <layer type="right">
+
+        </layer>
+    </section>
+    <section type="foot">
+        <macro name="footer" />
+    </section>
+</page>

@@ -19,12 +19,13 @@
  * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-interface Moonlake_Response_Response {
+namespace de\Moonlake\Response;
+
+interface Response {
     public function addHeader($name, $value);
     public function write($data);
     public function clear();
     public function send();
-    public function setCookie($name, $value, $duration);
 }
 
 ?>

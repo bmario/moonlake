@@ -19,9 +19,21 @@
  */
 
 class index_Controller extends Moonlake_Controller_ActionController {
-    public function index_Action(Moonlake_Request_Request $request, Moonlake_Response_Response $response) {
-        $view = new index_View();
-        $view->index_View()->render($response);
+
+    public function index_Action() {
+        $view = new Moonlake_View_View($this->response);
+        $view->assign("users", array(array("name"=>"mario", "mail"=>"mail@mario.de"),
+                                     array("name"=>"mario", "mail"=>"mail@mario.de"),
+                                     array("name"=>"mario", "mail"=>"mail@mario.de"),
+                                     array("name"=>"mario", "mail"=>"mail@mario.de"),
+                                     array("name"=>"mario", "mail"=>"mail@mario.de"),
+                                     array("name"=>"mario", "mail"=>"mail@mario.de"),
+                                     array("name"=>"mario", "mail"=>"mail@mario.de")));
+        $view->assign("title", "moonlakefw");
+        $view->assign("greeting", "Hallo ihr looser da drausen!");
+        $view->render('index');
     }
+
 }
+
 ?>

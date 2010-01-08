@@ -19,9 +19,8 @@
  * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-
-interface Moonlake_Event_EventHandler {
-    public function handleEvent(Moonlake_Event_Event $event);
+interface PreCommand extends Command {
+    
 }
 
 ?>

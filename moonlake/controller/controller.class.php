@@ -18,8 +18,9 @@
  *       MA 02110-1301, USA.
  */
 
-class Moonlake_Controller_Controller {
+namespace de\Moonlake\Controller;
 
+class Controller {
 
 }
 

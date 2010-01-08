@@ -18,25 +18,20 @@
  *       MA 02110-1301, USA.
  */
 
+class foreach_Macro extends Moonlake_View_Macro {
+
+    protected function prepend() {
+        return '<?php foreach($this->'.$this->attributes['from'].' as $ref) { ?>';
+    }
+
+    protected function append() {
+        return '<?php } ?>'."\n";
+    }
+
+    protected function content() {
+        return preg_replace('|<ref name="(.*)"\s*/>|Ui','<?php echo $ref[\''."\\1".'\']; ?>', $this->content);
+    }
+
+}
+
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-  <head>
-    <title>Mein Gästebuch</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <?php foreach($this->entries as $entry) { ?>
-      <a href="mailto:<?php echo $entry['mail']; ?>"><b><?php echo $entry['name']; ?></b></a><br>
-      <?php echo $entry['message']; ?>
-      <hr>
-    <?php } ?>
-    <?php echo $this->simpleFormBuilder("guestbook", "newentry"); ?>
-      <b> Einen Eintrag verfassen </b><br>
-      Dein Name: <input type="text" name="name"><br>
-      Deine Email: <input type="text" name="mail"><br>
-      Deine Nachricht: <textarea name="message"></textarea><br>
-      <input type="submit">
-    </form>
-  </body>
-</html>

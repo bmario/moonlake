@@ -19,9 +19,9 @@
  * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-Moonlake_Autoload_Autoloader::loadInterface('Moonlake_Request_Request');
+namespace de\Moonlake\Request;
 
-class Moonlake_Request_HttpRequest implements Moonlake_Request_Request {
+class HttpRequest implements Request {
 
     private $parameters;
 
@@ -40,7 +40,6 @@ class Moonlake_Request_HttpRequest implements Moonlake_Request_Request {
         if($this->issetParam($name)) {
             return $this->parameters[$name];
         }
-        return null;
     }
     public function issetParam($name) {
         return isset($this->parameters[$name]);

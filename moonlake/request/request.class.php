@@ -18,8 +18,10 @@
  * along with this program; if not, write to the Free Software Foundation, Inc., 
  * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
-  
-interface Moonlake_Request_Request {
+
+namespace de\Moonlake\Request;
+
+interface Request {
     public function getParam($name);
     public function issetParam($name);
     public function getHeader($name);
