@@ -22,52 +22,52 @@ namespace de\Moonlake\Model;
 
 /**
  * This class abstracts the mysql interface.
- * 
+ *
  * Now you have the choice of using simple interface.
  * Additional you can use the lowlevel mysql methods.
- * 
+ *
  * Usage:
  * extend this class. make sure you call parental __destruct() and __construct()
  * create an protected property called "properties" as an associated array.
  * write for every datafield you need an entry to this array with one of the following types:
- * 
+ *
  *  - string (or str) for short string, like names (max 255 characters) TODO is 255 to less?
  *  - int for integers (max 11 numbers) TODO is 11 to less?
  *  - short for small integers (max 4 numbers)
  *  - text for long texts, like postings
- * 
+ *
  * e.g.
- * 
+ *
  * protected $properties = array("name" => "str", "age" => "str", "message" => "text");
- * 
+ *
  * that's all.
- * 
+ *
  * (Some detailed information, the database table name will be "Moonlake_" + Classname
- * Also an primary key with the name id will allways be created) 
+ * Also an primary key with the name id will allways be created)
  */
 abstract class Model extends MySQLModel {
     protected $values = array(); //this array contains all datafield definitions stated in the heritage path
-    
+
     /**
      * This array contains all datafield definitions for this class, extended classes can (and should) define their own.
-     * (Do not care about the values stored in the parent classes. They will automatically applied, but you should take 
-     * care, that you don't use an identifier more than once. In this case, the one nearest to your extended class will 
-     * be used.) 
-     * 
+     * (Do not care about the values stored in the parent classes. They will automatically applied, but you should take
+     * care, that you don't use an identifier more than once. In this case, the one nearest to your extended class will
+     * be used.)
+     *
      * Write for every datafield you need an entry to this array with one of the following types:
-     * 
+     *
      *  - string (or str) for short string, like names (max 255 characters) TODO is 255 to less?
      *  - int for integers (max 11 numbers) TODO is 11 to less?
      *  - short for small integers (max 4 numbers)
      *  - text for long texts, like postings
-     * 
+     *
      * e.g.
-     * protected $properties = array("name" => "str", "age" => "str", "message" => "text"); 
-     * 
-     * ATTENTION: This attribute has to be protected, do NOT set it as private! 
-     * 
+     * protected $properties = array("name" => "str", "age" => "str", "message" => "text");
+     *
+     * ATTENTION: This attribute has to be protected, do NOT set it as private!
+     *
      * @var array
-     * 
+     *
      */
     protected $properities = array('id' => 'int_prim');
 
@@ -88,7 +88,7 @@ abstract class Model extends MySQLModel {
 
         /*
          * little magic :)
-         * this methode will be called in the last inherited child, 
+         * this methode will be called in the last inherited child,
          * so we walk throw all parent classes and fill the $values array with the according
          * $properities array.
          */
@@ -124,7 +124,7 @@ abstract class Model extends MySQLModel {
         /*
          * is there a Table for this Model?
          */
-        
+
         /*
          * create query
          */
@@ -134,7 +134,7 @@ abstract class Model extends MySQLModel {
             switch($type) {
                 /*
                  * new type, only once allowed and will be set in this class (have a look at $properities)
-                 * you must not use this. 
+                 * you must not use this.
                  */
                 case 'int_prim':
                     $sql .= "(`$name` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, ";
@@ -152,15 +152,15 @@ abstract class Model extends MySQLModel {
                 case 'short':
                     $sql .= "`$name` INT(4) NOT NULL, ";
                     break;
-                    
-                    
+
+
                 /*
                  * textblob type
                  */
                 case 'text':
                     $sql .= "`$name` TEXT NOT NULL, ";
                     break;
-                    
+
                 /*
                  * string and default type (because it takes more or less everything :) )
                  */
@@ -188,7 +188,7 @@ abstract class Model extends MySQLModel {
     /**
      * Returns the name of the table.
      * Depends on classname.
-     * 
+     *
      * @return String tablename
      */
     protected function tableName() {
@@ -326,6 +326,19 @@ abstract class Model extends MySQLModel {
         $sql .= " WHERE `id` = '$id' LIMIT 1 ";
 
         return $this->affected_rows($this->query($sql));
+    }
+
+/**********************************************************************************************/
+/* recode divider																			  */
+/**********************************************************************************************/
+
+    private function __construct() {
+    	parent::__construct();
+    }
+
+    public function getInstance() {
+    	if(!self::$instance) self::$instance = new Model();
+    	return self::$instance;
     }
 }
 
