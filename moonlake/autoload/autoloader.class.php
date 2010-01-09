@@ -1,7 +1,7 @@
 <?php
 
 /* 
- * (c) 2009 by Mario Bielert <mario@moonlake.de>
+ * copyright 2009 2010 by Mario Bielert <mario@moonlake.de>
  * Moonlake - Framework
  */
 

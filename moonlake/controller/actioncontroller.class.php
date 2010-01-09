@@ -24,19 +24,19 @@ use de\Moonlake\Response\Response;
 
 /**
  * This is the abstract class, every ActionController has to inherit.
- * 
+ *
  * Notice:
  * Every ActionController has the attributes ActionController::request and ActionController::response.
- * Use them instead of "echo"ing you contents! * 
+ * Use them instead of "echo"ing you contents!
  */
-abstract class ActionController extends Controller {
+abstract class ActionController {
 
     /*
-     * protected reponse and request, so they are accessable in inherited classes 
+     * protected reponse and request, so they are accessable in inherited classes
      */
     protected $response;
     protected $request;
-    
+
     /*
      * now give the contructer the response and request object, saves time fpr other things :)
      */
@@ -44,7 +44,7 @@ abstract class ActionController extends Controller {
         $this->request = $request;
         $this->response = $response;
     }
-    
+
     /*
      * there has to be an index_Action() function in every controller
      */

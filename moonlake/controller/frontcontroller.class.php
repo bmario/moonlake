@@ -19,14 +19,10 @@
  */
 
 namespace de\Moonlake\Controller;
-use de\Moonlake\Request\Request;
-use de\Moonlake\Response\Response;
 
 interface FrontController {
-    public function registerPreCommand(PreCommand $ctrl);
-    public function registerPostCommand(PostCommand $ctrl);
-    public function setDefaultController($ctrl);
-    public function handleRequest(Request $request, Response $response);
+	public function setDefaultController($name);
+    public function handleHTTPRequest();
 }
 
 ?>

@@ -15,6 +15,6 @@ $front = new DefaultFrontController();
 $front->setDefaultController("cms");
 
 // invoke request handling
-$front->handleRequest(new HttpRequest(), new HttpResponse());
+$front->handleHTTPRequest();
 
 ?>

@@ -26,7 +26,7 @@ use de\Moonlake\Response\Response;
 /**
  * This class ist the default front controller, actually the only one :)
  */
-class DefaultFrontController extends Controller implements FrontController {
+class DefaultFrontController implements FrontController {
 
     private $defaultController = 'index_Controller';
     private $preCommands = null;
@@ -42,7 +42,10 @@ class DefaultFrontController extends Controller implements FrontController {
      * @param Moonlake_Request_Request the request object
      * @param Moonlake_Response_Response the response object
      */
-    public function handleRequest(Request $request, Response $response) {
+    public function handleHTTPRequest() {
+
+    	$request = new HttpRequest();
+    	$response = new HttpResponse();
 
         /*
          * is there a controller requested?
@@ -71,19 +74,19 @@ class DefaultFrontController extends Controller implements FrontController {
         }
         else {
             /*
-             * use default action 
+             * use default action
              */$action = 'index_Action';
         }
-        
+
         if(class_exists($ctrl)) {
             /*
-             *  Controller found and included 
+             *  Controller found and included
              */
             try {
                /*
                 * maybe we have the wrong class
                 */
-               $controller = new $ctrl($request, $response);    
+               $controller = new $ctrl($request, $response);
             }
             catch(Exception $e) {
                 /*
@@ -91,8 +94,8 @@ class DefaultFrontController extends Controller implements FrontController {
                  */
                 echo "Controller isn't an ActionController";
             }
-            
-            
+
+
             if(is_a($controller, 'de\\Moonlake\\Controller\\ActionController')) {
                 /*
                  * exists the given action?
@@ -100,7 +103,7 @@ class DefaultFrontController extends Controller implements FrontController {
                 if(method_exists($controller, $action)) {
                     /*
                      * party! methode exists, so run it :) (and blame the developer if something ist wrong ;)
-                     * but don't forget pre and post controllers 
+                     * but don't forget pre and post controllers
                      */
                     $this->runPreCommands($request, $response);
                     $controller->$action();
@@ -112,7 +115,7 @@ class DefaultFrontController extends Controller implements FrontController {
                      */
                     echo "The requested action doesn't exists within the controller";
                 }
-                
+
             }
             else {
                 /*
@@ -129,19 +132,19 @@ class DefaultFrontController extends Controller implements FrontController {
             echo "Controller not found.";
         }
     }
-    
+
     /**
      * This methode sets the default controller, which is used if there is no controller given
-     * @param String controllername without the ending '_Controller' 
+     * @param String controllername without the ending '_Controller'
      */
     public function setDefaultController($ctrl) {
         $this->defaultController = $ctrl.'_Controller';
     }
-    
+
     /**
      * This methode registers a postcommand.
      * controllers are executed in the same order as they added.
-     * 
+     *
      * @param Moonlake_Coontroller_Command the command
      */
     public function registerPostCommand(PostCommand $cmd) {
@@ -151,28 +154,28 @@ class DefaultFrontController extends Controller implements FrontController {
     /**
      * This methode registers a precommand.
      * controllers are executed in the same order as they added.
-     * 
+     *
      * @param Moonlake_Coontroller_Command the command
      */
-    
+
     public function registerPreCommand(PreCommand $cmd) {
         $this->preCommands->addCommand($cmd);
     }
-    
+
     /**
      * This methode runs the registerd precontrollers.
      */
     private function runPreCommands(Request $request, Response $response) {
         $this->preCommands->run($request, $response);
     }
-    
+
     /**
      * This methode runs the registerd postcontrollers.
      */
     private function runPostCommands(Request $request, Response $response) {
         $this->postCommands->run($request, $response);
     }
-    
+
 }
 
 ?>
