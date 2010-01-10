@@ -21,7 +21,7 @@ class Config {
                 return;
             }
         }
-        
+
         $this->cfg = array();
     }
 
@@ -56,7 +56,19 @@ class Config {
             $file = '<?php '."\r\n\r\n";
             foreach($this->cfg as $name => $value)
             {
-                $file .= '$_CONFIG[\''.$name.'\'] = "'.$value."\";\r\n\r\n";
+            	if(is_array($value)) {
+            		$php = 'array (';
+            		foreach($value as $val) {
+            			$php .= " $val,";
+            		}
+            		$php = substr($php, 0, -1);
+            		$php .= ' )';
+
+            		$file .= '$_CONFIG[\''.$name.'\'] = '.$php.";\r\n\r\n";
+            	}
+            	else {
+            		$file .= '$_CONFIG[\''.$name.'\'] = \''.$value."';\r\n\r\n";
+            	}
             }
             $file .= '?>';
 
