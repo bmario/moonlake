@@ -57,12 +57,17 @@ class Config {
             foreach($this->cfg as $name => $value)
             {
             	if(is_array($value)) {
-            		$php = 'array (';
-            		foreach($value as $val) {
-            			$php .= " $val,";
+            		if($value == array()) {
+            			$php = 'array()';
             		}
-            		$php = substr($php, 0, -1);
-            		$php .= ' )';
+            		else {
+	            		$php = 'array (';
+	            		foreach($value as $val) {
+	            			$php .= "$val, ";
+	            		}
+	            		$php = substr($php, 0, -2);
+	            		$php .= ')';
+            		}
 
             		$file .= '$_CONFIG[\''.$name.'\'] = '.$php.";\r\n\r\n";
             	}
