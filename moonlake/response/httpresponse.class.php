@@ -19,18 +19,18 @@
  * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-namespace de\Moonlake\Response;
+Moonlake_Autoload_Autoloader::loadInterface('Moonlake_Response_Response');
 
-class HttpResponse implements Response {
+class Moonlake_Response_HttpResponse implements Moonlake_Response_Response {
 
     private $headers = array();
     private $output = null;
 
     public function send() {
+        ob_start("ob_gzhandler");
         foreach($this->headers as $name => $value) {
             header("{$name}: {$value}");
         }
-        ob_start();
         echo $this->output;
         ob_end_flush();
         $this->headers = array();
@@ -45,6 +45,11 @@ class HttpResponse implements Response {
 
     public function clear() {
         $this->output = null;
+    }
+
+    public function setCookie($name, $value, $duration)
+    {
+        return setcookie($name, $value, time() + $duration, '/');
     }
 
     public function  __destruct() {

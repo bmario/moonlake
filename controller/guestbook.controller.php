@@ -18,14 +18,45 @@
  *       MA 02110-1301, USA.
  */
 
-class guestbook_Controller extends ActionController {
-    public function index_Action() {
+class guestbook_Controller extends Moonlake_Controller_ActionController {
+    /**
+      * Show all entries of the guestbook
+      */
+    public function index_Action(Moonlake_Request_Request $request, Moonlake_Response_Response $response) {
+        $view = new guestbook_View();
         $model = new guestbook_Model();
-        $view = new View($this->response);
-        $view->assign('ctrl', 'guestbook');
-        $view->assign('action', 'index');
-        $view->assign('entries', $model->getEntries());
-        $view->render('guestbook_index');
+
+        // load entries from Model:
+        $entries = $model->getEntries();
+        $entries = array_reverse($entries);
+        // assign to index_View
+        $view->index_View()->assign("entries", $entries);
+        $view->index_View()->render($response);
+    }
+
+    /**
+      * Create new entry in the Guestbook
+      */
+    public function newentry_Action(Moonlake_Request_Request $request, Moonlake_Response_Response $response) {
+        // model instance
+        $model = new guestbook_Model();
+        // new entry
+
+        $args = array();
+        $args['name'] = $request->getParam("name");
+        $args['mail'] = $request->getParam("mail");
+        $args['message'] = $request->getParam("message");
+        $model->addEntry($args);
+        
+        // view instance
+        $view = new guestbook_View();
+        // load entries from Model:
+        $entries = $model->getEntries();
+        $entries = array_reverse($entries);
+        // assign to index_View
+        $view->index_View()->assign("entries", $entries);
+        // render index_View
+        $view->index_View()->render($response);
     }
 }
 

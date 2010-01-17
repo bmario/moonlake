@@ -18,36 +18,27 @@
  *       MA 02110-1301, USA.
  */
 
-namespace de\Moonlake\Controller;
-use de\Moonlake\Request\Request;
-use de\Moonlake\Response\Response;
+Moonlake_Autoload_Autoloader::loadInterface("Moonlake_Controller_Controller");
 
-/**
- * This is the abstract class, every ActionController has to inherit.
- *
- * Notice:
- * Every ActionController has the attributes ActionController::request and ActionController::response.
- * Use them instead of "echo"ing you contents!
- */
-abstract class ActionController {
+abstract class Moonlake_Controller_ActionController extends Moonlake_Controller_Controller {
 
-    /*
-     * protected reponse and request, so they are accessable in inherited classes
-     */
-    protected $response;
     protected $request;
+    protected $response;
 
-    /*
-     * now give the contructer the response and request object, saves time fpr other things :)
-     */
-    public function __construct(Request $request, Response $response) {
+    public function  __construct(Moonlake_Request_Request $request, Moonlake_Response_Response $response) {
         $this->request = $request;
         $this->response = $response;
     }
 
-    /*
-     * there has to be an index_Action() function in every controller
-     */
+    public function __call($name, $args) {
+        if(method_exists($this, $name.'_Action')) {
+            $this->{$name.'_Action'}();
+        }
+        else {
+            $this->index_Action();
+        }
+    }
+
     public abstract function index_Action();
 }
 

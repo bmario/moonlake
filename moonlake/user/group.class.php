@@ -18,4 +18,40 @@
  *       MA 02110-1301, USA.
  */
 
+class Moonlake_User_Group extends Moonlake_User_Identity {
+    private $id;
+    private $name;
+
+    public function __construct($id, $name) {
+        $this->id = $id;
+        $this->name = $name;
+    }
+
+    public function __set($key, $val) {
+        return false;
+    }
+
+    public function __get($key) {
+        switch($key) {
+            case "id":
+                return $this->id;
+                break;
+            case "name":
+                return $this->name;
+                break;
+           default:
+                return null;
+                break;
+        }
+    }
+
+    public function getAllProps() {
+        $props = array();
+        $props['id'] = $this->id;
+        $props['name'] = $this->name;
+
+        return $props;
+    }
+}
+
 ?>

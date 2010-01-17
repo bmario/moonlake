@@ -71,7 +71,7 @@ class Moonlake_User_Authorizations extends Moonlake_Model_Model {
         return $this->setRight($obj_id, $this->setRightMask($this->getRight($obj_id, $group), $action), $group);
     }
 
-    public function grantRightForTable($obj_id, $action, Moonlake_User_Group $group) {
+    public function grantRightForTable($obj_id, $action, de_Moonlake_User_Group $group) {
         $obj_id = split("--", $obj_id);
         $obj_id = $obj_id[0];
 
@@ -79,7 +79,7 @@ class Moonlake_User_Authorizations extends Moonlake_Model_Model {
     }
 
     public function isAllowed($obj_id, $action, Moonlake_User_User $user) {
-        $members = new Moonlake_User_Memberships();
+        $members = new de_Moonlake_User_Memberships();
         foreach($members->getGroupsObjId($user) as $obj_id) {
             $entry = $this->findUniqueEntry('object_id', $obj_id);
             if($entry !== null) {

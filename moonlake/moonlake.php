@@ -19,13 +19,11 @@
  * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-namespace de\Moonlake;
 
-/*
- * Starting outputbuffering, because this is called at very first, so we are sure
- */
-ob_start();
+include('moonlake/autoload/autoloader.class.php');
 
-include("moonlake/autoload/autoloader.class.php");
+$event = Moonlake_Event_EventDispatcher::getInstance();
+$error = new Moonlake_Error_Error();
+$event->registerHandler("ERROR_*", $error);
 
 ?>

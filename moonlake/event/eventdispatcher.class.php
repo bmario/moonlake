@@ -19,6 +19,8 @@
  * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+Moonlake_Autoload_Autoloader::loadInterface('Moonlake_Registry_Registrable');
+
 class Moonlake_Event_EventDispatcher implements Moonlake_Registry_Registrable
 {
     private static $instance = null;
@@ -69,7 +71,7 @@ class Moonlake_Event_EventDispatcher implements Moonlake_Registry_Registrable
 
     public function triggerEvent($name, $context = null, $info = null)
     {
-        $event = new Moonlake_Event_Event($name, $context, $info);
+        $event = new de_Moonlake_Event_Event($name, $context, $info);
         $matches = $this->findMatches($name);
         foreach($matches as $match) {
             foreach($this->handler[$match] as $handler)

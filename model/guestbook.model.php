@@ -20,8 +20,16 @@
 
 class guestbook_Model extends Moonlake_Model_Model {
     protected $properities = array("name" => "str",
-                         "mail" => "str",
-                         "message" => "text");
+                                          "mail" => "str",
+                                          "message" => "text");
+
+    public function  __construct() {
+        parent::__construct();
+    }
+
+    public function  __destruct() {
+        parent::__destruct();
+    }
 }
 
 ?>

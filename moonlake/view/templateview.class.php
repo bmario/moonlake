@@ -18,42 +18,39 @@
  *       MA 02110-1301, USA.
  */
 
-class Moonlake_Session_Session {
-    static private $sid = null;
+class Moonlake_View_TemplateView {
+    private $__name;
+    private $__assigns =array();
 
-    public function __construct() {
-        if(self::$sid === null) {
-            session_start();
-            self::$sid = session_id();
+    public function  __construct($name) {
+        $this->__name = $name;
+    }
+
+    public function assign($name, $value) {
+        $this->__assigns[$name] = $value;
+    }
+
+    public function __get($name) {
+        if(isset($this->__assigns[$name])) {
+            return $this->__assigns[$name];
         }
+        else return "";
     }
 
-    public function issetParameter($name) {
-        return isset($_SESSION[$name]);
-    }
-
-    public function storeParameter($name, $value) {
-        $_SESSION[$name] = $value;
-    }
-
-    public function loadParameter($name) {
-        if($this->issetParameter($name)) {
-            return $_SESSION[$name];
+    public function __call($name, $args) {
+        $classname = $name.'_ViewHelper';
+        if(class_exists($classname)) {
+            return call_user_func(array($classname, "execute"), $args);
         }
-        return null;
+        else return "";
     }
 
-    public function hasSession() {
-        return $this->issetParameter('token');
-    }
-
-    public function startSession() {
-        $this->storeParameter('token', uniqid());
-    }
-
-    public function endSession() {
-        session_destroy();
-        session_start();
+    public function render($response) {
+        ob_start();
+        $path = Moonlake_Autoload_Autoloader::getTemplatePath($this->__name);
+        if(file_exists($path)) include($path);
+        else echo "The template {$this->__name} was not found.";
+        $response->write(ob_get_clean());
     }
 }
 

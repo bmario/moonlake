@@ -18,12 +18,29 @@
  *       MA 02110-1301, USA.
  */
 
-Moonlake_Autoload_Autoloader::loadInterface("Moonlake_Controller_Controller");
+class simplecontroller_Controller extends Moonlake_Controller_ActionController
+{
+    public function index_Action() {
+        $view = new simplecontroller_View();
+        if($this->request->issetParam("name")) {
+            $view->index_View()->assign("name", $this->request->getParam("name"));
+        }
+        else {
+            $view->index_View()->assign("name", "Gast");
+        }
+        $view->index_View()->render($this->response);
+    }
 
-interface Moonlake_Controller_FrontController {
-    public function handleRequest(Moonlake_Request_Request $request, Moonlake_Response_Response $response);
-    public function setDefaultController($name);
-    public function getDefaultController();
+    public function byby_Action() {
+        $view = new simplecontroller_View();
+        if($this->request->issetParam("name")) {
+            $view->byby_View()->assign("name", $this->request->getParam("name"));
+        }
+        else {
+            $view->byby_View()->assign("name", "Gast");
+        }
+        $view->byby_View()->render($this->response);
+    }
 }
 
 ?>

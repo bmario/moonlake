@@ -18,12 +18,17 @@
  *       MA 02110-1301, USA.
  */
 
-Moonlake_Autoload_Autoloader::loadInterface("Moonlake_Controller_Controller");
-
-interface Moonlake_Controller_FrontController {
-    public function handleRequest(Moonlake_Request_Request $request, Moonlake_Response_Response $response);
-    public function setDefaultController($name);
-    public function getDefaultController();
-}
-
 ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>Moonlake.de</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    Hi, hier entsteht meine neue Website.<br>
+    Den Quellcode gibt's jetzt schon auf:<br>
+    <a href="http://github.com/bmario/moonlake">Github.com</a></br>
+    <a href="http://wiki.github.com/bmario/moonlake">Und das Wiki</a>
+  </body>
+</html>

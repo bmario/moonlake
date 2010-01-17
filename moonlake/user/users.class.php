@@ -18,8 +18,8 @@
  *       MA 02110-1301, USA.
  */
 
-class Moonlake_User_Users extends Moonlake_Model_Model {
-    protected $properities = array("username" => "str",
+final class Moonlake_User_Users extends Moonlake_Model_Model {
+    protected $properities = array("name" => "str",
                                    "password" => "str");
 
     public function  __construct() {
@@ -30,51 +30,46 @@ class Moonlake_User_Users extends Moonlake_Model_Model {
         parent::__destruct();
     }
 
-    public function getUser($uid) {
-        $user = $this->getEntry($uid);
+    public function getUser($id) {
+        $user = $this->getEntry($id);
 
         return $this->arrayToUser($user);
     }
 
-    private function arrayToUser($user) {
-        if(is_array($user)) {
-            $u = new Moonlake_User_User($user['id'], $user['username'], $user['password']);
+    public function createUser($name, $password) {
+        $user = new Moonlake_User_User("0", $name, $password);
+        $id = $this->addEntry($user->getAllProps());
 
-            foreach($user as $key => $val) {
-                $u->$key = $val;
-            }
+        $user = $this->getUserById($id);
 
-            return $u;
-        }
-        return null;
+        return $user;
     }
 
-    private function userToArray(Moonlake_User_User $user) {
-        $ret = array();
-        foreach($this->values as $key => $val)
-        {
-            $ret[$key] = $user->$key;
-        }
-        return $ret;
-    }
-
-    public function addUser($username, $password) {
-        return $this->addEntry(array('username' => $username, 'password' => md5($password) ));
+    public function getUserById($id) {
+        return $this->getUser($id);
     }
 
     public function getUserByName($name) {
-        $user = $this->findUniqueEntry("username", $name);
+        $user = $this->findUniqueEntry("name", $name);
 
         return $this->arrayToUser($user);
     }
 
-    public function delUser($uid) {
+    public function deleteUser($uid) {
         return $this->removeEntry($uid);
     }
 
-    public function saveUser(Moonlake_User_User $user) {
-        $u = $this->userToArray($user);
-        $this->editEntry($user->uid, $u);
+    public function updateUser(Moonlake_User_User $user) {
+        $this->editEntry($user->id, $user->getAllProps());
+    }
+    
+    protected function arrayToUser($user) {
+        if(!is_array($user)) return null;
+        if(!isset($user['id'])) return null;
+        if(!isset($user['name'])) return null;
+        if(!isset($user['password'])) return null;
+
+        return new Moonlake_User_User($user['id'], $user['name'], $user['password']);
     }
 }
 

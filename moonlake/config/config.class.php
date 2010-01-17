@@ -1,87 +1,27 @@
 <?php
+/*
+ *       Copyright 2009 Mario Bielert <mario@moonlake.de>
+ *
+ *       This program is free software; you can redistribute it and/or modify
+ *       it under the terms of the GNU General Public License as published by
+ *       the Free Software Foundation; either version 2 of the License, or
+ *       (at your option) any later version.
+ *
+ *       This program is distributed in the hope that it will be useful,
+ *       but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *       GNU General Public License for more details.
+ *
+ *       You should have received a copy of the GNU General Public License
+ *       along with this program; if not, write to the Free Software
+ *       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ *       MA 02110-1301, USA.
+ */
 
-namespace de\Moonlake\Config;
-
-class Config {
-
-    private $file;
-    private $cfg;
-    private $changed;
-
-    public function __construct($name) {
-        $this->file = "config/{$name}.config.php";
-        $this->changed = false;
-
-        if(file_exists($this->file)) {
-
-            include($this->file);
-
-            if(isset($_CONFIG)) {
-                $this->cfg = $_CONFIG;
-                return;
-            }
-        }
-
-        $this->cfg = array();
-    }
+abstract class Moonlake_Config_Config {
 
     public function __get($name) {
-        if(isset($this->cfg[$name])) {
-            return $this->cfg[$name];
-        }
-        return '';
-    }
-
-    public function __set($name, $value)
-    {
-        if(!isset($this->cfg[$name]) or $this->cfg[$name] <> $value) {
-            $this->cfg[$name] = $value;
-            $this->changed = true;
-        }
-    }
-
-    public function __unset($name) {
-        if(isset($this->cfg[$name])) {
-            unset($this->cfg[$name]);
-            $this->changed = true;
-        }
-    }
-
-    public function __isset($name) {
-        return isset($this->cfg[$name]);
-    }
-
-    public function  __destruct() {
-        if($this->changed) {
-            $file = '<?php '."\r\n\r\n";
-            foreach($this->cfg as $name => $value)
-            {
-            	if(is_array($value)) {
-            		if($value == array()) {
-            			$php = 'array()';
-            		}
-            		else {
-	            		$php = 'array (';
-	            		foreach($value as $val) {
-	            			$php .= "$val, ";
-	            		}
-	            		$php = substr($php, 0, -2);
-	            		$php .= ')';
-            		}
-
-            		$file .= '$_CONFIG[\''.$name.'\'] = '.$php.";\r\n\r\n";
-            	}
-            	else {
-            		$file .= '$_CONFIG[\''.$name.'\'] = \''.$value."';\r\n\r\n";
-            	}
-            }
-            $file .= '?>';
-
-            file_put_contents($this->file, $file);
-
-            $this->changed = false;
-
-        }
+        return $this->$name;
     }
 
 }

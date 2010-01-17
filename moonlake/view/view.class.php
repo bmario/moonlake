@@ -18,36 +18,23 @@
  *       MA 02110-1301, USA.
  */
 
-namespace de\Moonlake\View;
-use de\Moonlake\Response\Response;
-use de\Moonlake\Cache\Cache;
+abstract class Moonlake_View_View {
 
-class View {
+    protected $views=array();
 
-    private $assigns = array();
-    private $expands = array();
-    private $template = "";
-    private $xml = "";
-    private $render = "";
-    private $response = null;
-
-    public function __construct(Response $response) {
-        $this->response = $response;
-
-    }
-
-    public function assign($name, $value) {
-        $this->assigns[$name] = $value;
-    }
-
-    public function render($template) {
-        $temp = new Template($template);
-        foreach($this->assigns as $key => $value) {
-            $temp->assign($key, $value);
+    protected function get_TemplateView($name) {
+        if(!isset($this->views[$name])) {
+            $this->views[$name] = new Moonlake_View_TemplateView($name);
         }
-        $cache = new Cache('view');
-        if(!$cache->valid($template)) $temp->render();
-        $this->response->write($temp->execute());
+        return $this->views[$name];
+    }
+
+    public function __call($name, $args) {
+        $tempname = get_class($this);
+        $tempname = substr($tempname, 0, strlen($tempname)-5);
+        $tempname .= '_'.substr($name, 0, strlen($name)-5);
+
+        return $this->get_TemplateView($tempname);
     }
 }
 

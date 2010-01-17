@@ -1,22 +1,17 @@
 <?php
 
-namespace de\moonlake\run;
-
 error_reporting(E_ALL);
 
 include "moonlake/moonlake.php";
 
-use de\Moonlake\Controller\DefaultFrontController;
-use de\Moonlake\Request\HttpRequest;
-use de\Moonlake\Response\HttpResponse;
 
-// use DefaultFrontController to handle the request.
-$front = new DefaultFrontController();
+// use SimpleFrontController (FC) to handle the request.
+$front = new Moonlake_Controller_SimpleFrontController();
 
 // set default Controller to guestbook_Controller
-$front->setDefaultController("cms");
+$front->setDefaultController();
 
 // invoke request handling
-$front->handleHTTPRequest();
+$front->handleRequest(new Moonlake_Request_HttpRequest(), new Moonlake_Response_HttpResponse());
 
 ?>

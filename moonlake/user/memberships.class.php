@@ -19,8 +19,8 @@
  */
 
 class Moonlake_User_Memberships extends Moonlake_Model_Model {
-    protected $properities = array("uid" => "int",
-                                   "gid" => "int");
+    protected $properities = array("uid" => "str",
+                                   "gid" => "str");
 
     public function  __construct() {
         parent::__construct();
@@ -28,6 +28,42 @@ class Moonlake_User_Memberships extends Moonlake_Model_Model {
 
     public function  __destruct() {
         parent::__destruct();
+    }
+
+    public function joinGroup(Moonlake_User_Group $group, Moonlake_User_User $user) {
+        if(!$this->isMemberOf($group, $user)) {
+            $this->addEntry(array("uid" => $user->obj_id, "gid" => $group->obj_id));
+            return true;
+        }
+        return false;
+    }
+
+    public function leaveGroup(Moonlake_User_Group $group, Moonlake_User_User $user) {
+        $id = $this->isMemberOf($group, $user);
+        if(is_numeric($id)) {
+            return $this->removeEntry($id);
+        }
+        return false;
+    }
+
+    public function isMemberOf(Moonlake_User_Group $group, Moonlake_User_User $user) {
+        $entries = $this->findEntry("uid", $user->obj_id);
+        
+        foreach($entries as $entry) {
+            if($entry['gid'] == $group->obj_id) return $entry['id'];
+        }
+        return false;
+    }
+
+    public function getGroupsObjId(Moonlake_User_User $user) {
+        $entries = $this->findEntry("uid", $user->obj_id);
+
+        $groups = array();
+
+        foreach($entries as $entry) {
+            $groups[] = $entry['obj_id'];
+        }
+
     }
 }
 
