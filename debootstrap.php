@@ -1,5 +1,7 @@
 <?php
 
+namespace de\moonlake\run;
+
 error_reporting(E_ALL);
 
 include "moonlake/moonlake.php";

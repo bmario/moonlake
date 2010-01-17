@@ -21,6 +21,8 @@
 namespace de\Moonlake\Controller;
 use de\Moonlake\Request\Request;
 use de\Moonlake\Response\Response;
+use de\Moonlake\Request\HTTPRequest;
+use de\Moonlake\Response\HTTPResponse;
 
 
 /**

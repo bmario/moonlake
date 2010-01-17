@@ -21,7 +21,7 @@
 namespace de\Moonlake\Controller;
 
 interface FrontController {
-	public function setDefaultController($name);
+    public function setDefaultController($name);
     public function handleHTTPRequest();
 }
 

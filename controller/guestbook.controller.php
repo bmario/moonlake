@@ -18,10 +18,10 @@
  *       MA 02110-1301, USA.
  */
 
-class guestbook_Controller extends Moonlake_Controller_ActionController {
+class guestbook_Controller extends ActionController {
     public function index_Action() {
         $model = new guestbook_Model();
-        $view = new Moonlake_View_View($this->response);
+        $view = new View($this->response);
         $view->assign('ctrl', 'guestbook');
         $view->assign('action', 'index');
         $view->assign('entries', $model->getEntries());
