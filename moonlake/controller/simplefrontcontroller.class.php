@@ -18,8 +18,6 @@
  *       MA 02110-1301, USA.
  */
 
-Moonlake_Autoload_Autoloader::loadInterface("Moonlake_Controller_FrontController");
-
 class Moonlake_Controller_SimpleFrontController implements Moonlake_Controller_FrontController {
     
     private $default_ctrl = 'index_Controller';

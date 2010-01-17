@@ -20,7 +20,17 @@
  */
 
 
-include('moonlake/autoload/autoloader.class.php');
+include('moonlake/autoload/autoload.class.php');
+
+spl_autoload_register(array('Moonlake_Autoload_Autoload', 'loadClass'));
+
+// registers the autoloader loader and than the defaultloader (which should resolved by Autoloader_Loader)
+Moonlake_Autoload_Autoload::registerLoader(new Autoloader_Loader());
+Moonlake_Autoload_Autoload::registerLoader(new Default_Loader());
+
+// in future this registers all defined loader. maybe register everything in loader subdirectory?
+Moonlake_Autoload_Autoload::initAutoload();
+
 
 $event = Moonlake_Event_EventDispatcher::getInstance();
 $error = new Moonlake_Error_Error();

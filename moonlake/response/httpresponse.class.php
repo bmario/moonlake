@@ -19,8 +19,6 @@
  * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-Moonlake_Autoload_Autoloader::loadInterface('Moonlake_Response_Response');
-
 class Moonlake_Response_HttpResponse implements Moonlake_Response_Response {
 
     private $headers = array();

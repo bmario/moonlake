@@ -19,8 +19,6 @@
  * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-Moonlake_Autoload_Autoloader::loadInterface('Moonlake_Registry_Registrable');
-
 class Moonlake_Event_EventDispatcher implements Moonlake_Registry_Registrable
 {
     private static $instance = null;

@@ -27,7 +27,7 @@ class Moonlake_Model_MySQLModel {
 
     public function  __construct() {
         if(self::$hcon === null) {
-            $config = new Mysql_Config();
+            $config = new Moonlake_Config_Config('mysql');
 
             $server = $config->hostname;
             $username = $config->username;

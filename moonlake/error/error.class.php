@@ -19,8 +19,6 @@
  * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-Moonlake_Autoload_Autoloader::loadInterface('Moonlake_Event_EventHandler');
-
 class Moonlake_Error_Error implements Moonlake_Event_EventHandler {
     public function handleEvent(Moonlake_Event_Event $event) {
         $func = $event->getName();
