@@ -1,7 +1,7 @@
 <?php
 
 /* 
- * (c) 2009 by Mario Bielert <mario@moonlake.de>
+ * copyright 2009 2010 by Mario Bielert <mario@moonlake.de>
  * Moonlake - Framework
  */
 
@@ -19,13 +19,30 @@
  * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+
+/**
+ * Abstract class for every AutoloaderHelper classes.
+ */
+interface Moonlake_Autoload_Autoloader {
+
+	/**
+	 * This methode returns the Path to file, where the given class is stored or nothing.
+	 *
+	 * @param string $classname
+	 */
+	public function classPath($classname);
+
+}
+
+/*
+
 class Moonlake_Autoload_Autoloader
 {
-    /**
+    //**
      * includes a needed class, 
      * @param <type> $name
      * @return <type> 
-     */
+    // 
     public static function loadClass($name) {
         $path = self::getPath($name);
 
@@ -83,8 +100,7 @@ class Moonlake_Autoload_Autoloader
             return $path;
     }
 
-}
+}*/
 
-spl_autoload_register(array('Moonlake_Autoload_Autoloader', 'loadClass'));
 
 ?>
