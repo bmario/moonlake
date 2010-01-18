@@ -44,10 +44,10 @@ class Moonlake_Config_Config_Test extends PHPUnit_Framework_TestCase {
 			array('test3' , 'test3'),
 			array('test4' , 'test4'),
 			array('test5', array(
-				'test5.0',
-				'test5.1',
-				'test5.2',
-				'test5.3'))
+				'test50',
+				'test51',
+				'test52',
+				'test53'))
 		);
 	} 
 	
