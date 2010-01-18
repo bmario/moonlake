@@ -29,7 +29,7 @@ class Default_Loader implements Moonlake_Autoload_Autoloader {
 		try{
 			$package = strtolower($class[1]);
 			$file = strtolower($class[2]); 
-			return "moonlake/$package/$file.class.php";
+			return "library/moonlake/$package/$file.class.php";
 		}
 		catch(Exception $e) {
 			return '';

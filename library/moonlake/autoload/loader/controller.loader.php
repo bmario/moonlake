@@ -31,7 +31,7 @@ class Controller_Loader implements Moonlake_Autoload_Autoloader {
 			
 			$file = strtolower($class[0]);
 			
-			return "controller/$file.controller.php"; 
+			return "application/controller/$file.controller.php"; 
 		}
 		catch(Exception $e) {
 			return '';

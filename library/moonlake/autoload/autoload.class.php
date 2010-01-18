@@ -19,10 +19,10 @@
  * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
  
-include_once('moonlake/autoload/autoloader.class.php');
-include_once('moonlake/exception/moonlake.exception.php');
-include_once('moonlake/exception/autoloader.exception.php');
-include_once('moonlake/autoload/loader/autoloader.loader.php');
+include_once('library/moonlake/autoload/autoloader.class.php');
+include_once('library/moonlake/exception/moonlake.exception.php');
+include_once('library/moonlake/exception/autoloader.exception.php');
+include_once('library/moonlake/autoload/loader/autoloader.loader.php');
 
 class Moonlake_Autoload_Autoload {
 

@@ -23,7 +23,7 @@
 class Moonlake_Framwork {
 	public function initAutoload() {
 	
-		include('moonlake/autoload/autoload.class.php');
+		include('library/moonlake/autoload/autoload.class.php');
 
 		spl_autoload_register(array('Moonlake_Autoload_Autoload', 'loadClass'));
 	

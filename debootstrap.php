@@ -9,7 +9,7 @@ include "library/moonlake/moonlake.php";
 $front = new Moonlake_Controller_SimpleFrontController();
 
 // set default Controller to guestbook_Controller
-//$front->setDefaultController();
+// $front->setDefaultController();
 
 // invoke request handling
 $front->handleRequest(new Moonlake_Request_HttpRequest(), new Moonlake_Response_HttpResponse());

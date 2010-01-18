@@ -25,7 +25,7 @@ class Autoloader_Loader implements Moonlake_Autoload_Autoloader {
 		try{
 			if($class[1] == 'Loader') {
 				$file = strtolower($class[0]);
-				return "moonlake/autoload/loader/$file.loader.php";
+				return "library/moonlake/autoload/loader/$file.loader.php";
 			}
 		}
 		catch(Exception $e) {}
