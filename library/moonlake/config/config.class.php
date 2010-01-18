@@ -90,6 +90,13 @@ class Moonlake_Config_Config {
 
         }
     }
+    
+    /**
+     * Returns an array with all keys=>values, but it does NOT track any changes on it
+     */
+    public function returnAll() {
+    	return $this->cfg;
+    }
 
 }
 

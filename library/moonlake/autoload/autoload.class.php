@@ -63,6 +63,21 @@ class Moonlake_Autoload_Autoload {
 
 	public static function initAutoload() {
 
+		// register every autoloader, which is given in config/autoload.config.php
+		include_once('moonlake/config/config.class.php');
+		$alcfg = new Moonlake_Config_Config('autoload');
+		
+		
+		foreach($alcfg->returnAll() as $loader) {
+			try {
+				Moonlake_Autoload_Autoload::registerLoader(new $loader());
+			}
+			catch(Moonlake_Exception_Autoloader $e) {
+				throw new Moonlake_Exception_Autoloader("Could not register an autoloader class. Probably there is an mistake related to '{$e->clssname}' in the configuration in 'config/autoload.config.php'. The loader is expected in {$e->classpath}.",$e->classname,$e->classpath);
+			}
+		}
+		
+		
 	}
 
 	/**
