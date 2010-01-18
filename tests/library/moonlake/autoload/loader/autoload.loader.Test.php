@@ -38,9 +38,10 @@ class Autoload_Loader_Test extends PHPUnit_Framework_TestCase {
 	public function classnames() {
 		return array(
 			array('Moonlake_Anything_Loader',''),
-			array('Moonlake_Loader','moonlake/autoload/loader/moonlake.loader.php'),
-			array('Anything_Loader', 'moonlake/autoload/loader/anything.loader.php'),
-			array('Something_Anything_Loader', '')
+			array('Moonlake_Loader','library/moonlake/autoload/loader/moonlake.loader.php'),
+			array('Anything_Loader', 'library/moonlake/autoload/loader/anything.loader.php'),
+			array('Something_Anything_Loader', ''),
+			array('Something_Else', '')
 		);
 	}
 	

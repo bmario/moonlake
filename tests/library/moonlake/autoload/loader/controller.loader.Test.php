@@ -37,9 +37,10 @@ class Controller_Loader_Test extends PHPUnit_Framework_TestCase {
 	public function classnames() {
 		return array(
 			array('Moonlake_Controller_Loader',''),
-			array('Moonlake_Controller','controller/moonlake.controller.php'),
-			array('Anything_Controller', 'controller/anything.controller.php'),
+			array('Moonlake_Controller','application/controller/moonlake.controller.php'),
+			array('Anything_Controller', 'application/controller/anything.controller.php'),
 			array('Something_Anything_Loader', ''),
+			array('Something_Anything', ''),
 			array('Something', '')
 		);
 	}

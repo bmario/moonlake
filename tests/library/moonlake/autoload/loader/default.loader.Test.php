@@ -38,9 +38,11 @@ class Default_Loader_Test extends PHPUnit_Framework_TestCase {
 	
 	public function classnames() {
 		return array(
-			array('Moonlake_Anything_Loader','moonlake/anything/loader.class.php'),
+			array('Moonlake_Anything_Loader','library/moonlake/anything/loader.class.php'),
 			array('Anything_Loader', ''),
-			array('Something_Anything_Loader', '')
+			array('Something_Anything_Loader', ''),
+			array('Moonlake_Anything',''),
+			array('Moonlake','')
 		);
 	}
 	
