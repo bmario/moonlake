@@ -74,7 +74,7 @@ class Moonlake_Config_Config {
             {
             	if(is_array($value)) {
             		foreach($value as $val) {
-            			$file .= '$_CONFIG[\''.$name.'\'][] = '.$value.";\r\n";
+            			$file .= '$_CONFIG[\''.$name.'\'][] = '.$val.";\r\n";
             		}
             		$file .= "\r\n";
             	}
