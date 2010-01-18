@@ -1,6 +1,6 @@
 <?php
 
-require_once 'moonlake/config/config.class.php';
+require_once 'library/moonlake/config/config.class.php';
 
 require_once 'PHPUnit/Framework/TestCase.php';
 

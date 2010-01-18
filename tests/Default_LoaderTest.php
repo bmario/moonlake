@@ -1,8 +1,8 @@
 <?php
 
 
-require_once 'moonlake/autoload/autoloader.class.php';
-require_once 'moonlake/autoload/loader/default.loader.php';
+require_once 'library/moonlake/autoload/autoloader.class.php';
+require_once 'library/moonlake/autoload/loader/default.loader.php';
 
 require_once 'PHPUnit/Framework/TestCase.php';
 
