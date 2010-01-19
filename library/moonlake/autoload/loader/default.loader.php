@@ -26,12 +26,12 @@ class Default_Loader implements Moonlake_Autoload_Autoloader {
 			return '';
 		}
 		
-		try{
+		if(isset($class[1]) and isset($class[2])) {
 			$package = strtolower($class[1]);
 			$file = strtolower($class[2]); 
 			return "library/moonlake/$package/$file.class.php";
 		}
-		catch(Exception $e) {
+		else {
 			return '';
 		}
 		
