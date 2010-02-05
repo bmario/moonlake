@@ -18,66 +18,68 @@
  * along with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
- 
+
 include_once('library/moonlake/autoload/autoloader.class.php');
 include_once('library/moonlake/exception/moonlake.exception.php');
 include_once('library/moonlake/exception/autoloader.exception.php');
 include_once('library/moonlake/autoload/loader/autoloader.loader.php');
 
+/**
+ * This class provides a handler for autoloading.
+ * It uses other classes, called autoloader, which are implements the autoloader interface.
+ */
 class Moonlake_Autoload_Autoload {
 
 	private static $loader = array();
 
 	/**
 	 * Handler for spl_autoload()
-	 * 
+	 *
 	 * @param String $classname
 	 */
 	public static function loadClass($classname) {
 
-		$filename = '';
+		$loaded = false;
 
 		foreach(self::$loader as $loader) {
-			$filename = $loader->classPath($classname);
-			if($filename != '') break;
+			$loaded |= $loader->includeClass($classname);
 		}
 
-		if($filename == '') throw new Moonlake_Exception_Autoloader("Could not find class $classname. In most cases this means, that for this classtype, there is no autoloader. To solve this, you must activate an approciate one, or write one on your own and activate it.", $classname, $filename);
-		
-		if(file_exists($filename)) {
-			include_once($filename);
-		}
-		else throw new Moonlake_Exception_Autoloader("Could not find class $classname. In most cases this means, that the file storing the class is stored in the wrong place. It is expected under '$filename'.", $classname, $filename);
-
+		if(!$loaded) throw new Moonlake_Exception_Autoloader("Could not find class $classname.\nThere are two common possibilities, In most cases this means, that for this classtype, there is no autoloader. To solve this, you must activate an approciate one, or write one on your own and activate it.", $classname, $filename);
 
 	}
 
 	/**
 	 * Registers an autoloader, so it's used to solve classnames to paths
-	 * 
+	 *
 	 * @param Moonlake_Autoload_Autoloader $loader
 	 */
 	public static function registerLoader(Moonlake_Autoload_Autoloader $loader) {
 		self::$loader[] = $loader;
 	}
 
+	/**
+	 * This method initializes the autoloader stack
+	 * Therefore it registers every autoloader, which is given in config/autoload.config.php.
+	 * @return unknown_type
+	 */
 	public static function initAutoload() {
 
-		// register every autoloader, which is given in config/autoload.config.php
-		include_once('moonlake/config/config.class.php');
+		// load config
+		include_once('library/moonlake/config/config.class.php');
 		$alcfg = new Moonlake_Config_Config('autoload');
-		
-		
+
+
 		foreach($alcfg->returnAll() as $loader) {
 			try {
-				Moonlake_Autoload_Autoload::registerLoader(new $loader());
+				$autoloader = new $loader();
 			}
 			catch(Moonlake_Exception_Autoloader $e) {
-				throw new Moonlake_Exception_Autoloader("Could not register an autoloader class. Probably there is an mistake related to '{$e->clssname}' in the configuration in 'config/autoload.config.php'. The loader is expected in {$e->classpath}.",$e->classname,$e->classpath);
+				throw new Moonlake_Exception_Autoloader("Could not register a particular autoloader class. Probably there is an mistake related to '{$e->classname}' in the configuration in 'config/autoload.config.php'. The loader is expected in the file {$e->classpath}.",$e->classname,$e->classpath);
 			}
+
+			Moonlake_Autoload_Autoload::registerLoader($autoloader);
 		}
-		
-		
 	}
 
 	/**
@@ -88,9 +90,9 @@ class Moonlake_Autoload_Autoload {
 		foreach(self::$loader as $loader) {
 			$result[] = get_class($loader);
 		}
-		
+
 		return $result;
-	}	
+	}
 }
 
 ?>

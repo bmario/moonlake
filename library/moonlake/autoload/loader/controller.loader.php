@@ -18,27 +18,42 @@
  * along with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
- 
+
 class Controller_Loader implements Moonlake_Autoload_Autoloader {
 	/**
 	 * @param unknown_type $classname
+	 * @see library/moonlake/autoload/Moonlake_Autoload_Autoloader#classPath($classname)
 	 */
 	public function classPath($classname) {
 		$class = explode('_', $classname);
 		try{
 			if($class[1] != 'Controller') return '';
 			if(isset($class[2])) return '';
-			
+
 			$file = strtolower($class[0]);
-			
-			return "application/controller/$file.controller.php"; 
+
+			return "application/controller/$file.controller.php";
 		}
 		catch(Exception $e) {
 			return '';
 		}
 	}
 
-	
+	/**
+	 * @see library/moonlake/autoload/Moonlake_Autoload_Autoloader#includeClass($classname)
+	 */
+	public function includeClass($classname) {
+		$path = $this->classPath($classname);
+
+		if(file_exists($path))
+		{
+			include_once($path);
+			return class_exists($classname, false);
+		}
+
+		return false;
+	}
+
 }
 
 ?>

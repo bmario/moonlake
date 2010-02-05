@@ -19,14 +19,8 @@
  */
 class simpleFormBuilder_ViewHelper implements Moonlake_View_ViewHelper {
     public static function execute($args) {
-        $link = "<form action=\"?\" methode=\"post\">";
         $link .= "<input type=\"hidden\" name=\"ctrl\" value=\"{$args[0]}\">";
         $link .= "<input type=\"hidden\" name=\"action\" value=\"{$args[1]}\">";
-        if(!isset($args[2])) $args[2] = array();
-        foreach($args[2] as $key => $val)
-        {
-            $link .= "<input type=\"hidden\" name=\"{$key}\" value=\"{$val}\">";
-        }
         return $link;
     }
 }

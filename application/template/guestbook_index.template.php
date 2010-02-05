@@ -27,11 +27,12 @@
   </head>
   <body>
     <?php foreach($this->entries as $entry) { ?>
-      <a href="mailto:<?php echo $entry['mail']; ?>"><b><?php echo $entry['name']; ?></b></a><br>
-      <?php echo $entry['message']; ?>
-      <hr>
+		<a href="mailto:<?php echo $entry['mail']; ?>"><b><?php echo $entry['name']; ?></b></a><br>
+    	<?php echo $entry['message']; ?>
+		<hr>
     <?php } ?>
-    <?php echo $this->simpleFormBuilder("guestbook", "newentry"); ?>
+    <form>
+    	<?php echo $this->simpleFormBuilder("guestbook", "newentry"); ?>
       <b> Einen Eintrag verfassen </b><br>
       Dein Name: <input type="text" name="name"><br>
       Deine Email: <input type="text" name="mail"><br>

@@ -21,16 +21,17 @@
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-  <head>
-    <title>Moonlake.de</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    Login:<br>
-    <?php echo $this->simpleFormBuilder('empty', 'login'); ?>
-    Name: <input type="text" name="name"><br>
-    Passwort: <input type="password" name="password"><br>
-    <input type="reset"> <input type="submit">
-    </form>
-  </body>
+	<head>
+		<title>Moonlake.de</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	</head>
+	<body>
+		Login:<br>
+		<form action="index.php" method="post">
+		    <?php echo $this->simpleFormBuilder('empty', 'login'); ?>
+		    Name: <input type="text" name="name"><br>
+		    Passwort: <input type="password" name="password"><br>
+		    <input type="reset"> <input type="submit">
+		</form>
+	</body>
 </html>

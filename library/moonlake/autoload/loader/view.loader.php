@@ -19,23 +19,25 @@
  * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-class Default_Loader implements Moonlake_Autoload_Autoloader {
+class View_Loader implements Moonlake_Autoload_Autoloader {
+
+	/**
+	 * Views are stored under application/view
+	 * @see library/moonlake/autoload/Moonlake_Autoload_Autoloader#classPath($classname)
+	 */
 	public function classPath($classname) {
 		$class = explode('_', $classname);
-		if($class[0] != 'Moonlake') {
-			return '';
+		try{
+			if($class[1] == 'View') {
+				$file = strtolower($class[0]);
+				return "application/view/$file.view.php";
+			}
 		}
+		catch(Exception $e) {}
 
-		if(isset($class[1]) and isset($class[2])) {
-			$package = strtolower($class[1]);
-			$file = strtolower($class[2]);
-			return "library/moonlake/$package/$file.class.php";
-		}
-		else {
-			return '';
-		}
-
+		return '';
 	}
+
 
 	/**
 	 * @see library/moonlake/autoload/Moonlake_Autoload_Autoloader#includeClass($classname)

@@ -19,7 +19,16 @@
  * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
+/**
+ * This class is the implementation of an autoloader.
+ * This particular autoloader is needed for loading other autoloaders.
+ */
 class Autoloader_Loader implements Moonlake_Autoload_Autoloader {
+
+	/**
+	 * Autoloaders are stored under library/moonlake/autoload/loader
+	 * @see library/moonlake/autoload/Moonlake_Autoload_Autoloader#classPath($classname)
+	 */
 	public function classPath($classname) {
 		$class = explode('_', $classname);
 		try{
@@ -29,9 +38,25 @@ class Autoloader_Loader implements Moonlake_Autoload_Autoloader {
 			}
 		}
 		catch(Exception $e) {}
-		
+
 		return '';
 	}
+
+	/**
+	 * @see library/moonlake/autoload/Moonlake_Autoload_Autoloader#includeClass($classname)
+	 */
+	public function includeClass($classname) {
+		$path = $this->classPath($classname);
+
+		if(file_exists($path))
+		{
+			include_once($path);
+			return class_exists($classname, false);
+		}
+
+		return false;
+	}
+
 }
 
 ?>

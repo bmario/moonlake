@@ -28,7 +28,7 @@
   <body>
     Hi, hier entsteht meine neue Website.<br>
     Den Quellcode gibt's jetzt schon auf:<br>
-    <a href="http://github.com/bmario/moonlake">Github.com</a></br>
+    <a href="http://github.com/bmario/moonlake">Github.com</a><br />
     <a href="http://wiki.github.com/bmario/moonlake">Und das Wiki</a>
   </body>
 </html>
