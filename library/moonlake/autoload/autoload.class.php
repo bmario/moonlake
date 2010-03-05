@@ -44,10 +44,29 @@ class Moonlake_Autoload_Autoload {
 		$loaded = false;
 
 		foreach(self::$loader as $loader) {
-			$loaded |= $loader->includeClass($classname);
+			if($loader->includeClass($classname)) $loaded = true;
 		}
 
-		if(!$loaded) throw new Moonlake_Exception_Autoloader("Could not find class $classname.\nThere are two common possibilities, In most cases this means, that for this classtype, there is no autoloader. To solve this, you must activate an approciate one, or write one on your own and activate it.", $classname, $filename);
+		if(!$loaded){
+			if (preg_match('/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/', $classname))
+			{
+				eval('class '.$classname.'
+				{
+					public function __construct() {
+						$this->throwException();
+					}
+
+					public static function __callstatic($m, $args) {
+						self::throwException();
+					}
+
+					static public function throwException()
+					{
+						throw new Moonlake_Exception_Autoloader("Could not find class '.$classname.'.\nThere are two common possibilities, In most cases this means, that for this classtype, there is no autoloader. To solve this, you must activate an approciate one, or write one on your own and activate it.", \''.$classname.'\', "");
+					}
+				}');
+			}
+		}
 
 	}
 
