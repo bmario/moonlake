@@ -1,6 +1,6 @@
 <?php
 /*
- *       Copyright 2009 Mario Bielert <mario@moonlake.de>
+ *       Copyright 2010 Mario Bielert <mario@moonlake.de>
  *
  *       This program is free software; you can redistribute it and/or modify
  *       it under the terms of the GNU General Public License as published by
@@ -17,11 +17,15 @@
  *       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  *       MA 02110-1301, USA.
  */
-class simpleFormBuilder_ViewHelper implements Moonlake_View_ViewHelper {
-    public static function execute($args) {
-        $link .= "<input type=\"hidden\" name=\"ctrl\" value=\"{$args[0]}\">";
-        $link .= "<input type=\"hidden\" name=\"action\" value=\"{$args[1]}\">";
-        return $link;
-    }
+
+class url_ViewHelper implements Moonlake_View_ViewHelper {
+
+	public function execute(Moonlake_View_View $view, $arguments) {
+		if(isset($arguments[0]) && isset($arguments[1])) {
+			echo "index.php?ctrl={$ctrl}&action={$action}";
+		}
+		else throw new Moonlake_Exception_View("There is missing an argument for the url_ViewHelper. A controller name and an action name is required.");
+	}
 }
+
 ?>
