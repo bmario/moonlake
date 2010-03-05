@@ -57,7 +57,7 @@ class Moonlake_Autoload_Autoload {
 	 * @param Moonlake_Autoload_Autoloader $loader
 	 */
 	public static function registerLoader(Moonlake_Autoload_Autoloader $loader) {
-		self::$loader[] = $loader;
+		if(!in_array($loader, self::$loader)) self::$loader[] = $loader;
 	}
 
 	/**
