@@ -8,7 +8,8 @@
 /*
  * This work is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or any later version.
+ * the Free Software Foundation; either version 2 of the License, or any later
+ * version.
  *
  * This work is distributed in the hope that it will be useful,
  * but without any warranty; without even the implied warranty of merchantability
@@ -26,7 +27,8 @@ include_once('library/moonlake/autoload/loader/autoloader.loader.php');
 
 /**
  * This class provides a handler for autoloading.
- * It uses other classes, called autoloader, which are implements the autoloader interface.
+ * It uses other classes, called autoloader, which are implementing the autoloader
+ * interface.
  */
 class Moonlake_Autoload_Autoload {
 
@@ -60,8 +62,8 @@ class Moonlake_Autoload_Autoload {
 
 	/**
 	 * This method initializes the autoloader stack
-	 * Therefore it registers every autoloader, which is given in config/autoload.config.php.
-	 * @return unknown_type
+	 * Therefore it registers every autoloader, which is given in
+	 * config/autoload.config.php.
 	 */
 	public static function initAutoload() {
 
@@ -73,6 +75,7 @@ class Moonlake_Autoload_Autoload {
 		foreach($alcfg->returnAll() as $loader) {
 			try {
 				$autoloader = new $loader();
+
 			}
 			catch(Moonlake_Exception_Autoloader $e) {
 				throw new Moonlake_Exception_Autoloader("Could not register a particular autoloader class. Probably there is an mistake related to '{$e->classname}' in the configuration in 'config/autoload.config.php'. The loader is expected in the file {$e->classpath}.",$e->classname,$e->classpath);
