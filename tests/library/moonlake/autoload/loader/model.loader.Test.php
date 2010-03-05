@@ -1,7 +1,7 @@
 <?php
 
-require_once ('library/moonlake/autoload/autoloader.class.php');
-require_once ('library/moonlake/autoload/loader/model.loader.php');
+require_once ('library/moonlake/autoload/autoload.class.php');
+Moonlake_Autoload_Autoload::initAutoload();
 
 require_once ('PHPUnit/Framework/TestCase.php');
 
@@ -37,8 +37,8 @@ class Model_Loader_Test extends PHPUnit_Framework_TestCase {
 	public function classnames() {
 		return array(
 			array('Moonlake_Model_Loader',''),
-			array('Moonlake_Model','application/Model/moonlake.model.php'),
-			array('Anything_Model', 'application/Model/anything.model.php'),
+			array('Moonlake_Model','application/model/moonlake.model.php'),
+			array('Anything_Model', 'application/model/anything.model.php'),
 			array('Something_Anything_Loader', ''),
 			array('Something_Anything', ''),
 			array('Something', '')
