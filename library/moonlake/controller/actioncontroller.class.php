@@ -1,6 +1,6 @@
 <?php
 /*
- *       Copyright 2009 Mario Bielert <mario@moonlake.de>
+ *       Copyright 2009 2010 Mario Bielert <mario@moonlake.de>
  *
  *       This program is free software; you can redistribute it and/or modify
  *       it under the terms of the GNU General Public License as published by
@@ -18,28 +18,38 @@
  *       MA 02110-1301, USA.
  */
 
-Moonlake_Autoload_Autoloader::loadInterface("Moonlake_Controller_Controller");
+abstract class Moonlake_Controller_ActionController {
 
-abstract class Moonlake_Controller_ActionController extends Moonlake_Controller_Controller {
+    protected $app;
 
-    protected $request;
-    protected $response;
-
-    public function  __construct(Moonlake_Request_Request $request, Moonlake_Response_Response $response) {
-        $this->request = $request;
-        $this->response = $response;
+    public function  __construct(Moonlake_Application_Application $app) {
+        $this->app = $app;
     }
 
-    public function __call($name, $args) {
-        if(method_exists($this, $name.'_Action')) {
-            $this->{$name.'_Action'}();
+    public function execute($name) {
+        if(method_exists($this, $name)) {
+            try {
+				$this->$name();
+			}
+			catch(Exception $e) {
+				try{
+					$this->error_Action();
+				}
+				catch(Exception $ee) {
+					throw $e;
+				}
+			}
         }
         else {
-            $this->index_Action();
-        }
+			$this->error_Action();
+	    }
     }
-
+	
     public abstract function index_Action();
+
+	public function error_Action() {
+		throw new Moonlake_Exception_ActionController("The given action wasn't found", get_class($this), '_Action');
+	}
 }
 
 ?>
