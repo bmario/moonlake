@@ -80,11 +80,26 @@ class Moonlake_Autoload_Autoload {
 	}
 
 	/**
+	 * Registers an autoloader, so it's used to solve classnames to paths
+	 *
+	 * @param Moonlake_Autoload_Autoloader $loader
+	 */
+	public static function unregisterLoader(Moonlake_Autoload_Autoloader $loader) {
+		if(in_array($loader, self::$loader)) self::$loader[] = $loader;
+	}
+
+	/**
 	 * This method initializes the autoloader stack
 	 * Therefore it registers every autoloader, which is given in
 	 * config/autoload.config.php.
 	 */
 	public static function initAutoload() {
+
+		// register tha whole autoload stack
+		spl_autoload_register(array('Moonlake_Autoload_Autoload', 'loadClass'), true);
+
+		// registers the autoloader loader
+		Moonlake_Autoload_Autoload::registerLoader(new Autoloader_Loader());
 
 		// load config
 		include_once('library/moonlake/config/config.class.php');
