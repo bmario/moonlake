@@ -30,7 +30,7 @@ class Moonlake_Config_Config {
 
         try {
 
-        	include($this->file);
+        	@include($this->file);
         	
             if(isset($_CONFIG)) $this->cfg = $_CONFIG;
             else $this->cfg = array();
