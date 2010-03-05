@@ -23,7 +23,7 @@
  * This class is the implementation of an autoloader.
  * This particular autoloader is needed for loading other autoloaders.
  */
-class Autoloader_Loader implements Moonlake_Autoload_Autoloader {
+class Autoloader_Loader extends Moonlake_Autoload_Main {
 
 	/**
 	 * Autoloaders are stored under library/moonlake/autoload/loader
@@ -32,7 +32,7 @@ class Autoloader_Loader implements Moonlake_Autoload_Autoloader {
 	public function classPath($classname) {
 		$class = explode('_', $classname);
 		try{
-			if($class[1] == 'Loader') {
+			if(@$class[1] == 'Loader') {
 				$file = strtolower($class[0]);
 				return "library/moonlake/autoload/loader/$file.loader.php";
 			}
@@ -40,21 +40,6 @@ class Autoloader_Loader implements Moonlake_Autoload_Autoloader {
 		catch(Exception $e) {}
 
 		return '';
-	}
-
-	/**
-	 * @see library/moonlake/autoload/Moonlake_Autoload_Autoloader#includeClass($classname)
-	 */
-	public function includeClass($classname) {
-		$path = $this->classPath($classname);
-
-		if(file_exists($path))
-		{
-			include_once($path);
-			return class_exists($classname, false);
-		}
-
-		return false;
 	}
 
 }

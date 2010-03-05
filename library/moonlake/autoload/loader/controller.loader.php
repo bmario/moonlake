@@ -19,7 +19,7 @@
  * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-class Controller_Loader implements Moonlake_Autoload_Autoloader {
+class Controller_Loader extends Moonlake_Autoload_Main {
 	/**
 	 * @param unknown_type $classname
 	 * @see library/moonlake/autoload/Moonlake_Autoload_Autoloader#classPath($classname)
@@ -27,7 +27,7 @@ class Controller_Loader implements Moonlake_Autoload_Autoloader {
 	public function classPath($classname) {
 		$class = explode('_', $classname);
 		try{
-			if($class[1] != 'Controller') return '';
+			if(@$class[1] != 'Controller') return '';
 			if(isset($class[2])) return '';
 
 			$file = strtolower($class[0]);
@@ -37,21 +37,6 @@ class Controller_Loader implements Moonlake_Autoload_Autoloader {
 		catch(Exception $e) {
 			return '';
 		}
-	}
-
-	/**
-	 * @see library/moonlake/autoload/Moonlake_Autoload_Autoloader#includeClass($classname)
-	 */
-	public function includeClass($classname) {
-		$path = $this->classPath($classname);
-
-		if(file_exists($path))
-		{
-			include_once($path);
-			return class_exists($classname, false);
-		}
-
-		return false;
 	}
 
 }
