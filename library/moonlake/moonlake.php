@@ -2,7 +2,7 @@
 
 /* 
  * (c) 2009 by Mario Bielert <mario@moonlake.de>
- * Moonlake - Framework
+ * Moonlake - Framework v2
  */
 
 /*
@@ -20,26 +20,55 @@
  */
 
 
-class Moonlake_Framwork {
-	public function initAutoload() {
-	
-		include('library/moonlake/autoload/autoload.class.php');
-
-		spl_autoload_register(array('Moonlake_Autoload_Autoload', 'loadClass'));
-	
-		// registers the autoloader loader and than the defaultloader (which should resolved by Autoloader_Loader)
-		Moonlake_Autoload_Autoload::registerLoader(new Autoloader_Loader());
+final class Moonlake_Framework {
+	private static function initAutoload() {
 		
-		// in future this registers all defined loader. maybe register everything in loader subdirectory?
+		// delegates the initialation
 		Moonlake_Autoload_Autoload::initAutoload();
 		
 	}
+	
+	public static function init() {
+		// init exception handling
+		include('library/moonlake/application/application.class.php');
+
+		// if we get until here, we can now use Application::exceptionHandler()!
+
+		ob_start();
+
+		try {
+			// init autoload
+			self::initAutoload();
+
+			// <-- maybe doing some more init in here :)
+
+
+			// --> init end
+		}
+		catch(Exception $e) {
+			// cleaning any previous output
+			ob_clean();
+			
+			// call exception handler, so we get nice output
+			Moonlake_Application_Application::exceptionHandler($e);
+		}
+	}
+	
+	public static function run(Moonlake_Application_Application $app) {
+		try {
+			$app->init();
+			$app->getFrontCtrl()->handleRequest();
+		}
+		catch (Exception $e) {
+			// FIXME think about suppressing debug output. (Well overriding Application::exceptionHandler does this stuff.)
+
+			// clear all output so we have only our debug output!
+			ob_clean();
+
+			// call the handler for exceptions
+			$app->exceptionHandler($e);
+		}
+	}
 }
-
-
-
-$event = Moonlake_Event_EventDispatcher::getInstance();
-$error = new Moonlake_Error_Error();
-$event->registerHandler("ERROR_*", $error);
 
 ?>
