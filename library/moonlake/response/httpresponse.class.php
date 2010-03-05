@@ -25,12 +25,10 @@ class Moonlake_Response_HttpResponse implements Moonlake_Response_Response {
     private $output = null;
 
     public function send() {
-        ob_start("ob_gzhandler");
         foreach($this->headers as $name => $value) {
             header("{$name}: {$value}");
         }
         echo $this->output;
-        ob_end_flush();
         $this->headers = array();
         $this->output = null;
     }
