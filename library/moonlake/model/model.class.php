@@ -1,6 +1,6 @@
 <?php
 /*
- *       Copyright 2009 Mario Bielert <mario@moonlake.de>
+ *       Copyright 2010 Mario Bielert <mario@moonlake.de>
  *
  *       This program is free software; you can redistribute it and/or modify
  *       it under the terms of the GNU General Public License as published by
@@ -18,215 +18,118 @@
  *       MA 02110-1301, USA.
  */
 
-abstract class Moonlake_Model_Model extends Moonlake_Model_MySQLModel {
-    protected $values = array();
-    protected $properities = array("obj_id" => "string");
+abstract class Moonlake_Model_Model {
 
-    public function __construct() {
-        parent::__construct();
+	protected $area = null;
+	protected $fields = null;
 
-        $this->values = $this->properities;
+	protected $mb;
 
-        $parent = $this;
-        while($parent = get_parent_class($parent)) {
-            $vars = get_class_vars($parent);
-            $props = isset($vars['properities']) ? $vars['properities'] : array();
-            foreach($props as $key => $val) {
-                if(!isset($this->values[$key])) {
-                    $this->values[$key] = $val;
-                }
-            }
-        }
+	public function  __construct(Moonlake_Model_ModelBackend $mb) {
+		if($this->area === null) throw new Moonlake_Exception_Model('The area was not set to a valid value.');
+		if($this->fields === null) throw new Moonlake_Exception_Model('The fields were not set to a valid value.');
+		$this->mb = $mb;
+		$mb->initArea($this->area, $this->fields);
+	}
 
-        $this->initTable();
-    }
+	/**
+	 * Returns all entries which are in the given area
+	 */
+	public function getAllEntries() {
+		return $this->mb->getAllEntries($this->area);
+	}
 
-    public function __destruct() {
-        parent::__destruct();
-    }
+	/**
+	 * get an Entry by the given id
+	 * @param: Int the id
+	 */
+	public function getEntryById($id) {
+		return $this->mb->getEntryById($this->area, $id);
+	}
 
-    protected function initTable() {
-        // is there a Table for this Model?
-        $sql = 'CREATE TABLE IF NOT EXISTS '.$this->tableName()."\n";
-        $sql .= '(`id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, ';
-        foreach($this->values as $name => $type) {
-            switch($type) {
-                case 'int':
-                    $type = 'INT(11)';
-                    break;
-                case 'string':
-                case 'str':
-                    $type = 'VARCHAR(255)';
-                    break;
-                case 'text':
-                    $type = 'TEXT';
-                    break;
-                default:
-                    $type = 'VARCHAR(255)';
-            }
+	/**
+	 * Returns all Entries that have all in the field $field the value $value
+	 * This should work like the following SQL Statement:
+	 * "SELECT * FROM `$area` WHERE `$field` = '$value'
+	 * @param: String $field the name of the
+	 */
+	public function getEntriesBy($field, $value) {
+		return $this->mb->getEntriesBy($this->area, $field, $value);
+	}
 
-            $sql .= "`$name` $type NOT NULL, ";
-        }
 
-        if(substr($sql,-2) == ', ') {
-            $sql = substr($sql,0,strlen($sql)-2);
-        }
+	/**
+	 * returns all entries, which have in one of the given $fileds.
+	 * This should work like the following SQL Statement:
+	 * "SELECT * FROM `area` WHERE one_of($fields) LIKE '%$value%'
+	 * @param: String[] $fields an array of fieldnames
+	 * @param: String $value the value to search for
+	 */
+	public function findEntries($fields, $value) {
+		return $this->mb->findEntries($this->area, $fields, $value);
+	}
 
-        $sql .= ')';
+	/**
+	 * creates an new entry and returns its id
+	 * @param: String $area the area
+	 * @param: String[] $fields an associative array with $field => $value for each field
+	 * @return: int id of the new entry
+	 */
+	public function createEntry($fields) {
+		return $this->mb->createEntry($this->area, $fields);
+	}
 
-        $this->query($sql);
-    }
+	/**
+	 * deletes the entry with the given id
+	 * @param String $area the area
+	 * @param int $id the new id
+	 */
+	public function deleteEntry($id) {
+		return $this->mb->deleteEntry($this->area, $id);
+	}
 
-    protected function tableName() {
-       $classname = get_class($this);
-       return '`Moonlake_'.$classname.'`';
-    }
+	/**
+	 * Updates a given entry with the contents of $fields
+	 * @param String $area the area
+	 * @param int $id the id
+	 * @param String[] $fields an associative array with $filedname => $new_field_content
+	 */
+	public function updateEntry($id, $fields) {
+		return $this->mb->updateEntry($this->area, $id, $fields);
+	}
 
-    /**
-     * Return all Entries
-     */
-    public function getEntries() {
-        $sql = 'SELECT * FROM '.$this->tableName();
+	public function deleteEntriesByCondition(Moonlake_Model_Condition $cond) {
+		if($this->backendSupportsConditions()) {
+			return $this->mb->deleteEntriesByCondition($this->area, $cond);
+		}
+		else
+			throw new Moonlake_Exception_ModelBackend('The ModelBackend does not support conditions! To solve this, you can ether use another backend or you can replace the conditions');
+	}
 
-        $qid = $this->query($sql);
-        $result = array();
-        while($data = $this->fetch($qid)) {
-            $result[] = $data;
-        }
+	public function getEntriesByCondition(Moonlake_Model_Condition $cond) {
+		if($this->backendSupportsConditions()) {
+			return $this->mb->getEntriesByCondition($this->area, $cond);
+		}
+		else
+			throw new Moonlake_Exception_ModelBackend('The ModelBackend does not support conditions! To solve this, you can ether use another backend or you can replace the conditions');
+	}
 
-        return $result;
-    }
+	public function updateEntriesByCondition(Moonlake_Model_Condition $cond, $fields) {
+		if($this->backendSupportsConditions()) {
+			return $this->mb->updateEntriesByCondition($this->area, $cond, $fields);
+		}
+		else
+			throw new Moonlake_Exception_ModelBackend('The ModelBackend does not support conditions! To solve this, you can ether use another backend or you can replace the conditions');
+	}
 
-    /**
-     * Return one Entry.
-     * Optional Parameter vor ID.
-     */
-    public function getEntry($id) {
-        $sql = 'SELECT * FROM '.$this->tableName().' WHERE `id` = \''.$id.'\'';
+	/**
+	 * Returns true if the backend supports conditions
+	 * @return boolean
+	 */
+	private function backendSupportsConditions() {
+		return $this->mb instanceof Moonlake_Model_SupportsCondition;
+	}
 
-        $qid = $this->query($sql);
-        if($this->affected_rows($qid) == 1) {
-            return $this->fetch($qid);
-        }
-        return false;
-    }
-
-    public function addEntry($args) {
-        $sql = 'INSERT INTO '.$this->tableName().' ( `id`, ';
-
-        $args['obj_id'] = md5($this->tableName()).'--'.md5(uniqid());
-
-        foreach($args as $key => $val) {
-            if(isset($this->values[$key])) {
-                $sql .= "`$key`, ";
-            }
-        }
-
-        if(substr($sql,-2) == ', ') {
-            $sql = substr($sql,0,strlen($sql)-2);
-        }
-
-        $sql .= ') VALUES ( NULL, ';
-
-        foreach($args as $key => $val) {
-            if(isset($this->values[$key])) {
-                $sql .= "'$val', ";
-            }
-        }
-
-        if(substr($sql,-2) == ', ') {
-            $sql = substr($sql,0,strlen($sql)-2);
-        }
-
-        $sql .=')';
-
-        $this->query($sql);
-
-        return $this->insertId();
-    }
-
-    public function removeEntry($id) {
-        $sql = 'DELETE FROM '.$this->tableName()." WHERE `id` = '$id'";
-        $this->query($sql);
-    }
-
-    public function findUniqueEntry($haystack, $needle) {
-        $finds = $this->findEntry($haystack, $needle);
-        return isset($finds[0]) ? $finds[0] : null;
-    }
-
-    public function findEntry($haystack, $needle) {
-        if(isset($this->values[$haystack])) {
-
-            $sql = 'SELECT * FROM '.$this->tableName()." WHERE `$haystack` = '$needle'";
-            $qid = $this->query($sql);
-
-            $result = array();
-            while($data = $this->fetch($qid)) {
-                $result[] = $data;
-            }
-            return $result;
-        }
-        return array();
-    }
-
-    /**
-     * do not use this
-     */
-
-    public function findEntryByArray($haystacks, $needles) {
-        $sql = 'SELECT * FROM '.$this->tableName().' WHERE';
-        $valid = false;
-        foreach($haystacks as $key => $haystack) {
-            if(isset($this->values[$haystack])) {
-                $sql .= " `$haystack` = '{$needles[$key]}' AND";
-                $valid = true;
-            }
-        }
-        if(!$valid) return array();
-        $sql = substr($sql, 0, -4);
-        $qid = $this->query($sql);
-
-        $result = array();
-        while($data = $this->fetch($qid)) {
-           $result[] = $data;
-        }
-        return $result;
-    }
-
-    public function searchEntry($haystack, $needle) {
-        if(isset($this->values[$haystack])) {
-
-            $sql = 'SELECT * FROM '.$this->tableName()." WHERE `$haystack` LIKE '$needle'";
-            $qid = $this->query($sql);
-
-            $result = array();
-            while($data = $this->fetch($qid)) {
-                $result[] = $data;
-            }
-            return $result;
-        }
-        return array();
-
-    }
-
-    public function editEntry($id, $changes) {
-        $sql = 'UPDATE '.$this->tableName().' SET ';
-
-        foreach($changes as $key => $val) {
-            if(isset($this->values[$key])) {
-                $sql .= "`$key` = '$val', ";
-            }
-        }
-
-        if(substr($sql,-2) == ', ') {
-            $sql = substr($sql,0,strlen($sql)-2);
-        }
-
-        $sql .= " WHERE `id` = '$id' LIMIT 1 ";
-
-        return $this->affected_rows($this->query($sql));
-    }
 }
 
 ?>
