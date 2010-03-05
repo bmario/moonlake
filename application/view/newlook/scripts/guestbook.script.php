@@ -1,6 +1,6 @@
 <?php
 /*
- *       Copyright 2009 Mario Bielert <mario@moonlake.de>
+ *       Copyright 2010 Mario Bielert <mario@moonlake.de>
  *
  *       This program is free software; you can redistribute it and/or modify
  *       it under the terms of the GNU General Public License as published by
@@ -21,23 +21,23 @@
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-  <head>
-    <title>Mein Gästebuch</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <?php foreach($this->entries as $entry) { ?>
-		<a href="mailto:<?php echo $entry['mail']; ?>"><b><?php echo $entry['name']; ?></b></a><br>
-    	<?php echo $entry['message']; ?>
+	<head>
+		<title>Mein Gästebuch</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	</head>
+	<body>
+		<?php foreach($this->entries as $entry) { ?>
+		<a href="mailto:<?php echo $entry->mail; ?>"><b><?php echo $entry->name; ?></b></a><br>
+		<?php echo $entry->message; ?>
 		<hr>
-    <?php } ?>
-    <form>
-    	<?php echo $this->simpleFormBuilder("guestbook", "newentry"); ?>
-      <b> Einen Eintrag verfassen </b><br>
-      Dein Name: <input type="text" name="name"><br>
-      Deine Email: <input type="text" name="mail"><br>
-      Deine Nachricht: <textarea name="message"></textarea><br>
-      <input type="submit">
-    </form>
-  </body>
+		<?php } ?>
+		<form action="index.php?ctrl=guestbook&action=newentry" method="post">
+			<font color="red"><?php echo $this->error; ?></font><br />
+			<b> Einen Eintrag verfassen </b><br>
+			Dein Name: <input type="text" name="name" value="<?php echo $this->newname; ?>"><br>
+			Deine Email: <input type="text" name="mail" value="<?php echo $this->newmail; ?>"><br>
+			Deine Nachricht: <textarea name="message"><?php echo nl2br($this->newmsg); ?></textarea><br>
+			<input type="submit">
+		</form>
+	</body>
 </html>

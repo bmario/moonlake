@@ -1,6 +1,6 @@
 <?php
 /*
- *       Copyright 2009 Mario Bielert <mario@moonlake.de>
+ *       Copyright 2009 2010 Mario Bielert <mario@moonlake.de>
  *
  *       This program is free software; you can redistribute it and/or modify
  *       it under the terms of the GNU General Public License as published by
@@ -19,11 +19,10 @@
  */
 
 class guestbook_Model extends Moonlake_Model_Model {
-    protected $properities = array(	"name" => "str",
-                                   	"mail" => "str",
-									"message" => "text");
-
-
+    protected $area = "guestbook_Model";
+    protected $fields = array(	"name" => Moonlake_Model_ModelBackend::TYPE_STR,
+                                "mail" => Moonlake_Model_ModelBackend::TYPE_STR,
+				"message" => Moonlake_Model_ModelBackend::TYPE_TXT);
 }
 
 ?>
