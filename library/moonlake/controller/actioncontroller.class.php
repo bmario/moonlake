@@ -29,27 +29,27 @@ abstract class Moonlake_Controller_ActionController {
     public function execute($name) {
         if(method_exists($this, $name)) {
             try {
-				$this->$name();
-			}
-			catch(Exception $e) {
-				try{
-					$this->error_Action();
-				}
-				catch(Exception $ee) {
-					throw $e;
-				}
-			}
+                $this->$name();
+            }
+            catch(Exception $e) {
+                try{
+                    $this->error_Action();
+                }
+                catch(Exception $ee) {
+                    throw $e;
+                }
+            }
         }
         else {
-			$this->error_Action();
-	    }
+            $this->error_Action();
+        }
     }
-	
+    
     public abstract function index_Action();
 
-	public function error_Action() {
-		throw new Moonlake_Exception_ActionController("The given action wasn't found", get_class($this), '_Action');
-	}
+    public function error_Action() {
+        throw new Moonlake_Exception_ActionController("The given action wasn't found", get_class($this), '_Action');
+    }
 }
 
 ?>

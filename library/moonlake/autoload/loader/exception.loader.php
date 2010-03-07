@@ -19,25 +19,25 @@
  */
  
 class Exception_Loader extends Moonlake_Autoload_Main {
-	/**
-	 * @param String $classname
-	 * @see library/moonlake/autoload/Moonlake_Autoload_Autoloader#classPath($classname)
-	 */
-	public function classPath($classname) {
-		$class = explode('_', $classname);
-		try{
-			if(@$class[1] != 'Exception') return '';
-			if(isset($class[3])) return '';
-			if($class[0] != 'Moonlake') return '';
-			
-			$file = strtolower($class[2]);
+    /**
+     * @param String $classname
+     * @see library/moonlake/autoload/Moonlake_Autoload_Autoloader#classPath($classname)
+     */
+    public function classPath($classname) {
+        $class = explode('_', $classname);
+        try{
+            if(@$class[1] != 'Exception') return '';
+            if(isset($class[3])) return '';
+            if($class[0] != 'Moonlake') return '';
+            
+            $file = strtolower($class[2]);
 
-			return "library/moonlake/exception/$file.exception.php";
-		}
-		catch(Exception $e) {
-			return '';
-		}
-	}
+            return "library/moonlake/exception/$file.exception.php";
+        }
+        catch(Exception $e) {
+            return '';
+        }
+    }
 
 }
 

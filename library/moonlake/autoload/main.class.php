@@ -20,24 +20,24 @@
 
 class Moonlake_Autoload_Main implements Moonlake_Autoload_Autoloader {
 
-	public function classPath($classname) {
-		return '';
-	}
+    public function classPath($classname) {
+        return '';
+    }
 
-	/**
-	 * @see library/moonlake/autoload/Moonlake_Autoload_Autoloader#includeClass($classname)
-	 */
-	public function includeClass($classname) {
-		$path = $this->classPath($classname);
+    /**
+     * @see library/moonlake/autoload/Moonlake_Autoload_Autoloader#includeClass($classname)
+     */
+    public function includeClass($classname) {
+        $path = $this->classPath($classname);
 
-		if(file_exists($path))
-		{
-			include_once($path);
-			return class_exists($classname, false);
-		}
+        if(file_exists($path))
+        {
+            include_once($path);
+            return class_exists($classname, false);
+        }
 
-		return false;
-	}
+        return false;
+    }
 }
 
 ?>

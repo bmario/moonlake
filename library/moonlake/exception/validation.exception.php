@@ -19,11 +19,11 @@
  */
 
 class Moonlake_Exception_Validation extends Moonlake_Exception_Moonlake {
-	public function __construct($message) {
-		$message = "Error in Validation stack: \n$message";
+    public function __construct($message) {
+        $message = "Error in Validation stack: \n$message";
 
-		parent::__construct($message);
-	}
+        parent::__construct($message);
+    }
 }
 
 ?>

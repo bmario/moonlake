@@ -23,99 +23,99 @@
  */
 class Moonlake_Model_Condition {
 
-	private $is				= array();
-	private $like			= array();
-	private $orderdirection = null;
-	private $orderfield		= null;
+    private $is                = array();
+    private $like            = array();
+    private $orderdirection = null;
+    private $orderfield        = null;
 
-	/**
-	 * This method defines a "is" condition. This means, the given field must
-	 * be exactly the given value, to fit this.
-	 * @param String $field the name of the field
-	 * @param any $value the value, which the field is compared with.
-	 * @return Moonlake_Model_Condition the object itself
-	 */
-	public function is($field, $value) {
-		$this->is[$field] = $value;
-		return $this;
-	}
+    /**
+     * This method defines a "is" condition. This means, the given field must
+     * be exactly the given value, to fit this.
+     * @param String $field the name of the field
+     * @param any $value the value, which the field is compared with.
+     * @return Moonlake_Model_Condition the object itself
+     */
+    public function is($field, $value) {
+        $this->is[$field] = $value;
+        return $this;
+    }
 
-	/**
-	 * This method returns an array containing all "is" conditions.
-	 * The association is "fieldname" => "value to compare with".
-	 * @return array with all "is" conditions
-	 */
-	public function getAllIs() {
-		return $this->is;
-	}
+    /**
+     * This method returns an array containing all "is" conditions.
+     * The association is "fieldname" => "value to compare with".
+     * @return array with all "is" conditions
+     */
+    public function getAllIs() {
+        return $this->is;
+    }
 
-	/**
-	 * This method defines a "like" condition.
-	 * This means the given field contains the value given.
-	 * @param String $field the fieldname
-	 * @param String $value the vlue to compare with
-	 * @return Moonlake_Model_Condition the object itself
-	 */
-	public function like($field, $value) {
-		$this->like[$field] = $value;
-		return $this;
-	}
+    /**
+     * This method defines a "like" condition.
+     * This means the given field contains the value given.
+     * @param String $field the fieldname
+     * @param String $value the vlue to compare with
+     * @return Moonlake_Model_Condition the object itself
+     */
+    public function like($field, $value) {
+        $this->like[$field] = $value;
+        return $this;
+    }
 
-	/**
-	 * This methode returns an array containing all "like" conditions.
-	 * The association is "fieldname" => "value"
-	 * @return array with all "ike" conditions
-	 */
-	public function getAllLike() {
-		return $this->like;
-	}
+    /**
+     * This methode returns an array containing all "like" conditions.
+     * The association is "fieldname" => "value"
+     * @return array with all "ike" conditions
+     */
+    public function getAllLike() {
+        return $this->like;
+    }
 
-	/**
-	 * This method defines a order condition. This means the result will
-	 * be ordered by the field. Cause of problems with multiple order conditions
-	 * and their order there will be only one order possible, multiple defines
-	 * overwrites old one.
-	 * The value of order defines if the order will be ascending or descending.
-	 * Also note that every other value than 'DESC' for the order parameter will
-	 * be treated as 'ASC'.
-	 * @param String $field the field name
-	 * @param String $order set the direction of odering. default: ASC
-	 * @return Moonlake_Model_Condition the object itself
-	 */
-	public final function orderby($field, $order = 'ASC') {
-		$order = $order == 'DESC' ? 'DESC' : 'ASC';
+    /**
+     * This method defines a order condition. This means the result will
+     * be ordered by the field. Cause of problems with multiple order conditions
+     * and their order there will be only one order possible, multiple defines
+     * overwrites old one.
+     * The value of order defines if the order will be ascending or descending.
+     * Also note that every other value than 'DESC' for the order parameter will
+     * be treated as 'ASC'.
+     * @param String $field the field name
+     * @param String $order set the direction of odering. default: ASC
+     * @return Moonlake_Model_Condition the object itself
+     */
+    public final function orderby($field, $order = 'ASC') {
+        $order = $order == 'DESC' ? 'DESC' : 'ASC';
 
-		$this->orderdirection	= $order;
-		$this->orderfield		= $field;
-		return $this;
-	}
+        $this->orderdirection    = $order;
+        $this->orderfield        = $field;
+        return $this;
+    }
 
-	/**
-	 * these two methode returns the field and the direction of ordering
-	 * or null, if nothing is set.
-	 */
-	public function getOrderField() {
-		return $this->orderfield;
-	}
-	public function getOrderDirection() {
-		return $this->orderdirection;
-	}
+    /**
+     * these two methode returns the field and the direction of ordering
+     * or null, if nothing is set.
+     */
+    public function getOrderField() {
+        return $this->orderfield;
+    }
+    public function getOrderDirection() {
+        return $this->orderdirection;
+    }
 
-	/**
-	 * returns true if there is a 'is' or a 'like' condition set
-	 * @return boolean
-	 */
-	public function hasConditions() {
-		return count($this->is) + count($this->like) > 0 ? true : false;
-	}
+    /**
+     * returns true if there is a 'is' or a 'like' condition set
+     * @return boolean
+     */
+    public function hasConditions() {
+        return count($this->is) + count($this->like) > 0 ? true : false;
+    }
 
-	/**
-	 * returns true if there is set an order
-	 * @return boolean
-	 */
-	public function hasOrder() {
-		return $this->orderdirection === null ? false : true;
-	}
+    /**
+     * returns true if there is set an order
+     * @return boolean
+     */
+    public function hasOrder() {
+        return $this->orderdirection === null ? false : true;
+    }
 }
 
 ?>

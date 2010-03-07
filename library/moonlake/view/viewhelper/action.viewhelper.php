@@ -20,24 +20,24 @@
 
 class action_ViewHelper implements Moonlake_View_ViewHelper {
 
-	public function execute(Moonlake_View_View $view, $arguments) {
-		if(isset($arguments[0])) $ctrl = $arguments[0].'_Controller';
-		else throw new Moonlake_Exception_View('Not enought arguments given. The first parameter should be the name of the controller.');
-		if(isset ($arguments[1])) $action = $arguments[1].'_Action';
-		else throw new Moonlake_Exception_View('Not enought arguments given. The first parameter should be the name of the action.');
+    public function execute(Moonlake_View_View $view, $arguments) {
+        if(isset($arguments[0])) $ctrl = $arguments[0].'_Controller';
+        else throw new Moonlake_Exception_View('Not enought arguments given. The first parameter should be the name of the controller.');
+        if(isset ($arguments[1])) $action = $arguments[1].'_Action';
+        else throw new Moonlake_Exception_View('Not enought arguments given. The first parameter should be the name of the action.');
 
-		$args = array();
-		for($i=2; $i < count($arguments); $i++) {
-			$args[] = $arguments[$i];
-		}
+        $args = array();
+        for($i=2; $i < count($arguments); $i++) {
+            $args[] = $arguments[$i];
+        }
 
-		if(class_exists($ctrl) and is_subclass_of($ctrl, 'Moonlake_Controller_WidgetController')) {
-			$c = new $ctrl($view);
+        if(class_exists($ctrl) and is_subclass_of($ctrl, 'Moonlake_Controller_WidgetController')) {
+            $c = new $ctrl($view);
 
-			$c->execute($action, $args);
-		}
-		else throw new Moonlake_Exception_View('The requested controller does not exists.');
-	}
+            $c->execute($action, $args);
+        }
+        else throw new Moonlake_Exception_View('The requested controller does not exists.');
+    }
 }
 
 ?>

@@ -24,7 +24,7 @@
  */
 interface Moonlake_Model_Connector {
 
-	public function __construct($config);
+    public function __construct($config);
 
 }
 

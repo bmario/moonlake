@@ -25,23 +25,23 @@
  */
 interface Moonlake_Autoload_Autoloader {
 
-	/**
-	 * This methode returns the Path to file, where the given class is stored or nothing.
-	 *
-	 * @param String $classname
-	 * @return String Classpath or ''
-	 */
-	public function classPath($classname);
+    /**
+     * This methode returns the Path to file, where the given class is stored or nothing.
+     *
+     * @param String $classname
+     * @return String Classpath or ''
+     */
+    public function classPath($classname);
 
-	/**
-	 * This method includes the given class.
-	 * If the resolved class exists and is loaded, then it should return true,
-	 * in case of any trouble, it should return false.
-	 *
-	 * @param String $classname
-	 * @return boolean - the success of include
-	 */
-	public function includeClass($classname);
+    /**
+     * This method includes the given class.
+     * If the resolved class exists and is loaded, then it should return true,
+     * in case of any trouble, it should return false.
+     *
+     * @param String $classname
+     * @return boolean - the success of include
+     */
+    public function includeClass($classname);
 
 }
 

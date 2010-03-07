@@ -20,24 +20,24 @@
  */
 
 class Controller_Loader extends Moonlake_Autoload_Main {
-	/**
-	 * @param unknown_type $classname
-	 * @see library/moonlake/autoload/Moonlake_Autoload_Autoloader#classPath($classname)
-	 */
-	public function classPath($classname) {
-		$class = explode('_', $classname);
-		try{
-			if(@$class[1] != 'Controller') return '';
-			if(isset($class[2])) return '';
+    /**
+     * @param unknown_type $classname
+     * @see library/moonlake/autoload/Moonlake_Autoload_Autoloader#classPath($classname)
+     */
+    public function classPath($classname) {
+        $class = explode('_', $classname);
+        try{
+            if(@$class[1] != 'Controller') return '';
+            if(isset($class[2])) return '';
 
-			$file = strtolower($class[0]);
+            $file = strtolower($class[0]);
 
-			return "application/controller/$file.controller.php";
-		}
-		catch(Exception $e) {
-			return '';
-		}
-	}
+            return "application/controller/$file.controller.php";
+        }
+        catch(Exception $e) {
+            return '';
+        }
+    }
 
 }
 

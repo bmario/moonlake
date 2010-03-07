@@ -23,23 +23,23 @@
  */
 class Moonlake_Model_Result {
 
-	private $__results__ = array();
+    private $__results__ = array();
 
-	public function __set($name, $value) {
-		$this->__results__[$name] = $value;
-	}
+    public function __set($name, $value) {
+        $this->__results__[$name] = $value;
+    }
 
-	public function __get($name) {
-		return isset($this->__results__[$name]) ? $this->__results__[$name] : null;
-	}
+    public function __get($name) {
+        return isset($this->__results__[$name]) ? $this->__results__[$name] : null;
+    }
 
-	public function __isset($name) {
-		return isset($this->__results__[$name]);
-	}
+    public function __isset($name) {
+        return isset($this->__results__[$name]);
+    }
 
-	public function __unset($name) {
-		if(isset($this->__results__[$name])) unset ($this->__results__[$name]);
-	}
+    public function __unset($name) {
+        if(isset($this->__results__[$name])) unset ($this->__results__[$name]);
+    }
 }
 
 ?>

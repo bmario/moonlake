@@ -41,7 +41,7 @@ class Moonlake_Response_HttpResponse implements Moonlake_Response_Response {
 
     public function clear() {
         $this->output = null;
-		$this->headers = array();
+        $this->headers = array();
     }
 
     public function setCookie($name, $value, $duration)
@@ -49,9 +49,9 @@ class Moonlake_Response_HttpResponse implements Moonlake_Response_Response {
         return setcookie($name, $value, time() + $duration, '/');
     }
 
-	public function get() {
-		return $this->output;
-	}
+    public function get() {
+        return $this->output;
+    }
 
     public function  __destruct() {
         $this->send();

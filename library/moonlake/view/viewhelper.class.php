@@ -19,12 +19,12 @@
  */
 
 interface Moonlake_View_ViewHelper {
-	/**
-	 * This do the helper function.
-	 * Returns some stuff, that will be shown in the view.
-	 * @param String[] $arguments the arguments
-	 */
-	public function execute(Moonlake_View_View $view, $arguments);
+    /**
+     * This do the helper function.
+     * Returns some stuff, that will be shown in the view.
+     * @param String[] $arguments the arguments
+     */
+    public function execute(Moonlake_View_View $view, $arguments);
 }
 
 ?>

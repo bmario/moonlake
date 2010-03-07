@@ -30,19 +30,19 @@ class Moonlake_Config_Config {
 
         try {
 
-        	@include($this->file);
-        	
+            @include($this->file);
+            
             if(isset($_CONFIG)) $this->cfg = $_CONFIG;
             else $this->cfg = array();
             
         }
-		catch (Exception $e) {
-			$this->cfg = array();
-		}
+        catch (Exception $e) {
+            $this->cfg = array();
+        }
     }
 
     public function __get($name) {
-    	if(isset($this->cfg[$name])) {
+        if(isset($this->cfg[$name])) {
             return $this->cfg[$name];
         }
         return null;
@@ -72,15 +72,15 @@ class Moonlake_Config_Config {
             $file = '<?php '."\r\n\r\n";
             foreach($this->cfg as $name => $value)
             {
-            	if(is_array($value)) {
-            		foreach($value as $val) {
-            			$file .= '$_CONFIG[\''.$name.'\'][] = \''.$val."';\r\n";
-            		}
-            		$file .= "\r\n";
-            	}
-            	else {
-            		$file .= '$_CONFIG[\''.$name.'\'] = \''.$value."';\r\n\r\n";
-            	}
+                if(is_array($value)) {
+                    foreach($value as $val) {
+                        $file .= '$_CONFIG[\''.$name.'\'][] = \''.$val."';\r\n";
+                    }
+                    $file .= "\r\n";
+                }
+                else {
+                    $file .= '$_CONFIG[\''.$name.'\'] = \''.$value."';\r\n\r\n";
+                }
             }
             $file .= '?>';
 
@@ -95,7 +95,7 @@ class Moonlake_Config_Config {
      * Returns an array with all keys=>values, but it does NOT track any changes on it
      */
     public function returnAll() {
-    	return $this->cfg;
+        return $this->cfg;
     }
 
 }

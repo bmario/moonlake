@@ -19,18 +19,18 @@
  */
  
 class Moonlake_Exception_ActionController extends Moonlake_Exception_Moonlake {
-	public $controller;
+    public $controller;
     public $action;
 
-	public function __construct($message, $controller, $action) {
-		$message = "Error in ActionController stack: \n$message";
+    public function __construct($message, $controller, $action) {
+        $message = "Error in ActionController stack: \n$message";
 
-		$this->controller = $controller;
-		$this->action = $action;
-		
-		parent::__construct($message);
-	}
-	
+        $this->controller = $controller;
+        $this->action = $action;
+        
+        parent::__construct($message);
+    }
+    
 }
 
 ?>

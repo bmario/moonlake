@@ -25,22 +25,22 @@
  */
 class Validator_Loader extends Moonlake_Autoload_Main {
 
-	/**
-	 * Validators are stored under library/moonlake/validation/validators
-	 * @see library/moonlake/autoload/Moonlake_Autoload_Autoloader#classPath($classname)
-	 */
-	public function classPath($classname) {
-		$class = explode('_', $classname);
-		try{
-			if(@$class[1] == 'Validator') {
-				$file = strtolower($class[0]);
-				return "library/moonlake/validation/validators/$file.validator.php";
-			}
-		}
-		catch(Exception $e) {}
+    /**
+     * Validators are stored under library/moonlake/validation/validators
+     * @see library/moonlake/autoload/Moonlake_Autoload_Autoloader#classPath($classname)
+     */
+    public function classPath($classname) {
+        $class = explode('_', $classname);
+        try{
+            if(@$class[1] == 'Validator') {
+                $file = strtolower($class[0]);
+                return "library/moonlake/validation/validators/$file.validator.php";
+            }
+        }
+        catch(Exception $e) {}
 
-		return '';
-	}
+        return '';
+    }
 }
 
 ?>

@@ -20,115 +20,115 @@
 
 abstract class Moonlake_Model_Model {
 
-	protected $area = null;
-	protected $fields = null;
+    protected $area = null;
+    protected $fields = null;
 
-	protected $mb;
+    protected $mb;
 
-	public function  __construct(Moonlake_Model_ModelBackend $mb) {
-		if($this->area === null) throw new Moonlake_Exception_Model('The area was not set to a valid value.');
-		if($this->fields === null) throw new Moonlake_Exception_Model('The fields were not set to a valid value.');
-		$this->mb = $mb;
-		$mb->initArea($this->area, $this->fields);
-	}
+    public function  __construct(Moonlake_Model_ModelBackend $mb) {
+        if($this->area === null) throw new Moonlake_Exception_Model('The area was not set to a valid value.');
+        if($this->fields === null) throw new Moonlake_Exception_Model('The fields were not set to a valid value.');
+        $this->mb = $mb;
+        $mb->initArea($this->area, $this->fields);
+    }
 
-	/**
-	 * Returns all entries which are in the given area
-	 */
-	public function getAllEntries() {
-		return $this->mb->getAllEntries($this->area);
-	}
+    /**
+     * Returns all entries which are in the given area
+     */
+    public function getAllEntries() {
+        return $this->mb->getAllEntries($this->area);
+    }
 
-	/**
-	 * get an Entry by the given id
-	 * @param: Int the id
-	 */
-	public function getEntryById($id) {
-		return $this->mb->getEntryById($this->area, $id);
-	}
+    /**
+     * get an Entry by the given id
+     * @param: Int the id
+     */
+    public function getEntryById($id) {
+        return $this->mb->getEntryById($this->area, $id);
+    }
 
-	/**
-	 * Returns all Entries that have all in the field $field the value $value
-	 * This should work like the following SQL Statement:
-	 * "SELECT * FROM `$area` WHERE `$field` = '$value'
-	 * @param: String $field the name of the
-	 */
-	public function getEntriesBy($field, $value) {
-		return $this->mb->getEntriesBy($this->area, $field, $value);
-	}
+    /**
+     * Returns all Entries that have all in the field $field the value $value
+     * This should work like the following SQL Statement:
+     * "SELECT * FROM `$area` WHERE `$field` = '$value'
+     * @param: String $field the name of the
+     */
+    public function getEntriesBy($field, $value) {
+        return $this->mb->getEntriesBy($this->area, $field, $value);
+    }
 
 
-	/**
-	 * returns all entries, which have in one of the given $fileds.
-	 * This should work like the following SQL Statement:
-	 * "SELECT * FROM `area` WHERE one_of($fields) LIKE '%$value%'
-	 * @param: String[] $fields an array of fieldnames
-	 * @param: String $value the value to search for
-	 */
-	public function findEntries($fields, $value) {
-		return $this->mb->findEntries($this->area, $fields, $value);
-	}
+    /**
+     * returns all entries, which have in one of the given $fileds.
+     * This should work like the following SQL Statement:
+     * "SELECT * FROM `area` WHERE one_of($fields) LIKE '%$value%'
+     * @param: String[] $fields an array of fieldnames
+     * @param: String $value the value to search for
+     */
+    public function findEntries($fields, $value) {
+        return $this->mb->findEntries($this->area, $fields, $value);
+    }
 
-	/**
-	 * creates an new entry and returns its id
-	 * @param: String $area the area
-	 * @param: String[] $fields an associative array with $field => $value for each field
-	 * @return: int id of the new entry
-	 */
-	public function createEntry($fields) {
-		return $this->mb->createEntry($this->area, $fields);
-	}
+    /**
+     * creates an new entry and returns its id
+     * @param: String $area the area
+     * @param: String[] $fields an associative array with $field => $value for each field
+     * @return: int id of the new entry
+     */
+    public function createEntry($fields) {
+        return $this->mb->createEntry($this->area, $fields);
+    }
 
-	/**
-	 * deletes the entry with the given id
-	 * @param String $area the area
-	 * @param int $id the new id
-	 */
-	public function deleteEntry($id) {
-		return $this->mb->deleteEntry($this->area, $id);
-	}
+    /**
+     * deletes the entry with the given id
+     * @param String $area the area
+     * @param int $id the new id
+     */
+    public function deleteEntry($id) {
+        return $this->mb->deleteEntry($this->area, $id);
+    }
 
-	/**
-	 * Updates a given entry with the contents of $fields
-	 * @param String $area the area
-	 * @param int $id the id
-	 * @param String[] $fields an associative array with $filedname => $new_field_content
-	 */
-	public function updateEntry($id, $fields) {
-		return $this->mb->updateEntry($this->area, $id, $fields);
-	}
+    /**
+     * Updates a given entry with the contents of $fields
+     * @param String $area the area
+     * @param int $id the id
+     * @param String[] $fields an associative array with $filedname => $new_field_content
+     */
+    public function updateEntry($id, $fields) {
+        return $this->mb->updateEntry($this->area, $id, $fields);
+    }
 
-	public function deleteEntriesByCondition(Moonlake_Model_Condition $cond) {
-		if($this->backendSupportsConditions()) {
-			return $this->mb->deleteEntriesByCondition($this->area, $cond);
-		}
-		else
-			throw new Moonlake_Exception_ModelBackend('The ModelBackend does not support conditions! To solve this, you can ether use another backend or you can replace the conditions');
-	}
+    public function deleteEntriesByCondition(Moonlake_Model_Condition $cond) {
+        if($this->backendSupportsConditions()) {
+            return $this->mb->deleteEntriesByCondition($this->area, $cond);
+        }
+        else
+            throw new Moonlake_Exception_ModelBackend('The ModelBackend does not support conditions! To solve this, you can ether use another backend or you can replace the conditions');
+    }
 
-	public function getEntriesByCondition(Moonlake_Model_Condition $cond) {
-		if($this->backendSupportsConditions()) {
-			return $this->mb->getEntriesByCondition($this->area, $cond);
-		}
-		else
-			throw new Moonlake_Exception_ModelBackend('The ModelBackend does not support conditions! To solve this, you can ether use another backend or you can replace the conditions');
-	}
+    public function getEntriesByCondition(Moonlake_Model_Condition $cond) {
+        if($this->backendSupportsConditions()) {
+            return $this->mb->getEntriesByCondition($this->area, $cond);
+        }
+        else
+            throw new Moonlake_Exception_ModelBackend('The ModelBackend does not support conditions! To solve this, you can ether use another backend or you can replace the conditions');
+    }
 
-	public function updateEntriesByCondition(Moonlake_Model_Condition $cond, $fields) {
-		if($this->backendSupportsConditions()) {
-			return $this->mb->updateEntriesByCondition($this->area, $cond, $fields);
-		}
-		else
-			throw new Moonlake_Exception_ModelBackend('The ModelBackend does not support conditions! To solve this, you can ether use another backend or you can replace the conditions');
-	}
+    public function updateEntriesByCondition(Moonlake_Model_Condition $cond, $fields) {
+        if($this->backendSupportsConditions()) {
+            return $this->mb->updateEntriesByCondition($this->area, $cond, $fields);
+        }
+        else
+            throw new Moonlake_Exception_ModelBackend('The ModelBackend does not support conditions! To solve this, you can ether use another backend or you can replace the conditions');
+    }
 
-	/**
-	 * Returns true if the backend supports conditions
-	 * @return boolean
-	 */
-	private function backendSupportsConditions() {
-		return $this->mb instanceof Moonlake_Model_SupportsCondition;
-	}
+    /**
+     * Returns true if the backend supports conditions
+     * @return boolean
+     */
+    private function backendSupportsConditions() {
+        return $this->mb instanceof Moonlake_Model_SupportsCondition;
+    }
 
 }
 

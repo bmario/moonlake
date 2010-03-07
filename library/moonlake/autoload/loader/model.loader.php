@@ -21,22 +21,22 @@
 
 class Model_Loader extends Moonlake_Autoload_Main {
 
-	/**
-	 * Models are stored under application/model
-	 * @see library/moonlake/autoload/Moonlake_Autoload_Autoloader#classPath($classname)
-	 */
-	public function classPath($classname) {
-		$class = explode('_', $classname);
-		try{
-			if(@$class[1] == 'Model' and !isset($class[2])) {
-				$file = strtolower($class[0]);
-				return "application/model/$file.model.php";
-			}
-		}
-		catch(Exception $e) {}
+    /**
+     * Models are stored under application/model
+     * @see library/moonlake/autoload/Moonlake_Autoload_Autoloader#classPath($classname)
+     */
+    public function classPath($classname) {
+        $class = explode('_', $classname);
+        try{
+            if(@$class[1] == 'Model' and !isset($class[2])) {
+                $file = strtolower($class[0]);
+                return "application/model/$file.model.php";
+            }
+        }
+        catch(Exception $e) {}
 
-		return '';
-	}
+        return '';
+    }
 }
 
 ?>

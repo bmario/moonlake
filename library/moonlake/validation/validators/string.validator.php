@@ -19,22 +19,22 @@
  */
 
 class string_Validator implements Moonlake_Validation_Validator {
-	
-	public function cast($value) {
-		return htmlspecialchars($value);
-	}
+    
+    public function cast($value) {
+        return htmlspecialchars($value);
+    }
 
-	public function castable() {
-		return true;
-	}
+    public function castable() {
+        return true;
+    }
 
-	public function isInputValid($value) {
-		return true;
-	}
+    public function isInputValid($value) {
+        return true;
+    }
 
-	public function validate($value) {
-		return $this->cast($value);
-	}
+    public function validate($value) {
+        return $this->cast($value);
+    }
 }
 
 ?>

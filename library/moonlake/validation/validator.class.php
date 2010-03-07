@@ -23,34 +23,34 @@
  * They provide an easy interface to check if some input is a valid value.
  */
 interface Moonlake_Validation_Validator {
-	/**
-	 * Returns true if the input value is a valid value.
-	 * @param any $value the input value
-	 * @return boolean
-	 */
-	public function isInputValid($value);
+    /**
+     * Returns true if the input value is a valid value.
+     * @param any $value the input value
+     * @return boolean
+     */
+    public function isInputValid($value);
 
-	/**
-	 * returns true if any value can be casted into a valid value.
-	 * otherwise false
-	 * @return boolean
-	 */
-	public function castable();
+    /**
+     * returns true if any value can be casted into a valid value.
+     * otherwise false
+     * @return boolean
+     */
+    public function castable();
 
-	/**
-	 * returns a casted value, or null
-	 * @param any $value the value
-	 */
-	public function cast($value);
+    /**
+     * returns a casted value, or null
+     * @param any $value the value
+     */
+    public function cast($value);
 
-	/**
-	 * This checks if the input value is valid and returns then the input.
-	 * Or if the values are castabel, the casted values are returned.
-	 * Otherwise null
-	 *
-	 * USE THIS!!!
-	 */
-	public function validate($value);
+    /**
+     * This checks if the input value is valid and returns then the input.
+     * Or if the values are castabel, the casted values are returned.
+     * Otherwise null
+     *
+     * USE THIS!!!
+     */
+    public function validate($value);
 }
 
 ?>

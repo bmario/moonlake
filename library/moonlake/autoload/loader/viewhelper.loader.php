@@ -25,22 +25,22 @@
  */
 class ViewHelper_Loader extends Moonlake_Autoload_Main {
 
-	/**
-	 * Autoloaders are stored under library/moonlake/autoload/loader
-	 * @see library/moonlake/autoload/Moonlake_Autoload_Autoloader#classPath($classname)
-	 */
-	public function classPath($classname) {
-		$class = explode('_', $classname);
-		try{
-			if(@$class[1] == 'ViewHelper') {
-				$file = strtolower($class[0]);
-				return "library/moonlake/view/viewhelper/$file.viewhelper.php";
-			}
-		}
-		catch(Exception $e) {}
+    /**
+     * Autoloaders are stored under library/moonlake/autoload/loader
+     * @see library/moonlake/autoload/Moonlake_Autoload_Autoloader#classPath($classname)
+     */
+    public function classPath($classname) {
+        $class = explode('_', $classname);
+        try{
+            if(@$class[1] == 'ViewHelper') {
+                $file = strtolower($class[0]);
+                return "library/moonlake/view/viewhelper/$file.viewhelper.php";
+            }
+        }
+        catch(Exception $e) {}
 
-		return '';
-	}
+        return '';
+    }
 
 }
 

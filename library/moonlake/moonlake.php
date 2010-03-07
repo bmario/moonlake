@@ -21,54 +21,54 @@
 
 
 final class Moonlake_Framework {
-	private static function initAutoload() {
-		
-		// delegates the initialation
-		Moonlake_Autoload_Autoload::initAutoload();
-		
-	}
-	
-	public static function init() {
-		// init exception handling
-		include('library/moonlake/application/application.class.php');
+    private static function initAutoload() {
+        
+        // delegates the initialation
+        Moonlake_Autoload_Autoload::initAutoload();
+        
+    }
+    
+    public static function init() {
+        // init exception handling
+        include('library/moonlake/application/application.class.php');
 
-		// if we get until here, we can now use Application::exceptionHandler()!
+        // if we get until here, we can now use Application::exceptionHandler()!
 
-		ob_start();
+        ob_start();
 
-		try {
-			// init autoload
-			self::initAutoload();
+        try {
+            // init autoload
+            self::initAutoload();
 
-			// <-- maybe doing some more init in here :)
+            // <-- maybe doing some more init in here :)
 
 
-			// --> init end
-		}
-		catch(Exception $e) {
-			// cleaning any previous output
-			ob_clean();
-			
-			// call exception handler, so we get nice output
-			Moonlake_Application_Application::exceptionHandler($e);
-		}
-	}
-	
-	public static function run(Moonlake_Application_Application $app) {
-		try {
-			$app->init();
-			$app->getFrontCtrl()->handleRequest();
-		}
-		catch (Exception $e) {
-			// FIXME think about suppressing debug output. (Well overriding Application::exceptionHandler does this stuff.)
+            // --> init end
+        }
+        catch(Exception $e) {
+            // cleaning any previous output
+            ob_clean();
+            
+            // call exception handler, so we get nice output
+            Moonlake_Application_Application::exceptionHandler($e);
+        }
+    }
+    
+    public static function run(Moonlake_Application_Application $app) {
+        try {
+            $app->init();
+            $app->getFrontCtrl()->handleRequest();
+        }
+        catch (Exception $e) {
+            // FIXME think about suppressing debug output. (Well overriding Application::exceptionHandler does this stuff.)
 
-			// clear all output so we have only our debug output!
-			ob_clean();
+            // clear all output so we have only our debug output!
+            ob_clean();
 
-			// call the handler for exceptions
-			$app->exceptionHandler($e);
-		}
-	}
+            // call the handler for exceptions
+            $app->exceptionHandler($e);
+        }
+    }
 }
 
 ?>

@@ -20,9 +20,9 @@
 
 class guestbook_Model extends Moonlake_Model_Model {
     protected $area = "guestbook_Model";
-    protected $fields = array(	"name" => Moonlake_Model_ModelBackend::TYPE_STR,
+    protected $fields = array(    "name" => Moonlake_Model_ModelBackend::TYPE_STR,
                                 "mail" => Moonlake_Model_ModelBackend::TYPE_STR,
-				"message" => Moonlake_Model_ModelBackend::TYPE_TXT);
+                "message" => Moonlake_Model_ModelBackend::TYPE_TXT);
 }
 
 ?>

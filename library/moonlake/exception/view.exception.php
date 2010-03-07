@@ -19,11 +19,11 @@
  */
 
 class Moonlake_Exception_View extends Moonlake_Exception_Moonlake {
-	public function __construct($message) {
-		$message = "Error in View stack: \n$message";
+    public function __construct($message) {
+        $message = "Error in View stack: \n$message";
 
-		parent::__construct($message);
-	}
+        parent::__construct($message);
+    }
 }
 
 ?>

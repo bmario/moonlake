@@ -19,22 +19,22 @@
  */
 
 class mail_Validator implements Moonlake_Validation_Validator {
-	
-	public function cast($value) {
-		return null;
-	}
-	public function castable() {
-		return false;
-	}
-	public function isInputValid($value) {
-		$pattern = '/^([a-z0-9])(([-a-z0-9._])*([a-z0-9]))*\@([a-z0-9])' .
-		'(([a-z0-9-])*([a-z0-9]))+' . '(\.([a-z0-9])([-a-z0-9_-])?([a-z0-9])+)+$/i';
+    
+    public function cast($value) {
+        return null;
+    }
+    public function castable() {
+        return false;
+    }
+    public function isInputValid($value) {
+        $pattern = '/^([a-z0-9])(([-a-z0-9._])*([a-z0-9]))*\@([a-z0-9])' .
+        '(([a-z0-9-])*([a-z0-9]))+' . '(\.([a-z0-9])([-a-z0-9_-])?([a-z0-9])+)+$/i';
 
-		return preg_match ($pattern, $value, $mail);
-	}
-	public function validate($value) {
-		return $this->isInputValid($value) ? $value : null;
-	}
+        return preg_match ($pattern, $value, $mail);
+    }
+    public function validate($value) {
+        return $this->isInputValid($value) ? $value : null;
+    }
 }
 
 ?>

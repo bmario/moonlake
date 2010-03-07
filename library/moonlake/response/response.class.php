@@ -24,7 +24,7 @@ interface Moonlake_Response_Response {
     public function write($data);
     public function clear();
     public function send();
-	public function get();
+    public function get();
     public function setCookie($name, $value, $duration);
 }
 

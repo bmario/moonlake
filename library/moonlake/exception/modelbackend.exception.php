@@ -21,11 +21,11 @@
 class Moonlake_Exception_ModelBackend extends Moonlake_Exception_Moonlake {
 
 
-	public function __construct($message) {
-		$message = "Error in ModelBackend stack: \n$message";
+    public function __construct($message) {
+        $message = "Error in ModelBackend stack: \n$message";
 
-		parent::__construct($message);
-	}
+        parent::__construct($message);
+    }
 
 
 }

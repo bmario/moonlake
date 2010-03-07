@@ -20,23 +20,23 @@
  */
 
 class Default_Loader extends Moonlake_Autoload_Main {
-	
-	public function classPath($classname) {
-		$class = explode('_', $classname);
-		if($class[0] != 'Moonlake') {
-			return '';
-		}
+    
+    public function classPath($classname) {
+        $class = explode('_', $classname);
+        if($class[0] != 'Moonlake') {
+            return '';
+        }
 
-		if(isset($class[1]) and isset($class[2])) {
-			$package = strtolower($class[1]);
-			$file = strtolower($class[2]);
-			return "library/moonlake/$package/$file.class.php";
-		}
-		else {
-			return '';
-		}
+        if(isset($class[1]) and isset($class[2])) {
+            $package = strtolower($class[1]);
+            $file = strtolower($class[2]);
+            return "library/moonlake/$package/$file.class.php";
+        }
+        else {
+            return '';
+        }
 
-	}
+    }
 
 }
 

@@ -20,22 +20,22 @@
 
 class int_Validator implements Moonlake_Validation_Validator {
 
-	public function cast($value) {
-		return 0;
-	}
+    public function cast($value) {
+        return 0;
+    }
 
-	public function castable() {
-		return true;
-	}
+    public function castable() {
+        return true;
+    }
 
-	public function isInputValid($value) {
-		return is_numeric(trim($value));
-	}
+    public function isInputValid($value) {
+        return is_numeric(trim($value));
+    }
 
-	public function validate($value) {
-		if($this->isInputValid($value)) return trim($value);
-		return $this->cast($value);
-	}
+    public function validate($value) {
+        if($this->isInputValid($value)) return trim($value);
+        return $this->cast($value);
+    }
 }
 
 ?>

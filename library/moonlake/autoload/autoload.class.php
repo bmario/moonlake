@@ -33,104 +33,104 @@ include_once('library/moonlake/autoload/loader/autoloader.loader.php');
  */
 class Moonlake_Autoload_Autoload {
 
-	private static $loader = array();
+    private static $loader = array();
 
-	/**
-	 * Handler for spl_autoload()
-	 *
-	 * @param String $classname
-	 */
-	public static function loadClass($classname) {
+    /**
+     * Handler for spl_autoload()
+     *
+     * @param String $classname
+     */
+    public static function loadClass($classname) {
 
-		$loaded = false;
+        $loaded = false;
 
-		foreach(self::$loader as $loader) {
-			if($loader->includeClass($classname)) $loaded = true;
-		}
+        foreach(self::$loader as $loader) {
+            if($loader->includeClass($classname)) $loaded = true;
+        }
 
-		if(!$loaded){
-			if (preg_match('/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/', $classname))
-			{
-				eval('class '.$classname.'
-				{
-					public function __construct() {
-						$this->throwException();
-					}
+        if(!$loaded){
+            if (preg_match('/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/', $classname))
+            {
+                eval('class '.$classname.'
+                {
+                    public function __construct() {
+                        $this->throwException();
+                    }
 
-					public static function __callstatic($m, $args) {
-						self::throwException();
-					}
+                    public static function __callstatic($m, $args) {
+                        self::throwException();
+                    }
 
-					static public function throwException()
-					{
-						throw new Moonlake_Exception_Autoloader("Could not find class '.$classname.'.\nThere are two common possibilities, In most cases this means, that for this classtype, there is no autoloader. To solve this, you must activate an approciate one, or write one on your own and activate it.", \''.$classname.'\', "");
-					}
-				}');
-			}
-		}
+                    static public function throwException()
+                    {
+                        throw new Moonlake_Exception_Autoloader("Could not find class '.$classname.'.\nThere are two common possibilities, In most cases this means, that for this classtype, there is no autoloader. To solve this, you must activate an approciate one, or write one on your own and activate it.", \''.$classname.'\', "");
+                    }
+                }');
+            }
+        }
 
-	}
+    }
 
-	/**
-	 * Registers an autoloader, so it's used to solve classnames to paths
-	 *
-	 * @param Moonlake_Autoload_Autoloader $loader
-	 */
-	public static function registerLoader(Moonlake_Autoload_Autoloader $loader) {
-		if(!in_array($loader, self::$loader)) self::$loader[] = $loader;
-	}
+    /**
+     * Registers an autoloader, so it's used to solve classnames to paths
+     *
+     * @param Moonlake_Autoload_Autoloader $loader
+     */
+    public static function registerLoader(Moonlake_Autoload_Autoloader $loader) {
+        if(!in_array($loader, self::$loader)) self::$loader[] = $loader;
+    }
 
-	/**
-	 * Registers an autoloader, so it's used to solve classnames to paths
-	 *
-	 * @param Moonlake_Autoload_Autoloader $loader
-	 */
-	public static function unregisterLoader(Moonlake_Autoload_Autoloader $loader) {
-		if(in_array($loader, self::$loader)) self::$loader[] = $loader;
-	}
+    /**
+     * Registers an autoloader, so it's used to solve classnames to paths
+     *
+     * @param Moonlake_Autoload_Autoloader $loader
+     */
+    public static function unregisterLoader(Moonlake_Autoload_Autoloader $loader) {
+        if(in_array($loader, self::$loader)) self::$loader[] = $loader;
+    }
 
-	/**
-	 * This method initializes the autoloader stack
-	 * Therefore it registers every autoloader, which is given in
-	 * config/autoload.config.php.
-	 */
-	public static function initAutoload() {
+    /**
+     * This method initializes the autoloader stack
+     * Therefore it registers every autoloader, which is given in
+     * config/autoload.config.php.
+     */
+    public static function initAutoload() {
 
-		// register tha whole autoload stack
-		spl_autoload_register(array('Moonlake_Autoload_Autoload', 'loadClass'), true);
+        // register tha whole autoload stack
+        spl_autoload_register(array('Moonlake_Autoload_Autoload', 'loadClass'), true);
 
-		// registers the autoloader loader
-		Moonlake_Autoload_Autoload::registerLoader(new Autoloader_Loader());
+        // registers the autoloader loader
+        Moonlake_Autoload_Autoload::registerLoader(new Autoloader_Loader());
 
-		// load config
-		include_once('library/moonlake/config/config.class.php');
-		$alcfg = new Moonlake_Config_Config('autoload');
+        // load config
+        include_once('library/moonlake/config/config.class.php');
+        $alcfg = new Moonlake_Config_Config('autoload');
 
 
-		foreach($alcfg->returnAll() as $loader) {
-			try {
-				$autoloader = new $loader();
+        foreach($alcfg->returnAll() as $loader) {
+            try {
+                $autoloader = new $loader();
 
-			}
-			catch(Moonlake_Exception_Autoloader $e) {
-				throw new Moonlake_Exception_Autoloader("Could not register a particular autoloader class. Probably there is an mistake related to '{$e->classname}' in the configuration in 'config/autoload.config.php'. The loader is expected in the file {$e->classpath}.",$e->classname,$e->classpath);
-			}
+            }
+            catch(Moonlake_Exception_Autoloader $e) {
+                throw new Moonlake_Exception_Autoloader("Could not register a particular autoloader class. Probably there is an mistake related to '{$e->classname}' in the configuration in 'config/autoload.config.php'. The loader is expected in the file {$e->classpath}.",$e->classname,$e->classpath);
+            }
 
-			Moonlake_Autoload_Autoload::registerLoader($autoloader);
-		}
-	}
+            Moonlake_Autoload_Autoload::registerLoader($autoloader);
+        }
+    }
 
-	/**
-	 * Returns an array containing the Classnames of loaded autoloaders.
-	 */
-	public static function listLoaders() {
-		$result = array();
-		foreach(self::$loader as $loader) {
-			$result[] = get_class($loader);
-		}
+    /**
+     * Returns an array containing the Classnames of loaded autoloaders.
+     */
+    public static function listLoaders() {
+        $result = array();
+        foreach(self::$loader as $loader) {
+            $result[] = get_class($loader);
+        }
 
-		return $result;
-	}
+        return $result;
+    }
 }
 
 ?>

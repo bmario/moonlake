@@ -26,36 +26,36 @@
  * Set parameters to every action, if you need one.
  */
 class Moonlake_Controller_WidgetController {
-	protected $view;
+    protected $view;
 
-	public function __construct(Moonlake_View_View $view) {
-		$this->view = $view;
-	}
+    public function __construct(Moonlake_View_View $view) {
+        $this->view = $view;
+    }
 
-	public function execute($action, $arguments) {
-		
-		    if(method_exists($this, $action)) {
+    public function execute($action, $arguments) {
+        
+            if(method_exists($this, $action)) {
             try {
-				call_user_func(array($this, $action), $arguments);
-			}
-			catch(Exception $e) {
-				try{
-					$this->error_Action();
-				}
-				catch(Exception $ee) {
-					throw $e;
-				}
-			}
+                call_user_func(array($this, $action), $arguments);
+            }
+            catch(Exception $e) {
+                try{
+                    $this->error_Action();
+                }
+                catch(Exception $ee) {
+                    throw $e;
+                }
+            }
         }
         else {
-			$this->error_Action();
-	    }
-		
-	}
-	
-	public function error_Action() {
-		throw new Moonlake_Exception_WidgetController("The given action wasn't found", get_class($this), '');
-	}
+            $this->error_Action();
+        }
+        
+    }
+    
+    public function error_Action() {
+        throw new Moonlake_Exception_WidgetController("The given action wasn't found", get_class($this), '');
+    }
 
 }
 

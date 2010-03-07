@@ -20,7 +20,7 @@
 
 interface Moonlake_Controller_FrontController {
     public function __construct(Moonlake_Application_Application $app);
-	public function handleRequest();
+    public function handleRequest();
     public function setDefaultController($name);
     public function getDefaultController();
 }
