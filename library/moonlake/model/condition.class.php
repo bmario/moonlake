@@ -19,14 +19,16 @@
  */
 
 /**
- * This class is used with modelbackends, which implements SupportsCondition
+ * This class can be used with modelbackends, which implements SupportsCondition
+ *
+ * With this class, you can easy create very powerful queries.
  */
 class Moonlake_Model_Condition {
 
-    private $is                = array();
-    private $like            = array();
+    private $is             = array();
+    private $like           = array();
     private $orderdirection = null;
-    private $orderfield        = null;
+    private $orderfield     = null;
 
     /**
      * This method defines a "is" condition. This means, the given field must
@@ -115,6 +117,38 @@ class Moonlake_Model_Condition {
      */
     public function hasOrder() {
         return $this->orderdirection === null ? false : true;
+    }
+
+    /**
+     * This function resets all conditions which are set, so this object can be
+     * reused.
+     */
+    public function resetAll() {
+        $this->resetIs();
+        $this->resetLike();
+        $this->resetOrder();
+    }
+
+    /**
+     * This methode resets all IS  conditions.
+     */
+    public function resetIs() {
+        $this->is = array();
+    }
+
+    /**
+     * This method resets all Like conditions.
+     */
+    public function resetLike() {
+        $this->like = array();
+    }
+
+    /**
+     * This method resets the order condition.
+     */
+    public function resetOrder() {
+        $this->orderdirection = null;
+        $this->orderfield     = null;
     }
 }
 
