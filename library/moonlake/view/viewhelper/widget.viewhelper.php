@@ -18,7 +18,7 @@
  *       MA 02110-1301, USA.
  */
 
-class action_ViewHelper implements Moonlake_View_ViewHelper {
+class widget_ViewHelper implements Moonlake_View_ViewHelper {
 
     public function execute(Moonlake_View_View $view, $arguments) {
         if(isset($arguments[0])) $ctrl = $arguments[0].'_Controller';
