@@ -18,6 +18,9 @@
  *       MA 02110-1301, USA.
  */
 
+/**
+ * This is the interface for frontcontrollers
+ */
 interface Moonlake_Controller_FrontController {
     public function __construct(Moonlake_Application_Application $app);
     public function handleRequest();
