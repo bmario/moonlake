@@ -18,14 +18,7 @@
  *       MA 02110-1301, USA.
  */
 
-class Moonlake_Autoload_Main implements Moonlake_Autoload_Autoloader {
-
-    /**
-     * @see library/moonlake/autoload/Moonlake_Autoload_Autoloader#classPath($classname)
-     */
-    public function classPath($classname) {
-        return '';
-    }
+abstract class Moonlake_Autoload_Main implements Moonlake_Autoload_Autoloader {
 
     /**
      * @see library/moonlake/autoload/Moonlake_Autoload_Autoloader#includeClass($classname)
@@ -36,7 +29,7 @@ class Moonlake_Autoload_Main implements Moonlake_Autoload_Autoloader {
         if(file_exists($path))
         {
             include_once($path);
-            return class_exists($classname, false);
+            return class_exists($classname, false) or interface_exists($classname, false);
         }
 
         return false;

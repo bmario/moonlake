@@ -32,7 +32,6 @@ class Default_Loader extends Moonlake_Autoload_Main {
         else {
             return '';
         }
-
     }
 
 }

@@ -43,7 +43,7 @@ class Moonlake_Autoload_Autoload {
 
         // try every loader which is registered, if it can load the given class
         foreach(self::$loader as $loader) {
-            if($loader->includeClass($classname)) $loaded = true;
+            $loaded |= $loader->includeClass($classname);
         }
 
         // else create a class with the given name and let it throw an
