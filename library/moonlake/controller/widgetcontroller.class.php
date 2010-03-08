@@ -19,11 +19,14 @@
  */
 
 /**
- * This class is for controller, which are embedded in views of actioncontroller.
- * They don't have an index_Action() until
- *
+ * This class is for controllers, which are embedded in views of ActionControllers.
+ * They are a bit different. They don't have an index_Action().
  * The do not have request or response objects!!!
+ *
  * Set parameters to every action, if you need one.
+ * e.g. login_Action($username, $password){}
+ *
+ * You can call them with the viewhelper "widget".
  */
 class Moonlake_Controller_WidgetController {
     protected $view;
