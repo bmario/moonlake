@@ -18,6 +18,9 @@
  *       MA 02110-1301, USA.
  */
 
+/**
+ * This Viewhelper is for easy creating urls.
+ */
 class url_ViewHelper implements Moonlake_View_ViewHelper {
 
     public function execute(Moonlake_View_View $view, $arguments) {
