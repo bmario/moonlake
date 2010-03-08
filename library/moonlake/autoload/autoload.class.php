@@ -86,12 +86,16 @@ class Moonlake_Autoload_Autoload {
     }
 
     /**
-     * Registers an autoloader, so it's used to solve classnames to paths
+     * Unregisters a given loader, so it's not used anymore for laoding classes.
+     *
+     * FIXME: should use a id or anything
      *
      * @param Moonlake_Autoload_Autoloader $loader
      */
     public static function unregisterLoader(Moonlake_Autoload_Autoloader $loader) {
-        if(in_array($loader, self::$loader)) self::$loader[] = $loader;
+        for($a = 0; $a < count(self::$loader); $a++) {
+            if(self::$loader[$a] === $loader) unset(self::$loader[$a]);
+        }
     }
 
     /**
