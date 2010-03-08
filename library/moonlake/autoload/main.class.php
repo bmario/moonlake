@@ -20,6 +20,9 @@
 
 class Moonlake_Autoload_Main implements Moonlake_Autoload_Autoloader {
 
+    /**
+     * @see library/moonlake/autoload/Moonlake_Autoload_Autoloader#classPath($classname)
+     */
     public function classPath($classname) {
         return '';
     }
