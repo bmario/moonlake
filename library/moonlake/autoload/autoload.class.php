@@ -44,13 +44,18 @@ class Moonlake_Autoload_Autoload {
 
         $loaded = false;
 
+        // try every loader which is registered, if it can load the given class
         foreach(self::$loader as $loader) {
             if($loader->includeClass($classname)) $loaded = true;
         }
 
+        // else create a class with the given name and let it throw an
+        // exception, if it is used.
         if(!$loaded){
+            // check if the name is valid
             if (preg_match('/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/', $classname))
             {
+                // use eval to create the class on the fly
                 eval('class '.$classname.'
                 {
                     public function __construct() {
