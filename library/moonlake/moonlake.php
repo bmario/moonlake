@@ -21,30 +21,31 @@
 
 
 final class Moonlake_Framework {
-    private static function initAutoload() {
-        
-        // delegates the initialation
-        Moonlake_Autoload_Autoload::initAutoload();
-        
-    }
-    
+
+    /**
+     * This methode initializes the framework.
+     * Until now this means setting up the autoload stack.
+     */
     public static function init() {
         // init exception handling
         include('library/moonlake/application/application.class.php');
 
         // if we get until here, we can now use Application::exceptionHandler()!
 
+        // starting output buffering, so we can clear output if there is an
+        // exception
         ob_start();
 
         try {
             // init autoload
-            self::initAutoload();
+            Moonlake_Autoload_Autoload::initAutoload();
 
             // <-- maybe doing some more init in here :)
 
 
             // --> init end
         }
+        // catching ALL exceptions and give it to the handler
         catch(Exception $e) {
             // cleaning any previous output
             ob_clean();
@@ -53,14 +54,25 @@ final class Moonlake_Framework {
             Moonlake_Application_Application::exceptionHandler($e);
         }
     }
-    
+
+
+    /**
+     * This methode excutes an application.
+     * @param Moonlake_Application_Application $app
+     */
     public static function run(Moonlake_Application_Application $app) {
+        // ob_start() not needed here, because we startet it allready in init()
         try {
+            // init application
             $app->init();
+
+            // run front controller
             $app->getFrontCtrl()->handleRequest();
         }
+        // catch ALL exceptions
         catch (Exception $e) {
-            // FIXME think about suppressing debug output. (Well overriding Application::exceptionHandler does this stuff.)
+            // FIXME think about suppressing debug output. (Well overriding
+            // Application::exceptionHandler does this stuff.)
 
             // clear all output so we have only our debug output!
             ob_clean();
