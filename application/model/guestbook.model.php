@@ -17,12 +17,20 @@
  *       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  *       MA 02110-1301, USA.
  */
-
+/**
+ * This class defines the model layout for the guestbook
+ */
 class guestbook_Model extends Moonlake_Model_Model {
+    // this defines the name which is used to identify the model
     protected $area = "guestbook_Model";
-    protected $fields = array(    "name" => Moonlake_Model_ModelBackend::TYPE_STR,
-                                "mail" => Moonlake_Model_ModelBackend::TYPE_STR,
-                "message" => Moonlake_Model_ModelBackend::TYPE_TXT);
+
+    /*
+     * this defines all fields for the model.
+     * note that a field 'id' is created for you from the model.
+     */
+    protected $fields = array( "name" => Moonlake_Model_ModelBackend::TYPE_STR,
+                               "mail" => Moonlake_Model_ModelBackend::TYPE_STR,
+                               "message" => Moonlake_Model_ModelBackend::TYPE_TXT);
 }
 
 ?>
