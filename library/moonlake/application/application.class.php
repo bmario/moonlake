@@ -111,7 +111,7 @@ abstract class Moonlake_Application_Application {
                 margin: 0;
                 padding: 25px;
                 background: #F7F7F7;
-                font-family: Georgia, "Times New Roman", Times, serif;
+                font-family: sans-serif;
                 font-size: 14px;
                 color: #5A554E;
             }
@@ -121,7 +121,7 @@ abstract class Moonlake_Application_Application {
                 padding: 0;
                 font-weight: normal;
                 color: #32639A;
-                font-family: Georgia, "Times New Roman", Times, serif;
+                font-family: sans-serif;
             }
 
             h1 {
@@ -139,7 +139,7 @@ abstract class Moonlake_Application_Application {
             p, ul, ol {
                 margin-top: 0;
                 line-height: 200%;
-                font-family: "Trebuchet MS", Georgia, "Times New Roman", Times, serif;
+                font-family:  sans-serif;
             }
 
             ul, ol {
@@ -191,7 +191,6 @@ abstract class Moonlake_Application_Application {
     </body>
 </html>
 EXCEPT;
-
     }
 }
 
