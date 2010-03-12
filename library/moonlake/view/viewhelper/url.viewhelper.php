@@ -25,8 +25,8 @@ class url_ViewHelper implements Moonlake_View_ViewHelper {
 
     public function execute(Moonlake_View_View $view, $arguments) {
         if(isset($arguments[0]) && isset($arguments[1])) {
-            $ctrl = $arguments[0];
-            $action = $argument[1];
+            $ctrl = urlencode($arguments[0]);
+            $action = urlencode($arguments[1]);
             echo "index.php?ctrl={$ctrl}&action={$action}";
         }
         else throw new Moonlake_Exception_View("There is missing an argument for the url_ViewHelper. A controller name and an action name is required.");
