@@ -18,6 +18,10 @@
  *       MA 02110-1301, USA.
  */
 
+/*
+ * ModelBackends can implement this interface, so they can be used easier with
+ * the condition classes.
+ */
 interface Moonlake_Model_SupportsCondition {
     /**
      * This returns an array of results, which fulfill the condition.
