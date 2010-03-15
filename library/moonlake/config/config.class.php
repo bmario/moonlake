@@ -163,6 +163,15 @@ class Moonlake_Config_Config {
         return $this->__cfg__;
     }
 
+
+    /**
+     * This method returns the path to the cnofig file, which is used.
+     *
+     * @return String path to config file
+     */
+    public function getFilePath() {
+        return $this->__file__;
+    }
 }
 
 ?>
