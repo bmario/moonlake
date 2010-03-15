@@ -157,9 +157,18 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_ModelBackend, Moonla
         $sql .= '( `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY';
         foreach($fields as $name => $type) {
             if($this->isValidType($type)) {
+
                 // FIXME there is no escape, could be a problem? on the other
                 // hand, it comes from the class itself.
-                $sql .= " ,`$name` $type NOT NULL";
+
+                if($type == self::TYPE_STR or $type == self::TYPE_TXT) {
+                    // set charset und collate to utf8
+                    $sql .= " ,`$name` $type CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL";
+                }
+                else {
+                    // for INT we don't need a charset ;)
+                    $sql .= " ,`$name` $type NOT NULL";
+                }
             }
             else throw new Moonlake_Exception_ModelBackend("The given type for the field '$name' is not valid.\n");
         }

@@ -23,7 +23,7 @@
 class string_Validator implements Moonlake_Validation_Validator {
     
     public function cast($value) {
-        return htmlspecialchars($value);
+        return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
     }
 
     public function castable() {
