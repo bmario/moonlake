@@ -40,6 +40,17 @@ class Moonlake_Model_MySQLConnector implements Moonlake_Model_SQLConnector {
     public function connect() {
         $config = new Moonlake_Config_Config($this->config);
 
+        if(!isset($config->hostname) or
+           !isset($config->username) or
+           !isset($config->password) or
+           !isset($config->database)) {
+            throw new Moonlake_Exception_ModelConnector(
+                'There is missing an option in the given config file. 
+Please make sure that the file '.$config->getFilePath().' exists
+and it is set each of the following options:
+hostname, username, password and database.');
+        }
+
         $server   = $config->hostname;
         $username = $config->username;
         $password = $config->password;
