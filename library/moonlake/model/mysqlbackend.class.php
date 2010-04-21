@@ -27,7 +27,6 @@
  * But actually this is the only class I can use on my webspace :(
  * ...so I have to use it through.
  */
-
 class Moonlake_Model_MySQLBackend implements Moonlake_Model_ModelBackend, Moonlake_Model_SupportsCondition {
 
 
@@ -36,11 +35,22 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_ModelBackend, Moonla
                                     Moonlake_Model_ModelBackend::TYPE_TXT);
     private $con;
 
+    /**
+     * constructor for the backends
+     * @param Moonlake_Model_Connector $con the connector which is to be used
+     */
     public function __construct(Moonlake_Model_Connector $con) {
         $this->con = $con;
     }
 
+    /**
+     * creates an new entry and returns its id
+     * @param: String $area the area
+     * @param: String[] $fields an associative array with $field => $value for each field
+     * @return: int id of the new entry
+     */
     public function createEntry($area, $fields) {
+        // build sql query
         $sql = 'INSERT INTO '.$this->tableName($area).' ( `id`';
         
         foreach($fields as $name => $value) {
@@ -55,21 +65,39 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_ModelBackend, Moonla
 
         $sql .= ')';
 
+        // execute query
         $qid = $this->con->query($sql);
 
+        // get id
         $id = $this->con->last_inserted_id();
 
+        // free query
         $this->con->free_query($qid);
 
         return $id;
     }
 
+    /**
+     * deletes the entry with the given id
+     * @param String $area the area
+     * @param int $id the new id
+     */
     public function deleteEntry($area, $id) {
+        // build query
         $sql = 'DELETE FROM '.$this->tableName($area)." WHERE `id` = '$id'";
+
+        // execute and free query
         $this->con->free_query($this->con->query($sql));
     }
 
+    /**
+     * Updates a given entry with the contents of $fields
+     * @param String $area the area
+     * @param int $id the id
+     * @param String[] $fields an associative array with $filedname => $new_field_content
+     */
     public function updateEntry($area, $id, $fields) {
+        // build query
         $sql = 'UPDATE '.$this->tableName($area).' SET ';
 
         foreach($fields as $key => $val) {
@@ -81,10 +109,19 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_ModelBackend, Moonla
         }
 
         $sql .= " WHERE `id` = '$id' LIMIT 1 ";
-        
+
+        // execute and free query
         $this->con->free_query($this->con->query($sql));
     }
 
+    /**
+     * returns all entries, which have in one of the given $fileds.
+     * This should work like the following SQL Statement:
+     * "SELECT * FROM `area` WHERE one_of($fields) LIKE '%$value%'
+     * @param: String $area the area
+     * @param: String[] $fields an array of fieldnames
+     * @param: String $value the value to search for
+     */
     public function findEntries($area, $fields, $value) {
         $sql = 'SELECT * FROM `'.$this->tableName($area).'` WHERE `'.$fields[0].'` LIKE \'%'.$value.'%\'';
         
@@ -108,6 +145,10 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_ModelBackend, Moonla
 
     }
 
+    /**
+     * Returns all entries which are in the given area
+     * @param string $area the area
+     */
     public function getAllEntries($area) {
         $sql = 'SELECT * FROM `'.$this->tableName($area).'` ORDER BY `id` ASC';
         $id = $this->con->query($sql);
@@ -123,6 +164,13 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_ModelBackend, Moonla
 
     }
 
+    /**
+     * Returns all Entries that have all in the field $field the value $value
+     * This should work like the following SQL Statement:
+     * "SELECT * FROM `$area` WHERE `$field` = '$value'
+     * @param: String $area the area
+     * @param: String $field the name of the
+     */
     public function getEntriesBy($area, $field, $value) {
         $sql = 'SELECT * FROM `'.$this->tableName($area).'` WHERE `'.$field.'` = \''.$id.'\''.' ORDER BY `id` ASC';
         $id = $this->con->query($sql);
@@ -138,7 +186,12 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_ModelBackend, Moonla
         return $data;
 
     }
-    
+
+    /**
+     * get an Entry by the given id
+     * @param: String $area the area
+     * @param: Int the id
+     */
     public function getEntryById($area, $id) {
         $sql = 'SELECT * FROM `'.$this->tableName($area).'` WHERE `id` = \''.$id.'\'';
         $id = $this->con->query($sql);
@@ -152,6 +205,15 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_ModelBackend, Moonla
         return $data;
     }
 
+
+    /**
+     * initialize the given area.
+     * That means stuff like creating the table and so on.
+     * If an area is allready initialized, this should do nothing!
+     * This is called everytime before a given area is used.
+     * @param String $area the area
+     * @param String $fields[] an associative array with $fieldname => $type
+     */
     public function initArea($area, $fields) {
         $sql = 'CREATE TABLE IF NOT EXISTS `'.$this->tableName($area)."` ";
         $sql .= '( `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY';
@@ -178,6 +240,12 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_ModelBackend, Moonla
         $this->con->free_query($this->con->query($sql));
     }
 
+    /**
+     * reinitialize the given area.
+     * That means delete the area and initialize it with the new structure.
+     * @param String $area the area
+     * @param String $fields[] an associative array with $fieldname => $type
+     */
     public function reinitArea($area, $fields) {
         $sql = "DROP TABLE IF EXISTS ".$this->tableName($area);
         $this->con->free_query($this->con->query($sql));
