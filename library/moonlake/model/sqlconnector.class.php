@@ -57,17 +57,17 @@ interface Moonlake_Model_SQLConnector extends Moonlake_Model_Connector {
      * This prepares a statement so the execution will be much faster
      * Placeholder for variables are ?
      * @param String $sql the steatement with placeholders
-     * @param String the types of the wildcards. i-int, d-float, b-blob, s-other
      * @return id $id an id for the prepared statement
      */
-    public function prepare($sql, $types);
+    public function prepare($sql);
 
     /**
      * This executes the prepared statement with the given id
      * @param id $id
+     * @param String the types of the wildcards. i-int, d-float, b-blob, s-other
      * @return id an id to a query, which is usalbe with fetch()
      */
-    public function execute($id);
+    public function execute($id, $types);
 
     /**
      * Returns one dataset from the resultset of the query with $id
