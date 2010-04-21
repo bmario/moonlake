@@ -26,9 +26,10 @@
  * where the entries are taken from. In terms of SQL these are the tables.
  */
 interface Moonlake_Model_ModelBackend {
-    const TYPE_TXT = 'TEXT';
-    const TYPE_INT = 'INT(11)';
-    const TYPE_STR = 'VARCHAR(255)';
+    const TYPE_TXT  = 'TEXT';
+    const TYPE_BOOL = 'INT(1)';
+    const TYPE_INT  = 'INT(11)';
+    const TYPE_STR  = 'VARCHAR(255)';
 
     /**
      * constructor for the backends
