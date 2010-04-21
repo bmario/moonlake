@@ -132,6 +132,16 @@ abstract class Moonlake_Model_Model {
         return $this->mb instanceof Moonlake_Model_SupportsCondition;
     }
 
+    /**
+     * This function returns an almost unique identifier for the given id.
+     * This function is used together with e.g. the auth classes.
+     * @param int $id the id
+     * @return unique identifier
+     */
+    public function getObjectID($id) {
+        return md5($this->area.$id);
+    }
+
 }
 
 ?>
