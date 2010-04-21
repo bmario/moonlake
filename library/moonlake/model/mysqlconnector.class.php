@@ -65,21 +65,19 @@ hostname, username, password and database.');
         @mysql_close($this->hcon);
     }
 
-    public function prepare($sql, $types) {
+    public function prepare($sql) {
         $pid = count($this->prepares);
 
         $this->prepares[$pid]['sql'] = explode('?',$sql);
-        $this->prepares[$pid]['types'] = $types;
 
         return $pid;
     }
 
-    public function execute($id) {
+    public function execute($id, $types) {
         $args = func_get_args();
         $argc = func_num_args();
 
-        if(isset ($this->prepares[$id])) {
-            $types = $this->prepares[$id]['types'];
+        if(isset($this->prepares[$id])) {
             $parts = $this->prepares[$id]['sql'];
 
             if(strlen($types) == count($parts) - 1) {
@@ -93,7 +91,7 @@ hostname, username, password and database.');
             }
 
             $sql = '';
-            $i = 1;
+            $i = 2;
             foreach($parts as $part) {
                 if($i == count($parts)) $sql .= $part;
                 else $sql .= $part.mysql_escape_string($args[$i]);
@@ -125,10 +123,14 @@ hostname, username, password and database.');
     }
 
     public function fetch($qid) {
-        if(!isset($this->queries[$qid])) throw new Moonlake_Exception_ModelConnector("The given id doesn't represent a valid query. This mostly means, that the query is freed before it's used");
+        if(!isset($this->queries[$qid]))
+                throw new Moonlake_Exception_ModelConnector(
+                "The given id doesn't represent a valid query. This mostly means, that the query is freed before it's used");
+
         if($this->queries[$qid]['rows'] > $this->queries[$qid]['seek']) {
             $this->queries[$qid]['seek']++;
             $data = @mysql_fetch_assoc($this->queries[$qid]['hres']);
+            if(mysql_errno($this->hcon)) $this->error($this->queries[$qid]['sql']);
             $result = new Moonlake_Model_Result();
             foreach($data as $key => $val) $result->$key = $val;
 
@@ -140,8 +142,8 @@ hostname, username, password and database.');
     public function error($query = '') {
         $errno = mysql_errno();
         $error = mysql_error();
-        $query = $query != '' ? "Query: $query" : '';
-        throw new Moonlake_Exception_ModelConnector("Where was an error in the MySQL-Connection.\nNumber: $errno\nMessage: $error\n$query\n");
+        $query = $query != '' ? "Query: $query\n" : '';
+        throw new Moonlake_Exception_ModelConnector("Where was an error in the MySQL-Connection.\nNumber: $errno\nMessage: $error\n$query");
     }
 
     public function free_query($id) {
