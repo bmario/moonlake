@@ -39,9 +39,6 @@ class Moonlake_Validation_Condition {
     }
 
     public function is_equal_set() {
-        if($this->is_equal_set()) {
-            if($this->eq === $val) throw new Moonlake_Exception_Validation('Try to define contrary equal and not equal condition.');
-        }
         return $this->eq_set;
     }
 
