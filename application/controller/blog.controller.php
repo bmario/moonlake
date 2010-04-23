@@ -1,0 +1,49 @@
+<?php
+
+/*
+ *  Copyright 2010 Mario Bielert <mario@moonlake.de>
+ *
+ *  This file is part of the Moonlake Framework.
+ *
+ *  The Moonlake Framework is free software: you can redistribute it
+ *  and/or modify it under the terms of the GNU General Public License
+ *  as published by the Free Software Foundation, either version 3 of
+ *  the License, or (at your option) any later version.
+ *
+ *  The Moonlake Framework is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with the Moonlake Framework.
+ *  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+class blog_Controller extends Moonlake_Controller_WidgetController {
+
+    /**
+     * Show recent blog entries
+     */
+    public function list_Action() {
+        $model    = new blogentry_Model(new Moonlake_Model_MySQLBackend(new Moonlake_Model_MySQLConnector('mysql')));
+        $view    = $this->view;
+
+        $cond    = new Moonlake_Model_Condition();
+        $cond->orderby('time', 'DESC');
+
+        $entries = $model->getEntriesByCondition($cond);
+
+        $view->entries = $entries;
+
+        echo $view->render('blog');
+
+    }
+
+    public function index_Action() {
+        $this->list_Action();
+    }
+
+}
+
+?>
