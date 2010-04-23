@@ -21,11 +21,12 @@
  */
 
 interface Moonlake_Response_Response {
+    public function setContentType($type);
     public function addHeader($name, $value);
-    public function write($data);
-    public function clear();
-    public function send();
-    public function get();
+    public function writeContent($data);
+    public function clearContent();
+    public function sendContent();
+    public function getContent();
     public function setCookie($name, $value, $duration);
 }
 

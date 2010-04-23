@@ -25,7 +25,10 @@ class Moonlake_Response_HttpResponse implements Moonlake_Response_Response {
     private $headers = array();
     private $output = null;
 
-    public function send() {
+    /**
+     * Set headers and send content to client.
+     */
+    public function sendContent() {
         foreach($this->headers as $name => $value) {
             header("{$name}: {$value}");
         }
@@ -33,29 +36,84 @@ class Moonlake_Response_HttpResponse implements Moonlake_Response_Response {
         $this->headers = array();
         $this->output = null;
     }
-    public function write($data) {
+
+    /**
+     * Append $data to output.
+     * @param <String> $data
+     */
+    public function writeContent($data) {
         $this->output .= $data;
     }
+
+    /**
+     * Set the header name to the value type.
+     * Be careful with those headers!
+     * @see http://www.faqs.org/rfcs/rfc2616
+     * @param <String> $name
+     * @param <String> $value
+     */
     public function addHeader($name,$value) {
         $this->headers[$name] = $value;
     }
 
+    /**
+     * Forget all what was set before.
+     */
     public function clear() {
+        $this->clearContent();
+        $this->clearHeaders();
+    }
+
+    /**
+     * Forget the content
+     */
+    public function clearContent() {
         $this->output = null;
+    }
+
+    /**
+     * Forget the headers
+     */
+    public function clearHeaders() {
         $this->headers = array();
     }
 
+    /**
+     * Set a cookie with the name $name and the value $value for a duration of
+     * $duration.
+     * @param <type> $name
+     * @param <type> $value
+     * @param <type> $duration
+     * @return <boolean> returns true, if successed
+     */
     public function setCookie($name, $value, $duration)
     {
         return setcookie($name, $value, time() + $duration, '/');
     }
 
-    public function get() {
+    /**
+     * Returns the output, that was set until now.
+     * @return <String> the output
+     */
+    public function getContent() {
         return $this->output;
     }
 
+    /**
+     * On self-destruct send the entiere content.
+     */
     public function  __destruct() {
-        $this->send();
+        $this->sendContent();
+    }
+
+    /**
+     * This function is just a simplification to addHeader("content-type",$type)
+     * Be careful with those types.
+     * @see http://www.faqs.org/rfcs/rfc2616
+     * @param String $type
+     */
+    public function setContentType($type) {
+        $this->headers['Content-Type'] = $type;
     }
 }
 
