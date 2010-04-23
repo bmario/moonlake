@@ -88,7 +88,7 @@ class guestbook_Controller extends Moonlake_Controller_ActionController {
         // use the view to render the view script 'guestbook' and then
         // write it to the response.
         // DON'T ECHO ANYTHING! ALLWAYS USE THE RESPONSE!
-        $response->write($view->render('guestbook'));
+        $response->writeContent($view->render('guestbook'));
     }
 
     /**
@@ -182,7 +182,7 @@ class guestbook_Controller extends Moonlake_Controller_ActionController {
         // use the view to render the view script 'guestbook' and then
         // write it to the response.
         // DON'T ECHO ANYTHING! ALLWAYS USE THE RESPONSE!
-        $response->write($view->render('guestbook'));
+        $response->writeContent($view->render('guestbook'));
     }
 }
 
