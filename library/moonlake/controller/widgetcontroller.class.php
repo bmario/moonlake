@@ -41,7 +41,7 @@ class Moonlake_Controller_WidgetController {
         
             if(method_exists($this, $action)) {
             try {
-                call_user_func(array($this, $action), $arguments);
+                call_user_func_array(array($this, $action), $arguments);
             }
             catch(Exception $e) {
                 try{
