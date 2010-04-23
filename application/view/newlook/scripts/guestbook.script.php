@@ -28,17 +28,17 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
-        <?php foreach($this->entries as $entry) { ?>
-        <a href="mailto:<?php echo $entry->mail; ?>"><b><?php echo $entry->name; ?></b></a><br>
-        <?php echo $entry->message; ?>
+<?php foreach($this->entries as $entry) { ?>
+        <a href="mailto:<?php $this->escape($entry->mail); ?>"><b><?php $this->escape($entry->name); ?></b></a><br>
+        <p><?php echo $entry->message; ?></p>
         <hr>
-        <?php } ?>
+<?php } ?>
         <form action="index.php?ctrl=guestbook&action=newentry" method="post">
             <font color="red"><?php echo $this->error; ?></font><br />
             <b> Einen Eintrag verfassen </b><br>
             Dein Name: <input type="text" name="name" value="<?php echo $this->newname; ?>"><br>
             Deine Email: <input type="text" name="mail" value="<?php echo $this->newmail; ?>"><br>
-            Deine Nachricht: <textarea name="message"><?php echo nl2br($this->newmsg); ?></textarea><br>
+            Deine Nachricht: <textarea name="message"><?php echo $this->newmsg; ?></textarea><br>
             <input type="submit">
         </form>
     </body>
