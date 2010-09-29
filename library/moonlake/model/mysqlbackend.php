@@ -32,7 +32,8 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
 
     private $allowed_types = array( Moonlake_Model_Backend::TYPE_INT,
                                     Moonlake_Model_Backend::TYPE_STR,
-                                    Moonlake_Model_Backend::TYPE_TXT);
+                                    Moonlake_Model_Backend::TYPE_TXT,
+                                    Moonlake_Model_Backend::TYPE_BOOL);
     private $con;
 
     /**
@@ -52,11 +53,11 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
     public function createEntry($area, $fields) {
         // build sql query
         $sql = 'INSERT INTO '.$this->tableName($area).' ( `id`';
-        
+
         foreach($fields as $name => $value) {
             $sql .= ', `'.$name.'`';
         }
-        
+
         $sql .= ') VALUES ( NULL';
 
         foreach($fields as $name => $value) {
@@ -124,7 +125,7 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
      */
     public function findEntries($area, $fields, $value) {
         $sql = 'SELECT * FROM `'.$this->tableName($area).'` WHERE `'.$fields[0].'` LIKE \'%'.$value.'%\'';
-        
+
         for($i=1; $i < count($fields); $i++) {
             $sql .= ' AND `'.$fields[$i].'` LIKE \'%'.$value.'%\'';
         }
@@ -201,7 +202,7 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
         else $data = null;
 
         $this->con->free_query($id);
-        
+
         return $data;
     }
 
@@ -252,10 +253,10 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
 
         $this->initArea($area, $fields);
     }
-    
+
     /**
      * generates a tablename with the given area
-     * @param String $area 
+     * @param String $area
      */
     private function tableName($area) {
         return 'Moonlake_'.$area;
@@ -346,7 +347,7 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
             foreach($cond->getAllLike() as $field => $val) {
                 $field = mysql_escape_string($field);
                 $val = mysql_escape_string($val);
-                
+
                 if($count > 0) $sql .= ' AND';
                 $sql .= " `$field` LIKE '%$val%'";
                 $count++;
@@ -379,8 +380,8 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
 
         return $results;
     }
-    
-    
+
+
     /**
      * Update all entries which fit the conditions.
      * @param String area the area
