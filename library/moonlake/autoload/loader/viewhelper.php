@@ -35,7 +35,7 @@ class ViewHelper_Loader extends Moonlake_Autoload_Autoloader {
         try{
             if(@$class[1] == 'ViewHelper') {
                 $file = strtolower($class[0]);
-                return "library/moonlake/view/viewhelper/$file.viewhelper.php";
+                return "library/viewhelper/$file.php";
             }
         }
         catch(Exception $e) {}
