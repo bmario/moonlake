@@ -49,16 +49,16 @@ class Moonlake_Config_Config {
      * @param String $name the name of the config
      */
     public function __construct($name) {
-        $this->__file__ = "config/{$name}.config.php";
+        $this->__file__ = "config/{$name}.php";
         $this->__changed__ = false;
 
         try {
 
             @include($this->__file__);
-            
+
             if(isset($_CONFIG)) $this->__cfg__ = $_CONFIG;
             else $this->__cfg__ = array();
-            
+
         }
         catch (Exception $e) {
             $this->__cfg__ = array();
@@ -152,7 +152,7 @@ class Moonlake_Config_Config {
             file_put_contents($this->__file__, $file);
         }
     }
-    
+
     /**
      * Returns an array with all keys=>values, but it does NOT track any changes
      * on it, so don't exspact any changes to be saved!
