@@ -23,7 +23,7 @@
 /**
  * This is the default implementation of the frontcontroller interface
  */
-class Moonlake_Controller_DefaultFrontController implements Moonlake_Controller_FrontController {
+class Moonlake_Controller_Front {
 
     private $default_ctrl = 'index_Controller';
     private $app;
@@ -98,7 +98,7 @@ class Moonlake_Controller_DefaultFrontController implements Moonlake_Controller_
         else {
             // now controller found
             throw new Moonlake_Exception_FrontController("The given controller could not be found.");
-        }    
+        }
     }
 
     /**

@@ -57,7 +57,7 @@ abstract class Moonlake_Application_Application {
 
     /**
      * Return the frontcontroller
-     * @return Moonlake_Controller_FrontController
+     * @return Moonlake_Controller_Front
      */
     public function getFrontCtrl() {
         return $this->frontctrl;
