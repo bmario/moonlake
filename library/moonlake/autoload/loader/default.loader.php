@@ -31,7 +31,7 @@ class Default_Loader extends Moonlake_Autoload_Main {
         if(isset($class[1]) and isset($class[2])) {
             $package = strtolower($class[1]);
             $file = strtolower($class[2]);
-            return "library/moonlake/$package/$file.class.php";
+            return "library/moonlake/$package/$file.php";
         }
         else {
             return '';
