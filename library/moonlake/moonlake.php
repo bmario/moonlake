@@ -29,7 +29,7 @@ final class Moonlake_Framework {
      */
     public static function init() {
         // init exception handling
-        include_once('library/moonlake/application/application.class.php');
+        include_once('library/moonlake/application/application.php');
 
         // if we get until here, we can now use Application::exceptionHandler()!
 
@@ -39,7 +39,7 @@ final class Moonlake_Framework {
 
         try {
             // init autoload
-            include_once('library/moonlake/autoload/autoload.class.php');
+            include_once('library/moonlake/autoload/autoload.php');
             Moonlake_Autoload_Autoload::initAutoload();
 
             // <-- maybe doing some more init in here :)
@@ -51,7 +51,7 @@ final class Moonlake_Framework {
         catch(Exception $e) {
             // cleaning any previous output
             ob_clean();
-            
+
             // call exception handler, so we get nice output
             Moonlake_Application_Application::exceptionHandler($e);
         }
