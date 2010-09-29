@@ -111,7 +111,29 @@ interface Moonlake_Model_Backend {
      */
     public function reinitArea($area, $fields);
 
+    /**
+     * This returns an array of results, which fulfill the condition.
+     * @param String area the area
+     * @param Moonlake_Model_Condition $cond
+     * @return Moonlake_Model_Result[] the resultset
+     */
+    public function getEntriesByCondition($area, Moonlake_Model_Condition $cond);
 
+    /**
+     * Deletes all entries which fit the conditions
+     * @param String area the area
+     * @param Moonlake_Model_Condition $cond
+     * @return int num of deletions
+     */
+    public function deleteEntriesByCondition($area, Moonlake_Model_Condition $cond);
+
+    /**
+     * Update all entries which fit the conditions.
+     * @param String area the area
+     * @param Moonlake_Model_Condition $cond
+     * @param String[] $fields an array with changes
+     */
+    public function updateEntriesByCondition($area, Moonlake_Model_Condition $cond, $fields);
 }
 
 ?>
