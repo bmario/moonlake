@@ -1,5 +1,6 @@
 testen.php
-mysql.config.php
+config/mysql.config.php
+config/mysql.php
 nbproject
 .buildpath
 .settings
