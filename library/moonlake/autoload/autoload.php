@@ -67,9 +67,8 @@ class Moonlake_Autoload_Autoload {
 
                     static public function throwException()
                     {
-                        throw new Moonlake_Exception_Autoloader("Could not find class '.$classname.'.\nThere are two common possibilities, In most cases this means, that for this classtype, there is no autoloader. To solve this, you must activate an approciate one, or write one on your own and activate it.\nLoaded classloaders are:\n\n"'.implode('\n', self::listLoaders()).');
+                        throw new Moonlake_Exception_Autoloader("Could not find class '.$classname.'.\nThere are two common possibilities. One is, that the given class doesn\'t exist or it is at an unexpected place. Or this means, that for this classtype, there is no autoloader. To solve this, you must activate an approciate one, or write one on your own and activate it.\nLoaded classloaders are:\n\n'.implode('\n', self::listLoaders()).'");
                     }
-                }');
                 }
                 $errorclass = new '.$classname.'();');
             }
