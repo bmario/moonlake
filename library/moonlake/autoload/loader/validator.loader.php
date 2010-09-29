@@ -35,7 +35,7 @@ class Validator_Loader extends Moonlake_Autoload_Main {
         try{
             if(@$class[1] == 'Validator') {
                 $file = strtolower($class[0]);
-                return "library/moonlake/validation/validators/$file.validator.php";
+                return "library/validators/$file.php";
             }
         }
         catch(Exception $e) {}
