@@ -19,7 +19,7 @@
  *  along with the Moonlake Framework.
  *  If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 class Exception_Loader extends Moonlake_Autoload_Autoloader {
     /**
      * @param String $classname
@@ -31,10 +31,10 @@ class Exception_Loader extends Moonlake_Autoload_Autoloader {
             if(@$class[1] != 'Exception') return '';
             if(isset($class[3])) return '';
             if($class[0] != 'Moonlake') return '';
-            
+
             $file = strtolower($class[2]);
 
-            return "library/moonlake/exception/$file.exception.php";
+            return "library/moonlake/exception/$file.php";
         }
         catch(Exception $e) {
             return '';
