@@ -31,7 +31,7 @@ class Model_Loader extends Moonlake_Autoload_Autoloader {
         try{
             if(@$class[1] == 'Model' and !isset($class[2])) {
                 $file = strtolower($class[0]);
-                return "application/model/$file.model.php";
+                return "application/model/$file.php";
             }
         }
         catch(Exception $e) {}
