@@ -101,35 +101,15 @@ abstract class Moonlake_Model_Model {
     }
 
     public function deleteEntriesByCondition(Moonlake_Model_Condition $cond) {
-        if($this->backendSupportsConditions()) {
-            return $this->mb->deleteEntriesByCondition($this->area, $cond);
-        }
-        else
-            throw new Moonlake_Exception_ModelBackend('The ModelBackend does not support conditions! To solve this, you can ether use another backend or you can replace the conditions');
+        return $this->mb->deleteEntriesByCondition($this->area, $cond);
     }
 
     public function getEntriesByCondition(Moonlake_Model_Condition $cond) {
-        if($this->backendSupportsConditions()) {
-            return $this->mb->getEntriesByCondition($this->area, $cond);
-        }
-        else
-            throw new Moonlake_Exception_ModelBackend('The ModelBackend does not support conditions! To solve this, you can ether use another backend or you can replace the conditions');
+        return $this->mb->getEntriesByCondition($this->area, $cond);
     }
 
     public function updateEntriesByCondition(Moonlake_Model_Condition $cond, $fields) {
-        if($this->backendSupportsConditions()) {
-            return $this->mb->updateEntriesByCondition($this->area, $cond, $fields);
-        }
-        else
-            throw new Moonlake_Exception_ModelBackend('The ModelBackend does not support conditions! To solve this, you can ether use another backend or you can replace the conditions');
-    }
-
-    /**
-     * Returns true if the backend supports conditions
-     * @return boolean
-     */
-    private function backendSupportsConditions() {
-        return $this->mb instanceof Moonlake_Model_SupportsCondition;
+        return $this->mb->updateEntriesByCondition($this->area, $cond, $fields);
     }
 
     /**
