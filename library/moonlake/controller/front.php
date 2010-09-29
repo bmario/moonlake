@@ -85,14 +85,14 @@ class Moonlake_Controller_Front {
             $controller = new $ctrl($this->app);
 
             // check if the controller has the wright class
-            if($controller instanceof Moonlake_Controller_ActionController) {
+            if($controller instanceof Moonlake_Controller_Action) {
 
                 //everything fits, so call the action
                 $controller->execute($action);
             }
             else {
                 // wrong class
-                throw new Moonlake_Exception_FrontController("The given controller isn't a instance of Moonlake_Controller_ActionController.");
+                throw new Moonlake_Exception_FrontController("The given controller isn't a instance of Moonlake_Controller_Action.");
             }
         }
         else {
