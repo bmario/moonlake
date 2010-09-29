@@ -20,9 +20,9 @@
  *  If not, see <http://www.gnu.org/licenses/>.
  */
 
-include_once('library/moonlake/autoload/autoloader.class.php');
-include_once('library/moonlake/exception/moonlake.exception.php');
-include_once('library/moonlake/exception/autoloader.exception.php');
+include_once('library/moonlake/autoload/autoloader.php');
+include_once('library/moonlake/exception/moonlake.php');
+include_once('library/moonlake/exception/autoloader.php');
 include_once('library/moonlake/autoload/loader/autoloader.php');
 
 /**
