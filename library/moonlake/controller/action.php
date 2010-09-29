@@ -24,14 +24,14 @@
  * This class is the base class for all ActionControllers.
  * These have actions. The frontcontroller calls those actions.
  */
-abstract class Moonlake_Controller_ActionController {
+abstract class Moonlake_Controller_Action {
 
     protected $app;
 
     /**
      * The contrutor needs the application. You can access in eery action to
      * this given application with "$this->app".
-     * 
+     *
      * @param Moonlake_Application_Application $app
      */
     public function  __construct(Moonlake_Application_Application $app) {

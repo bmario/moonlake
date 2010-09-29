@@ -24,8 +24,8 @@
  * This class is the sample controller for this framework. It's very simple and
  * only has the basic functions.
  */
-class guestbook_Controller extends Moonlake_Controller_ActionController {
-    
+class guestbook_Controller extends Moonlake_Controller_Action {
+
     /**
      * This action shows all entries of the guestbook.
      * Also this is the default action for this controller, so whenever this
@@ -56,12 +56,12 @@ class guestbook_Controller extends Moonlake_Controller_ActionController {
                     new Moonlake_Model_MySQLBackend(
 
                         // this backend should use the MySQLConnector
-                        // the mysqlconnector executes the queries, which the 
+                        // the mysqlconnector executes the queries, which the
                         // mysqlbackend creates.
-                            
-                        /* the parameter is the name of a name for the config 
+
+                        /* the parameter is the name of a name for the config
                          * class. in this file is expected the following options
-                         * 
+                         *
                          * 'hostname' - the mysql server
                          * 'username' - the mysql user
                          * 'database' - the mysql database
@@ -84,7 +84,7 @@ class guestbook_Controller extends Moonlake_Controller_ActionController {
 
         // assign the entries to the view
         $view->assign("entries", $entries);
- 
+
         // use the view to render the view script 'guestbook' and then
         // write it to the response.
         // DON'T ECHO ANYTHING! ALLWAYS USE THE RESPONSE!
