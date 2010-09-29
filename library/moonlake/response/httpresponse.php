@@ -115,31 +115,31 @@ class Moonlake_Response_HttpResponse implements Moonlake_Response_Response {
     public function setContentType($type) {
         $this->headers['Content-Type'] = $type;
     }
-    
+
     /**
-     * This function sets a redirect header, so the browser will be forwarded to 
+     * This function sets a redirect header, so the browser will be forwarded to
      * the specified controller.
      * @param String controller - The name of the controller
      * @param String action - The name of the action
      * @param String[] args - Further aguments to be passed
      */
     public function redirect($controller="", $action="", $args=array()) {
-    	$url = '';
-    	if($controller != "") {
-    		$url="index.php?ctrl=$controller";
+        $url = '';
+        if($controller != "") {
+            $url="index.php?ctrl=$controller";
 
-    		if($action != "") {
-	    		$url .= "&action=$action";
-	    	}
-	    	if($args != array()) {
-	    		foreach($args as $key => $val)
-	    			$url .= "&$key=$val";
-	    	}
-	    	
-	    	$this->addHeader('Location', $url);
-    	}
-    	else $this->addHeader('Location', 'index.php');
-    	
+            if($action != "") {
+                $url .= "&action=$action";
+            }
+            if($args != array()) {
+                foreach($args as $key => $val)
+                $url .= "&$key=$val";
+            }
+
+            $this->addHeader('Location', $url);
+        }
+        else $this->addHeader('Location', 'index.php');
+
     }
 }
 
