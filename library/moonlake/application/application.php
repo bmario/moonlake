@@ -106,6 +106,7 @@ abstract class Moonlake_Application_Application {
      * @param Exception $e
      */
     public static function exceptionHandler(Exception $e) {
+        $message = nl2br($e->getMessage());
         echo <<<EXCEPT
 <html>
     <head>
@@ -177,7 +178,7 @@ abstract class Moonlake_Application_Application {
         <table>
             <tr style="background-color: e2e2e2; vertical-align: top;">
                 <td style="width: 500px;">Message:</td>
-                <td><pre>{$e->getMessage()}</pre></td>
+                <td>{$message}</td>
             </tr>
             <tr style="background-color: F2F2F2; vertical-align: top;">
                 <td>File:</td>
