@@ -111,7 +111,7 @@ class Moonlake_Autoload_Autoload {
         Moonlake_Autoload_Autoload::registerLoader(new Autoloader_Loader());
 
         // load config
-        include_once('library/moonlake/config/config.class.php');
+        include_once('library/moonlake/config/config.php');
         $alcfg = new Moonlake_Config_Config('autoload');
 
 
