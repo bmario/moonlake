@@ -20,7 +20,7 @@
  *  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class Model_Loader extends Moonlake_Autoload_Main {
+class Model_Loader extends Moonlake_Autoload_Autoloader {
 
     /**
      * Models are stored under application/model

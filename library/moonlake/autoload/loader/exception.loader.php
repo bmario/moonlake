@@ -20,7 +20,7 @@
  *  If not, see <http://www.gnu.org/licenses/>.
  */
  
-class Exception_Loader extends Moonlake_Autoload_Main {
+class Exception_Loader extends Moonlake_Autoload_Autoloader {
     /**
      * @param String $classname
      * @see library/moonlake/autoload/Moonlake_Autoload_Autoloader#classPath($classname)

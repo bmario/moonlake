@@ -24,7 +24,7 @@
  * This class is the implementation of an autoloader.
  * This particular autoloader is needed for loading other autoloaders.
  */
-class Autoloader_Loader extends Moonlake_Autoload_Main {
+class Autoloader_Loader extends Moonlake_Autoload_Autoloader {
 
     /**
      * Autoloaders are stored under library/moonlake/autoload/loader

@@ -24,7 +24,7 @@
  * This class is the implementation of an autoloader.
  * This particular autoloader is needed for loading validators.
  */
-class Validator_Loader extends Moonlake_Autoload_Main {
+class Validator_Loader extends Moonlake_Autoload_Autoloader {
 
     /**
      * Validators are stored under library/moonlake/validation/validators

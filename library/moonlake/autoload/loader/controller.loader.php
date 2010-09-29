@@ -20,7 +20,7 @@
  *  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class Controller_Loader extends Moonlake_Autoload_Main {
+class Controller_Loader extends Moonlake_Autoload_Autoloader {
     /**
      * @param unknown_type $classname
      * @see library/moonlake/autoload/Moonlake_Autoload_Autoloader#classPath($classname)

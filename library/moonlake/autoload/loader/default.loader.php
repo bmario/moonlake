@@ -20,7 +20,7 @@
  *  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class Default_Loader extends Moonlake_Autoload_Main {
+class Default_Loader extends Moonlake_Autoload_Autoloader {
     
     public function classPath($classname) {
         $class = explode('_', $classname);

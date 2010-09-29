@@ -23,7 +23,7 @@
 /**
  * Abstract class for every AutoloaderHelper classes.
  */
-interface Moonlake_Autoload_Autoloader {
+abstract class Moonlake_Autoload_Autoloader {
 
     /**
      * This methode returns the Path to file, where the given class is stored or nothing.
@@ -31,7 +31,7 @@ interface Moonlake_Autoload_Autoloader {
      * @param String $classname
      * @return String Classpath or ''
      */
-    public function classPath($classname);
+    abstract public function classPath($classname);
 
     /**
      * This method includes the given class.
@@ -41,8 +41,17 @@ interface Moonlake_Autoload_Autoloader {
      * @param String $classname
      * @return boolean - the success of include
      */
-    public function includeClass($classname);
+    public function includeClass($classname) {
+        $path = $this->classPath($classname);
 
+        if(file_exists($path))
+        {
+            include_once($path);
+            return class_exists($classname, false) or interface_exists($classname, false);
+        }
+
+        return false;
+    }
 }
 
 ?>
