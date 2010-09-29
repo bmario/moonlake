@@ -30,9 +30,9 @@
 class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend, Moonlake_Model_SupportsCondition {
 
 
-    private $allowed_types = array( Moonlake_Model_ModelBackend::TYPE_INT,
-                                    Moonlake_Model_ModelBackend::TYPE_STR,
-                                    Moonlake_Model_ModelBackend::TYPE_TXT);
+    private $allowed_types = array( Moonlake_Model_Backend::TYPE_INT,
+                                    Moonlake_Model_Backend::TYPE_STR,
+                                    Moonlake_Model_Backend::TYPE_TXT);
     private $con;
 
     /**

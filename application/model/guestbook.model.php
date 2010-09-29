@@ -31,9 +31,9 @@ class guestbook_Model extends Moonlake_Model_Model {
      * this defines all fields for the model.
      * note that a field 'id' is created for you from the model.
      */
-    protected $fields = array( "name" => Moonlake_Model_ModelBackend::TYPE_STR,
-                               "mail" => Moonlake_Model_ModelBackend::TYPE_STR,
-                               "message" => Moonlake_Model_ModelBackend::TYPE_TXT);
+    protected $fields = array( "name" => Moonlake_Model_Backend::TYPE_STR,
+                               "mail" => Moonlake_Model_Backend::TYPE_STR,
+                               "message" => Moonlake_Model_Backend::TYPE_TXT);
 }
 
 ?>
