@@ -42,15 +42,25 @@ abstract class Moonlake_Autoload_Autoloader {
      * @return boolean - the success of include
      */
     public function includeClass($classname) {
+        // get relative path to root
         $path = $this->classPath($classname);
 
-        if(file_exists($path))
-        {
-            include_once($path);
-            return class_exists($classname, false) or interface_exists($classname, false);
+        // could class be resolved?
+        if($path == '') {
+            return false;
         }
 
-        return false;
+        try {
+		    // try to include
+            include_once($path);
+
+            // now test if the class or interface exists and if yes, we were successfully.
+            return class_exists($classname, false) or interface_exists($classname, false);
+        }
+        catch(Exception $e) {
+		    // if something went wrong, then the include wasn't successful.
+			return false;
+        }
     }
 }
 
