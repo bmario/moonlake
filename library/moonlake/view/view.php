@@ -106,7 +106,7 @@ class Moonlake_View_View {
      * @return String path to template
      */
     protected function getPath($name) {
-        return 'application/view/'.$this->__design__.'/scripts/'.$name.'.script.php';
+        return 'application/view/'.$this->__design__.'/templates/'.$name.'.phtml';
     }
 
     /**
