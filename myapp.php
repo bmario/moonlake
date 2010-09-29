@@ -38,7 +38,7 @@ class MyApp extends Moonlake_Application_Application {
         $this->frontctrl = new Moonlake_Controller_Front($this);
 
         // use the controller here as defaults instead of index_Controller
-        $this->frontctrl->setDefaultController('main');
+        $this->frontctrl->setDefaultController('guestbook');
     }
 }
 
