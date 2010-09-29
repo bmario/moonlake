@@ -23,6 +23,7 @@
 interface Moonlake_Response_Response {
     public function setContentType($type);
     public function addHeader($name, $value);
+    public function redirect($controller="", $action="", $args=array());
     public function writeContent($data);
     public function clearContent();
     public function sendContent();
