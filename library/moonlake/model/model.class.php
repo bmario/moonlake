@@ -27,7 +27,7 @@ abstract class Moonlake_Model_Model {
 
     protected $mb;
 
-    public function  __construct(Moonlake_Model_ModelBackend $mb) {
+    public function  __construct(Moonlake_Model_Backend $mb) {
         if($this->area === null) throw new Moonlake_Exception_Model('The area was not set to a valid value.');
         if($this->fields === null) throw new Moonlake_Exception_Model('The fields were not set to a valid value.');
         $this->mb = $mb;

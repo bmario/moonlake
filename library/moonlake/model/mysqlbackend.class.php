@@ -27,7 +27,7 @@
  * But actually this is the only class I can use on my webspace :(
  * ...so I have to use it through.
  */
-class Moonlake_Model_MySQLBackend implements Moonlake_Model_ModelBackend, Moonlake_Model_SupportsCondition {
+class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend, Moonlake_Model_SupportsCondition {
 
 
     private $allowed_types = array( Moonlake_Model_ModelBackend::TYPE_INT,

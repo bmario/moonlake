@@ -25,7 +25,7 @@
  * All functions have as the first parameter the name of the selected space,
  * where the entries are taken from. In terms of SQL these are the tables.
  */
-interface Moonlake_Model_ModelBackend {
+interface Moonlake_Model_Backend {
     const TYPE_TXT  = 'TEXT';
     const TYPE_BOOL = 'INT(1)';
     const TYPE_INT  = 'INT(11)';
