@@ -21,10 +21,9 @@
  */
 
 include_once('library/moonlake/autoload/autoloader.class.php');
-include_once('library/moonlake/autoload/main.class.php');
 include_once('library/moonlake/exception/moonlake.exception.php');
 include_once('library/moonlake/exception/autoloader.exception.php');
-include_once('library/moonlake/autoload/loader/autoloader.loader.php');
+include_once('library/moonlake/autoload/loader/autoloader.php');
 
 /**
  * This class provides a handler for autoloading.
