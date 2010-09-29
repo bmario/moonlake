@@ -35,7 +35,7 @@ class MyApp extends Moonlake_Application_Application {
         $this->request = new Moonlake_Request_HttpRequest();
 
         // the boring one :)
-        $this->frontctrl = new Moonlake_Controller_DefaultFrontController($this);
+        $this->frontctrl = new Moonlake_Controller_Front($this);
 
         // use the controller here as defaults instead of index_Controller
         $this->frontctrl->setDefaultController('main');
