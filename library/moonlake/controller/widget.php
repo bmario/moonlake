@@ -30,7 +30,7 @@
  *
  * You can call them with the viewhelper "widget".
  */
-class Moonlake_Controller_WidgetController {
+class Moonlake_Controller_Widget {
     protected $view;
 
     public function __construct(Moonlake_View_View $view) {
@@ -38,7 +38,7 @@ class Moonlake_Controller_WidgetController {
     }
 
     public function execute($action, $arguments) {
-        
+
             if(method_exists($this, $action)) {
             try {
                 call_user_func_array(array($this, $action), $arguments);
@@ -55,9 +55,9 @@ class Moonlake_Controller_WidgetController {
         else {
             $this->error_Action();
         }
-        
+
     }
-    
+
     public function error_Action() {
         throw new Moonlake_Exception_WidgetController("The given action wasn't found", get_class($this), '');
     }
