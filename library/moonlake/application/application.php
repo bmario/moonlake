@@ -107,6 +107,23 @@ abstract class Moonlake_Application_Application {
      */
     public static function exceptionHandler(Exception $e) {
         $message = nl2br($e->getMessage());
+        $trace = '';
+        foreach($e->getTrace() as $num => $line)
+        {
+            $trace .= "#$num {$line['file']}({$line['line']}):\n<b>{$line['class']}{$line['type']}{$line['function']}</b>(<i>";
+            $i=0;
+            foreach($line['args'] as $arg){
+                if($i++) $trace .=', ';
+                if(is_object($arg)) {
+                    $trace .= 'Object('.get_class($arg).')';
+                }
+                else $trace .= "'$arg'";
+            }
+            
+            $trace .= "</i>)\n\n";
+        }
+        
+        $trace = nl2br($trace);
         echo <<<EXCEPT
 <html>
     <head>
@@ -172,12 +189,13 @@ abstract class Moonlake_Application_Application {
         </style>
     </head>
     <body>
+        <center>
         <p>
         <h1>Moonlake Framework</h1>
         <h3>An exception happend during the execution.</h3></p>
-        <table>
+        <table width="80%">
             <tr style="background-color: e2e2e2; vertical-align: top;">
-                <td style="width: 500px;">Message:</td>
+                <td>Message:</td>
                 <td>{$message}</td>
             </tr>
             <tr style="background-color: F2F2F2; vertical-align: top;">
@@ -190,7 +208,7 @@ abstract class Moonlake_Application_Application {
             </tr>
             <tr style="background-color: F2F2F2; vertical-align: top;">
                 <td>Trace:</td>
-                <td><pre>{$e->getTraceAsString()}</pre></td>
+                <td>{$trace}</td>
             </tr>
         </table>
     </body>

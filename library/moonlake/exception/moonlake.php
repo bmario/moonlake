@@ -23,8 +23,6 @@
 class Moonlake_Exception_Moonlake extends Exception{
 
     public function __construct($message){
-        $message = "Error in Moonlake Framework: \n\n$message";
-
         parent::__construct($message);
 
     }
