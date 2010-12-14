@@ -66,7 +66,7 @@ hostname, username, password and database.');
     }
 
     public function prepare($sql) {
-        $pid = count($this->prepares);
+        $pid = $this->generate_id();
 
         $this->prepares[$pid]['sql'] = explode('?',$sql);
 
@@ -104,7 +104,7 @@ hostname, username, password and database.');
     }
 
     public function query($sql) {
-        $qid = count($this->queries);
+        $qid = $this->generate_id();
 
         $this->queries[$qid]['sql']  = $sql;
         $this->queries[$qid]['hres'] = @mysql_query($sql, $this->hcon) or ($this->error($sql));
@@ -114,6 +114,11 @@ hostname, username, password and database.');
         return $qid;
     }
 
+    private function generate_id() {
+        static $last_id=0;
+        return $last_id++;
+    }
+    
     public function last_inserted_id() {
         return @mysql_insert_id($this->hcon) or die($this->error());
     }
