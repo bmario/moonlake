@@ -107,6 +107,7 @@ hostname, username, password and database.');
         $this->queries[$qid]['seek']    = 0;
         $this->queries[$qid]['result']    = $results;
 
+        return $results;
     }
 
     public function fetch($id) {
