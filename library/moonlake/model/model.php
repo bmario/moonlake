@@ -61,7 +61,7 @@ abstract class Moonlake_Model_Model {
 
 
     /**
-     * returns all entries, which have in one of the given $fileds.
+     * returns all entries, which have in one of the given $fields.
      * This should work like the following SQL Statement:
      * "SELECT * FROM `area` WHERE one_of($fields) LIKE '%$value%'
      * @param: String[] $fields an array of fieldnames
