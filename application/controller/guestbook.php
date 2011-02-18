@@ -39,8 +39,7 @@ class guestbook_Controller extends Moonlake_Controller_Action {
         // get the application class
         $app = $this->app;
 
-        // get the request and the response, they are stored withhin the app.
-        $request = $app->getRequest();
+        // get the response, wo don't need a request
         $response = $app->getResponse();
 
         // create a view. We use the 'newlook' design.
@@ -59,8 +58,9 @@ class guestbook_Controller extends Moonlake_Controller_Action {
                         // the mysqlconnector executes the queries, which the
                         // mysqlbackend creates.
 
-                        /* the parameter is the name of a name for the config
-                         * class. in this file is expected the following options
+                        /* The parameter is the name of a config file, which has
+                         * to be placed in the config directory.
+                         * In this file are the following options expected:
                          *
                          * 'hostname' - the mysql server
                          * 'username' - the mysql user
@@ -83,6 +83,8 @@ class guestbook_Controller extends Moonlake_Controller_Action {
         $entries = $model->getEntriesByCondition($cond);
 
         // assign the entries to the view
+        // This step makes the array $entries visible in the template,
+        // which is called from the view.
         $view->assign("entries", $entries);
 
         // use the view to render the view script 'guestbook' and then
@@ -104,15 +106,13 @@ class guestbook_Controller extends Moonlake_Controller_Action {
         $response = $app->getResponse();
 
 
-        // use the validation classes to validate input
-
-        // a validator for mail adresses
+        // We will use the validation classes to validate input
+        // So first we need a validator for email adresses and we need
+        // a validator for strings.
         $v_mail  = new mail_Validator();
-
-        // a validator for strings
         $v_str   = new string_Validator();
 
-        // first use the request to get the param and then validate it.
+        // Now we read the params from the request and pass it to the validators
         $mail    = $v_mail->validate($request->getParam('mail'));
         $name    = $v_str->validate($request->getParam('name'));
         $message = $v_str->validate($request->getParam('message'));
