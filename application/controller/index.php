@@ -1,7 +1,7 @@
 <?php
 
 /*
- *  Copyright 2010 Mario Bielert <mario@moonlake.de>
+ *  Copyright 2011 Mario Bielert <mario.bielert@googlemail.com>
  *
  *  This file is part of the Moonlake Framework.
  *
@@ -20,20 +20,14 @@
  *  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * The Application class
- */
-class MyApp extends Moonlake_Application_Application {
+class index_Controller extends Moonlake_Controller_Action
+{   
+    public function  index_Action()
+    {
+        // We just redirect to the guesbook controller :)
+        $this->app->getResponse()->redirect("guestbook");
 
-    // the init methode
-    public function init() {
-        // use default response and request
-        $this->response = new Moonlake_Response_HttpResponse();
-        $this->request = new Moonlake_Request_HttpRequest();
-
-        // set the front controller
-        $this->frontctrl = new Moonlake_Controller_Front($this);
-    }
+    }  
 }
 
 ?>

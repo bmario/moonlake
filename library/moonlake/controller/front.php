@@ -25,7 +25,6 @@
  */
 class Moonlake_Controller_Front {
 
-    private $default_ctrl = 'index_Controller';
     private $app;
 
     /**
@@ -51,14 +50,11 @@ class Moonlake_Controller_Front {
         $response = $this->app->getResponse();
 
         // build controller name or use default
-        $ctrl = $this->default_ctrl;
+        $ctrl = 'index_Controller';
         if($request->issetParam("ctrl")) {
             // Controller is set in request
             $ctrl = $request->getParam("ctrl").'_Controller';
         }
-
-        // checks if the controller is allowed in the app
-        if(!$this->app->isAllowedController($ctrl)) throw new Moonlake_Exception_FrontController("The given controller is not allowed in this application.");
 
         // build action name or use default
         $action = "index";
@@ -76,7 +72,7 @@ class Moonlake_Controller_Front {
      * @param String $ctrl
      * @param String $action
      */
-    public function executeCtrlAction($ctrl, $action) {
+    private function executeCtrlAction($ctrl, $action) {
         // checks if the controller exists and cause of that, load it with autload :)
         if(class_exists($ctrl)) {
             /* Controller found and is now included */
@@ -98,28 +94,6 @@ class Moonlake_Controller_Front {
         else {
             // now controller found
             throw new Moonlake_Exception_FrontController("The given controller could not be found.");
-        }
-    }
-
-    /**
-     * Returns the name of the default controller. This controller is used if
-     * there is no other controller given in GET or anything.
-     *
-     * @return String name of the default controller
-     */
-    public function getDefaultController() {
-        return $this->default_ctrl;
-    }
-
-    /**
-     * This sets the default controller. This is the controller, which is used
-     * if there is no other conrtoller given.
-     *
-     * @param String $name the name of the controller
-     */
-    public function setDefaultController($name) {
-        if(class_exists($name.'_Controller')) {
-            $this->default_ctrl = $name.'_Controller';
         }
     }
 }

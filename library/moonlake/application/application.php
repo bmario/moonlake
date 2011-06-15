@@ -80,20 +80,6 @@ abstract class Moonlake_Application_Application {
     }
 
     /**
-     * This methode returns true, if the given controller is allowed within
-     * the application, otherwise false.
-     * @param String $ctrl the name of the controller
-     * @return boolean
-     */
-    public final function isAllowedController($ctrl) {
-        // remove _Controller
-        $ctrl = substr($ctrl, 0, - 11);
-
-        // return $ctrl in $ctrl_list
-        return in_array($ctrl, $this->allowed_controller);
-    }
-
-    /**
      * This function creates an useful output in case of thrown exceptions.
      * This will be useful for debuging, but in productive applications, this
      * methode should be overriden to hide such things from the visitor of your
@@ -108,19 +94,29 @@ abstract class Moonlake_Application_Application {
     public static function exceptionHandler(Exception $e) {
         $message = nl2br($e->getMessage());
         $trace = '';
+
         foreach($e->getTrace() as $num => $line)
         {
-            $trace .= "#$num {$line['file']}({$line['line']}):\n<b>{$line['class']}{$line['type']}{$line['function']}</b>(<i>";
-            $i=0;
-            foreach($line['args'] as $arg){
-                if($i++) $trace .=', ';
-                if(is_object($arg)) {
-                    $trace .= 'Object('.get_class($arg).')';
+            if(isset($line['class']) and isset($line['file']))
+            {
+                $trace .= "#$num {$line['file']}({$line['line']}):\n<b>{$line['class']}{$line['type']}{$line['function']}</b>(<i>";
+
+                $i=0;
+                foreach($line['args'] as $arg){
+                    if($i++) $trace .=', ';
+                    if(is_object($arg)) {
+                        $trace .= 'Object('.get_class($arg).')';
+                    }
+                    else $trace .= "'$arg'";
                 }
-                else $trace .= "'$arg'";
+
+                $trace .= "</i>)\n\n";
             }
-            
-            $trace .= "</i>)\n\n";
+            else
+            {
+                // TODO
+            }
+
         }
         
         $trace = nl2br($trace);
