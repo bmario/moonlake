@@ -35,13 +35,17 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
                                     Moonlake_Model_Backend::TYPE_TXT,
                                     Moonlake_Model_Backend::TYPE_BOOL);
     private $con;
+    
+    private $prefix;
 
     /**
      * constructor for the backends
      * @param Moonlake_Model_Connector $con the connector which is to be used
      */
-    public function __construct(Moonlake_Model_Connector $con) {
+    public function __construct(Moonlake_Model_Connector $con, $prefix=null) {
         $this->con = $con;
+        
+        $this->prefix = $prefix;
     }
 
     /**
@@ -51,6 +55,15 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
      * @return: int id of the new entry
      */
     public function createEntry($area, $fields) {
+        // generate an id for the new dataset
+
+        $sql = 'SELECT `id` FROM'.$this->tableName($area).' ORDER BY `id` DESC LIMIT 1';
+        $qid = $this->con->query($sql);
+        $row = $this->con->fetch($qid);
+        $this->con->free_query($qid);
+        $id = $row['id'];
+
+
         // build sql query
         $sql = 'INSERT INTO '.$this->tableName($area).' ( `id`';
 
@@ -68,9 +81,6 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
 
         // execute query
         $qid = $this->con->query($sql);
-
-        // get id
-        $id = $this->con->last_inserted_id();
 
         // free query
         $this->con->free_query($qid);
@@ -217,7 +227,7 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
      */
     public function initArea($area, $fields) {
         $sql = 'CREATE TABLE IF NOT EXISTS `'.$this->tableName($area)."` ";
-        $sql .= '( `id` INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY';
+        $sql .= '( `id` INT(11) NOT NULL PRIMARY KEY';
         foreach($fields as $name => $type) {
             if($this->isValidType($type)) {
 
@@ -259,7 +269,7 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
      * @param String $area
      */
     private function tableName($area) {
-        return 'Moonlake_'.$area;
+        return $this->prefix !== null ? $this->prefix.'_'.$area : $area;
     }
 
     /**

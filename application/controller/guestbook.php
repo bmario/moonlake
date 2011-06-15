@@ -69,7 +69,7 @@ class guestbook_Controller extends Moonlake_Controller_Action {
                          */
                         new Moonlake_Model_MySQLConnector(
                                 'mysql'
-                 )));
+                 ), 'Moonlake')); // Prefix für Datenbanktabelle
 
         // this creates a new condition
         $cond = new Moonlake_Model_Condition();
