@@ -61,7 +61,7 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
         $qid = $this->con->query($sql);
         $row = $this->con->fetch($qid);
         $this->con->free_query($qid);
-        $id = $row['id'];
+        $id = $row->id + 1;
 
 
         // build sql query
@@ -71,7 +71,7 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
             $sql .= ', `'.$name.'`';
         }
 
-        $sql .= ') VALUES ( NULL';
+        $sql .= ') VALUES ( '.$id;
 
         foreach($fields as $name => $value) {
             $sql .= ', \''.$value.'\'';
@@ -206,10 +206,7 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
     public function getEntryById($area, $id) {
         $sql = 'SELECT * FROM `'.$this->tableName($area).'` WHERE `id` = \''.$id.'\'';
         $id = $this->con->query($sql);
-        if($this->con->affected_rows($id) > 0) {
-            $data = $this->con->fetch($id);
-        }
-        else $data = null;
+        $data = $this->con->fetch($id);
 
         $this->con->free_query($id);
 
