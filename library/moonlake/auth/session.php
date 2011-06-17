@@ -31,7 +31,8 @@ class Moonlake_Auth_Session {
      * The constructor.
      */
     public function __construct() {
-        session_start();
+        if(session_id() == '')
+            session_start();
     }
 
     /**
@@ -43,7 +44,6 @@ class Moonlake_Auth_Session {
      */
     public function closeSession() {
         session_destroy();
-        session_start();
     }
 
     /**
@@ -60,8 +60,10 @@ class Moonlake_Auth_Session {
      * @param <var> $value
      */
     public function attachToSession($name, $value) {
+        global $_SESSION;
+        
         if(isset($_SESSION[$name])) throw new Moonlake_Exception_AuthSession("The given name is allready in use.");
-
+        
         $_SESSION[$name] = $value;
     }
 
@@ -72,6 +74,8 @@ class Moonlake_Auth_Session {
      * @param <var> $value
      */
     public function reattachToSession($name, $value) {
+        global $_SESSION;
+        
         $_SESSION[$name] = $value;
     }
 
@@ -80,6 +84,8 @@ class Moonlake_Auth_Session {
      * @param <string> $name
      */
     public function unattachFromSession($name) {
+        global $_SESSION;
+        
         if(!isset($_SESSION[$name])) throw new Moonlake_Exception_AuthSession("The given name is not attached to the session.");
 
         unset($_SESSION[$name]);
@@ -91,6 +97,8 @@ class Moonlake_Auth_Session {
      * @return <boolean>
      */
     public function isAttachedToSession($name) {
+        global $_SESSION;
+        
         return isset($_SESSION[$name]);
     }
 
@@ -100,6 +108,8 @@ class Moonlake_Auth_Session {
      * @return <var>
      */
     public function getAttachment($name) {
+        global $_SESSION;
+        
         if(!isset($_SESSION[$name])) throw new Moonlake_Exception_AuthSession("The given name is not attached to the session.");
 
         return $_SESSION[$name];
