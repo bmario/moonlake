@@ -57,7 +57,7 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
     public function createEntry($area, $fields) {
         // generate an id for the new dataset
 
-        $sql = 'SELECT `id` FROM'.$this->tableName($area).' ORDER BY `id` DESC LIMIT 1';
+        $sql = 'SELECT `id` FROM '.$this->tableName($area).' ORDER BY `id` DESC LIMIT 1';
         $qid = $this->con->query($sql);
         $row = $this->con->fetch($qid);
         $this->con->free_query($qid);
