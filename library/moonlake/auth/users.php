@@ -69,8 +69,8 @@ class Moonlake_Auth_User {
 }
 
 class Moonlake_Auth_UsersModel extends Moonlake_Model_Model {
-    private $area = 'Auth_SubjectsData';
-    private $fields = array(
+    protected $area = 'Auth_SubjectsData';
+    protected $fields = array(
         "login"     => Moonlake_Model_Backend::TYPE_STR,
         "password"  => Moonlake_Model_Backend::TYPE_STR,
         "role"      => Moonlake_Model_Backend::TYPE_INT);
@@ -85,8 +85,10 @@ class Moonlake_Auth_Users {
     private $model = null;
     private $session = null;
     
-    public function __construct(Moonlake_Model_Backend $mb) {
+    public function __construct(Moonlake_Model_Backend $mb)
+    {
         $this->model = new Moonlake_Auth_UsersModel($mb);
+
         $this->session = new Moonlake_Auth_Session();
     }
     
@@ -96,12 +98,14 @@ class Moonlake_Auth_Users {
         return $user !== null;
     }
     
-    public function getUserById($id) {
+    public function getUserById($id)
+    {
         if(!$this->userExists($id)) throw new Moonlake_Exception_AuthUsers("The user with id $id doesn't exists.");
         return new Moonlake_Auth_User($id, $this->model);
     }
 
-    public function getUserByLogin($login) {
+    public function getUserByLogin($login)
+    {
         $users = $this->model->getEntriesBy('login', $login);
 
         if($users == array()) {
@@ -112,8 +116,16 @@ class Moonlake_Auth_Users {
         }
     }
 
-    public function authentificateUser($login, $password) {
-        $user = $this->getUserByLogin($login);
+    public function authentificateUser($login, $password)
+    {
+        try
+        {
+            $user = $this->getUserByLogin($login);
+        }
+        catch(Exception $e)
+        {
+            return false;
+        }
 
         if($user->getPassword() == md5($password)) {
             $this->session->reattachToSession('moonlake_auth_user', $login);
@@ -122,11 +134,13 @@ class Moonlake_Auth_Users {
         else return false;
     }
 
-    public function isUserAuthentificated() {
+    public function isUserAuthentificated()
+    {
         return $this->session->isAttachedToSession('moonlake_auth_user');
     }
 
-    public function getAuthentificatedUser() {
+    public function getAuthentificatedUser()
+    {
         try
         {
             return $this->getUserByLogin($this->session->getAttachment('moonlake_auth_user'));

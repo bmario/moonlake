@@ -21,8 +21,8 @@
  */
 
 class Moonlake_Auth_AuthModel extends Moonlake_Model_Model {
-    private $area = 'Auth_AuthData';
-    private $fields = array(
+    protected $area = 'Auth_AuthData';
+    protected $fields = array(
         "context"  =>  Moonlake_Model_Backend::TYPE_STR,
         "subject" =>  Moonlake_Model_Backend::TYPE_STR,
         "action"  =>  Moonlake_Model_Backend::TYPE_STR,
