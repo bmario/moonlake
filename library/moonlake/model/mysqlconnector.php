@@ -139,9 +139,11 @@ hostname, username, password and database.');
             $result = new Moonlake_Model_Result();
             foreach($data as $key => $val) $result->$key = $val;
 
+            $result->seal();
+            
             return $result;
         }
-        else return false;
+        else return null;
     }
 
     public function error($query = '') {
