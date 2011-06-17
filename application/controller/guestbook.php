@@ -24,7 +24,8 @@
  * This class is the sample controller for this framework. It's very simple and
  * only has the basic functions.
  */
-class guestbook_Controller extends Moonlake_Controller_Action {
+class guestbook_Controller extends Moonlake_Controller_Action
+{
 
     /**
      * This action shows all entries of the guestbook.
@@ -34,8 +35,8 @@ class guestbook_Controller extends Moonlake_Controller_Action {
      *
      * This action is a must for every action controller.
      */
-    public function index_Action() {
-
+    public function index_Action()
+    {        
         // get the application class
         $app = $this->app;
 
@@ -86,7 +87,15 @@ class guestbook_Controller extends Moonlake_Controller_Action {
         // This step makes the array $entries visible in the template,
         // which is called from the view.
         $view->assign("entries", $entries);
-
+        
+        // Use Session to greet visitors, who have posted recently
+        $session = new Moonlake_Auth_Session();
+        
+        if($session->isAttachedToSession('name'))
+        {
+            $view->assign('name', $session->getAttachment('name'));
+        }
+        
         // use the view to render the view script 'guestbook' and then
         // write it to the response.
         // DON'T ECHO ANYTHING! ALLWAYS USE THE RESPONSE!
@@ -96,7 +105,8 @@ class guestbook_Controller extends Moonlake_Controller_Action {
     /**
      * This action creates a new entry in the guestbook
      */
-    public function newentry_Action() {
+    public function newentry_Action()
+    {
 
         // get the application class
         $app = $this->app;
@@ -149,6 +159,10 @@ class guestbook_Controller extends Moonlake_Controller_Action {
             // and create with this array a new guestbook entry in the model
             $model->createEntry($args);
 
+            // store name of visitor in session, so we can greet him
+            $session = new Moonlake_Auth_Session;
+            $session->attachToSession('name', $name);
+            
             // after this, set a redirect, so refreshing can't used to post again
             $response->addHeader('Location','index.php?ctrl=guestbook');
 

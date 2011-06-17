@@ -28,6 +28,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
+<?php if(isset($this->name)) { ?>
+        <h2>Hallo <?php echo $this->name; ?></h2>
+<?php } ?>
 <?php foreach($this->entries as $entry) { ?>
         <a href="mailto:<?php $this->escape($entry->mail); ?>"><b><?php $this->escape($entry->name); ?></b></a><br>
         <p><?php echo $entry->message; ?></p>
