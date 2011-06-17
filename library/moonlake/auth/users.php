@@ -37,7 +37,7 @@ class Moonlake_Auth_User {
     public function getLogin()
     {
         $data = $this->model->getEntryById($this->userid);
-        return $data['login'];
+        return $data->login;
     }
     
     public function setLogin($name)
@@ -48,7 +48,7 @@ class Moonlake_Auth_User {
     public function getPassword()
     {
         $data = $this->model->getEntryById($this->userid);
-        return $data['password'];
+        return $data->password;
     }
     
     public function setPassword($password)
@@ -59,7 +59,7 @@ class Moonlake_Auth_User {
     public function getRole()
     {
         $data = $this->model->getEntryById($this->userid);
-        return $data['role'];
+        return $data->role;
     }
     
     public function setRole($role)
@@ -90,7 +90,14 @@ class Moonlake_Auth_Users {
         $this->session = new Moonlake_Auth_Session();
     }
     
+    public function userExists($id)
+    {
+        $user = $this->model->getEntryById($id);
+        return $user !== null;
+    }
+    
     public function getUserById($id) {
+        if(!$this->userExists($id)) throw new Moonlake_Exception_AuthUsers("The user with id $id doesn't exists.");
         return new Moonlake_Auth_User($id, $this->model);
     }
 
@@ -101,7 +108,7 @@ class Moonlake_Auth_Users {
             throw new Moonlake_Exception_AuthUsers("The user with login $login doesn't exists.");
         }
         else {
-            return new Moonlake_Auth_User($users[0]['id'], $this->model);
+            return new Moonlake_Auth_User($users[0]->id, $this->model);
         }
     }
 
