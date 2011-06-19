@@ -183,7 +183,7 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
      * @param: String $field the name of the
      */
     public function getEntriesBy($area, $field, $value) {
-        $sql = 'SELECT * FROM `'.$this->tableName($area).'` WHERE `'.$field.'` = \''.$id.'\''.' ORDER BY `id` ASC';
+        $sql = 'SELECT * FROM `'.$this->tableName($area).'` WHERE `'.$field.'` = \''.$value.'\''.' ORDER BY `id` ASC';
         $id = $this->con->query($sql);
 
         $data = array();
