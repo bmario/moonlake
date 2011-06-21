@@ -137,7 +137,7 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
         $sql = 'SELECT * FROM `'.$this->tableName($area).'` WHERE `'.$fields[0].'` LIKE \'%'.$value.'%\'';
 
         for($i=1; $i < count($fields); $i++) {
-            $sql .= ' AND `'.$fields[$i].'` LIKE \'%'.$value.'%\'';
+            $sql .= ' OR `'.$fields[$i].'` LIKE \'%'.$value.'%\'';
         }
 
         $sql .= ' ORDER BY `id` ASC';
