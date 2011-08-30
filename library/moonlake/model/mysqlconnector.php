@@ -38,7 +38,7 @@ class Moonlake_Model_MySQLConnector implements Moonlake_Model_SQLConnector {
     }
 
     public function connect() {
-        $config = new Moonlake_Config_Config($this->config);
+        $config = $this->config;
 
         if(!isset($config->hostname) or
            !isset($config->username) or
