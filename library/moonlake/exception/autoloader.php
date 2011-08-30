@@ -25,7 +25,7 @@ class Moonlake_Exception_Autoloader extends Moonlake_Exception_Moonlake {
     public $classname;
     public $classpath;
 
-    public function __construct($message, $classname, $classpath) {
+    public function __construct($message, $classname='', $classpath='') {
         $message = "Error in Autoloader stack: \n$message";
 
                 $this->classname = $classname;
