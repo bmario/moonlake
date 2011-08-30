@@ -51,7 +51,7 @@ final class Moonlake_Framework {
         catch(Exception $e) {
             // cleaning any previous output
             ob_clean();
-
+            
             // call exception handler, so we get nice output
             Moonlake_Application_Application::exceptionHandler($e);
         }

@@ -63,7 +63,7 @@ abstract class Moonlake_Controller_Action {
         }
         else {
             // if method not exists, call error action
-            $this->error_Action();
+            $this->error_Action($name);
         }
     }
 
@@ -80,8 +80,8 @@ abstract class Moonlake_Controller_Action {
      * Also you could override it, and do nothing, so you can surpress debug
      * informations in productive usage.
      */
-    public function error_Action() {
-        throw new Moonlake_Exception_ActionController("The given action wasn't found", get_class($this), '_Action');
+    public function error_Action($action) {
+        throw new Moonlake_Exception_ActionController("The called action ".get_class($this)."->{$action}() does not exists.");
     }
 }
 
