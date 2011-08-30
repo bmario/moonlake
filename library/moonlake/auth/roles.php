@@ -72,14 +72,14 @@ class Moonlake_Auth_Roles
     
     public function getRoleById($id)
     {
-        if(!$this->roleExists($id)) throw new Moonlake_Exception_AuthRoles("The role with the id '$id' doesn't exist.");
+        if(!$this->roleExists($id)) throw new Moonlake_Exception_Auth("The role with the id '$id' doesn't exist.");
         return new Moonlake_Auth_Role($id, $this->model);
     }
 
     public function getRoleByName($name)
     {
         $roles = $this->model->getEntriesBy('name', $name);
-        if(!isset($roles[0])) throw new Moonlake_Exception_AuthRoles("The role with the name '$name' doesn't exist.");
+        if(!isset($roles[0])) throw new Moonlake_Exception_Auth("The role with the name '$name' doesn't exist.");
 
         return new Moonlake_Auth_Role($roles[0]->id, $this->model);
     }

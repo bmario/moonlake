@@ -62,7 +62,7 @@ class Moonlake_Auth_Session {
     public function attachToSession($name, $value) {
         global $_SESSION;
         
-        if(isset($_SESSION[$name])) throw new Moonlake_Exception_AuthSession("The given name is allready in use.");
+        if(isset($_SESSION[$name])) throw new Moonlake_Exception_Auth("The given name is allready in use.");
         
         $_SESSION[$name] = $value;
     }
@@ -86,7 +86,7 @@ class Moonlake_Auth_Session {
     public function unattachFromSession($name) {
         global $_SESSION;
         
-        if(!isset($_SESSION[$name])) throw new Moonlake_Exception_AuthSession("The given name is not attached to the session.");
+        if(!isset($_SESSION[$name])) throw new Moonlake_Exception_Auth("The given name is not attached to the session.");
 
         unset($_SESSION[$name]);
     }
@@ -110,7 +110,7 @@ class Moonlake_Auth_Session {
     public function getAttachment($name) {
         global $_SESSION;
         
-        if(!isset($_SESSION[$name])) throw new Moonlake_Exception_AuthSession("The given name is not attached to the session.");
+        if(!isset($_SESSION[$name])) throw new Moonlake_Exception_Auth("The given name is not attached to the session.");
 
         return $_SESSION[$name];
     }

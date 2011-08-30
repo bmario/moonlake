@@ -100,7 +100,7 @@ class Moonlake_Auth_Users {
     
     public function getUserById($id)
     {
-        if(!$this->userExists($id)) throw new Moonlake_Exception_AuthUsers("The user with id $id doesn't exists.");
+        if(!$this->userExists($id)) throw new Moonlake_Exception_Auth("The user with id $id doesn't exists.");
         return new Moonlake_Auth_User($id, $this->model);
     }
 
@@ -109,7 +109,7 @@ class Moonlake_Auth_Users {
         $users = $this->model->getEntriesBy('login', $login);
 
         if($users == array()) {
-            throw new Moonlake_Exception_AuthUsers("The user with login $login doesn't exists.");
+            throw new Moonlake_Exception_Auth("The user with login $login doesn't exists.");
         }
         else {
             return new Moonlake_Auth_User($users[0]->id, $this->model);
@@ -122,7 +122,7 @@ class Moonlake_Auth_Users {
         {
             $user = $this->getUserByLogin($login);
         }
-        catch(Exception $e)
+        catch(Moonlake_Exception_Auth $e)
         {
             return false;
         }
