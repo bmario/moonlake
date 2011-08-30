@@ -52,8 +52,10 @@ class Moonlake_Config_Config {
         $this->__file__ = "config/{$name}.php";
         $this->__changed__ = false;
 
-        try {
+        if(!file_exists($this->__file__)) throw new Moonlake_Exception_Exception("File not found: {$this->__file__}");
 
+        try {
+         
             @include($this->__file__);
 
             if(isset($_CONFIG)) $this->__cfg__ = $_CONFIG;
