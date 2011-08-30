@@ -59,9 +59,9 @@ class guestbook_Controller extends Moonlake_Controller_Action
                         // the mysqlconnector executes the queries, which the
                         // mysqlbackend creates.
 
-                        /* The parameter is the name of a config file, which has
-                         * to be placed in the config directory.
-                         * In this file are the following options expected:
+                        /* The parameter is an instance of a Moonlake_Config_Config
+                         * class, which is used to abstract configurations.
+                         * In this class are the following options expected:
                          *
                          * 'hostname' - the mysql server
                          * 'username' - the mysql user
@@ -69,7 +69,7 @@ class guestbook_Controller extends Moonlake_Controller_Action
                          * 'password' - the mysql password
                          */
                         new Moonlake_Model_MySQLConnector(
-                                'mysql'
+                            new Moonlake_Config_Config('mysql')
                  ), 'Moonlake')); // Prefix für Datenbanktabelle
 
         // this creates a new condition
