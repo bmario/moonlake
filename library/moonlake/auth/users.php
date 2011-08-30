@@ -150,6 +150,13 @@ class Moonlake_Auth_Users {
             throw new Moonlake_Exception_AuthUsers ("There is no authentificated user.");
         }
     }
+    
+    public function createUser($login, $password, $role = 0)
+    {
+        $this->model->createEntry(array("login" => $login, "password" => md5($password), "role" => $role));
+        
+        return $this->getUserByLogin($login);
+    }
 }
 
 ?>

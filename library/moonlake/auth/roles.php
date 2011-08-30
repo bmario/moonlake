@@ -83,6 +83,13 @@ class Moonlake_Auth_Roles
 
         return new Moonlake_Auth_Role($roles[0]->id, $this->model);
     }
+    
+    public function createRole($name)
+    {
+        $this->model->createEntry(array("name" => $name));
+        
+        return $this->getRoleByName($name);
+    }
 }
 
 ?>
