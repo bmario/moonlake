@@ -36,7 +36,7 @@ class widget_ViewHelper implements Moonlake_View_ViewHelper {
         if(class_exists($ctrl) and is_subclass_of($ctrl, 'Moonlake_Controller_Widget')) {
             $c = new $ctrl($view);
 
-            $c->execute($action, $args);
+            echo $c->execute($action, $args);
         }
         else throw new Moonlake_Exception_View('The controller '.$ctrl.' does not exists.');
     }
