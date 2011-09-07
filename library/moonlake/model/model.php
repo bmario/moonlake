@@ -122,6 +122,13 @@ abstract class Moonlake_Model_Model {
         return md5($this->area.$id);
     }
 
+    /**
+     * Returns the ModelBackend
+     */
+    public function getBackend()
+    {
+        return $this->mb;
+    }
 }
 
 ?>
