@@ -59,7 +59,8 @@ class Moonlake_Auth_User {
     public function getRole()
     {
         $data = $this->model->getEntryById($this->userid);
-        return $data->role;
+        $roles = new Moonlake_Auth_Roles($this->model->getBackend());
+        return $roles->getRoleById($data->role);
     }
     
     public function setRole($role)
