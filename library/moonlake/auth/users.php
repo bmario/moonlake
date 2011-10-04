@@ -53,19 +53,45 @@ class Moonlake_Auth_User {
     
     public function setPassword($password)
     {
-        $this->model->updateEntry($this->userid, array('password' => $password));
+        $this->model->updateEntry($this->userid, array('password' => md5($password)));
     }
     
-    public function getRole()
+    public function getRoles()
     {
-        $data = $this->model->getEntryById($this->userid);
-        $roles = new Moonlake_Auth_Roles($this->model->getBackend());
-        return $roles->getRoleById($data->role);
+        $mb = $this->model->getBackend();
+        $model = new Moonlake_Auth_UsersRolesModel($mb);
+        
+        $cond = new Moonlake_Model_Condition();
+        $cond->is('user', $this->userid);
+        
+        return $model->getEntriesByCondition($cond);
     }
     
-    public function setRole($role)
+    public function addRole(Moonlake_Auth_Role $role)
     {
-        $this->model->updateEntry($this->userid, array('role' => $role));
+        $mb = $this->model->getBackend();
+        $model = new Moonlake_Auth_UsersRolesModel($mb);
+        
+        $cond = new Moonlake_Model_Condition();
+        $cond->is('user', $this->userid);
+        $cond->is('role', $role->getId());
+        
+        if(!count($model->getEntriesByCondition($cond)))
+        {
+            $model->createEntry(array("user" => $this->userid, "role" => $role->getId()));
+        }
+    }
+    
+    public function delRole(Moonlake_Auth_Role $role)
+    {
+        $mb = $this->model->getBackend();
+        $model = new Moonlake_Auth_UsersRolesModel($mb);
+        
+        $cond = new Moonlake_Model_Condition();
+        $cond->is('user', $this->userid);
+        $cond->is('role', $role->getId());
+
+        $model->deleteEntriesByCondition($cond);
     }
 }
 
@@ -74,7 +100,15 @@ class Moonlake_Auth_UsersModel extends Moonlake_Model_Model {
     protected $fields = array(
         "login"     => Moonlake_Model_Backend::TYPE_STR,
         "password"  => Moonlake_Model_Backend::TYPE_STR,
-        "role"      => Moonlake_Model_Backend::TYPE_INT);
+    );
+}
+
+class Moonlake_Auth_UsersRolesModel extends Moonlake_Model_Model {
+    protected $area = 'Auth_UserRolesData';
+    protected $fields = array(
+        "user" => Moonlake_Model_Backend::TYPE_INT,
+        "role" => Moonlake_Model_Backend::TYPE_INT
+    );
 }
 
 /**
@@ -152,9 +186,9 @@ class Moonlake_Auth_Users {
         }
     }
     
-    public function createUser($login, $password, $role = 0)
+    public function createUser($login, $password)
     {
-        $this->model->createEntry(array("login" => $login, "password" => md5($password), "role" => $role));
+        $this->model->createEntry(array("login" => $login, "password" => md5($password)));
         
         return $this->getUserByLogin($login);
     }

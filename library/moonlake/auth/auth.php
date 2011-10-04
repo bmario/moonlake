@@ -24,10 +24,8 @@ class Moonlake_Auth_AuthModel extends Moonlake_Model_Model {
     protected $area = 'Auth_AuthData';
     protected $fields = array(
         "context"  =>  Moonlake_Model_Backend::TYPE_STR,
-        "subject" =>  Moonlake_Model_Backend::TYPE_STR,
+        "subject" =>  Moonlake_Model_Backend::TYPE_INT,
         "action"  =>  Moonlake_Model_Backend::TYPE_STR,
-        "type"      =>  Moonlake_Model_Backend::TYPE_BOOL,
-        "granted"   =>  Moonlake_Model_Backend::TYPE_BOOL
     );  
 }
 
@@ -40,14 +38,12 @@ class Moonlake_Auth_Auth {
     }
 
     public function hasUserAuthorization($context, Moonlake_Auth_User $user, $action) {
-        $cond = new Moonlake_Model_Condition();
-        $cond->is('context', $context);
-        $cond->is('subject', $user->getId());
-        $cond->is('action', $action);
-        $cond->is('type', 0);
-
-        $datasets = $this->model->getEntriesByCondition($cond);
-        if(isset($datasets[0]) and $datasets[0]->granted == 1) return true;
+        foreach($user->getRoles() as $role)
+        {
+            if($this->hasRoleAuthorization($context, $role, $action))
+                return true;
+        }
+        
         return false;
     }
 
@@ -56,33 +52,11 @@ class Moonlake_Auth_Auth {
         $cond->is('context', $context);
         $cond->is('subject', $role->getId());
         $cond->is('action', $action);
-        $cond->is('type', 1);
 
-        $datasets = $this->model->getEntriesByCondition($cond);
-        if(isset($datasets[0]) and $datasets[0]->granted == 1) return true;
-        return false;
-    }
-
-    public function createAuthorizationForUser($context, Moonlake_Auth_User $user, $action) {
-        $fields = array(
-            'context'  => $context,
-            'subject' => $user->getId(),
-            'action'  => $action,
-            'type'      => '0',
-            'granted'   => '1'
-        );
-
-        $this->model->createEntry($fields);
-    }
-
-    public function deleteAuthorizationForUser($context, Moonlake_Auth_User $user, $action) {
-        $cond = new Moonlake_Model_Condition();
-        $cond->is('context', $context);
-        $cond->is('subject', $user->getId());
-        $cond->is('action', $action);
-        $cond->is('type', 0);
-
-        $this->model->deleteEntriesByCondition($cond);
+        if(count($this->model->getEntriesByCondition($cond)))
+            return true;
+        else
+            return false;
     }
 
     public function createAuthorizationForRole($context, Moonlake_Auth_Role $role, $action) {
@@ -90,8 +64,6 @@ class Moonlake_Auth_Auth {
             'context'  => $context,
             'subject' => $role->getId(),
             'action'  => $action,
-            'type'      => '1',
-            'granted'   => '1'
         );
 
         $this->model->createEntry($fields);
@@ -102,7 +74,6 @@ class Moonlake_Auth_Auth {
         $cond->is('context', $context);
         $cond->is('subject', $role->getId());
         $cond->is('action', $action);
-        $cond->is('type', 1);
 
         $this->model->deleteEntriesByCondition($cond);
     }
