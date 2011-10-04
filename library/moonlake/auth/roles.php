@@ -50,9 +50,9 @@ class Moonlake_Auth_Role
 
 class Moonlake_Auth_RolesModel extends Moonlake_Model_Model
 {
-    protected $area = "moonlake_auth_roles";
+    protected $area = "Auth_RolesData";
     protected $fields = array(
-        "name" => Moonlake_Model_ModelBackend::TYPE_STR
+        "name" => Moonlake_Model_Backend::TYPE_STR
     );    
 }
 
