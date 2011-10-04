@@ -106,8 +106,9 @@ hostname, username, password and database.');
     public function query($sql) {
         $qid = $this->generate_id();
 
+        
         $this->queries[$qid]['sql']  = $sql;
-        $this->queries[$qid]['hres'] = @mysql_query($sql, $this->hcon) or ($this->error($sql));
+        $this->queries[$qid]['hres'] = @mysql_query($sql, $this->hcon) or die($this->error($sql));
         $this->queries[$qid]['rows'] = @mysql_affected_rows($this->hcon);
         $this->queries[$qid]['seek'] = 0;
 
@@ -115,12 +116,11 @@ hostname, username, password and database.');
     }
 
     private function generate_id() {
-        static $last_id=0;
-        return $last_id++;
+        return uniqid();
     }
     
     public function last_inserted_id() {
-        return @mysql_insert_id($this->hcon) or die($this->error());
+        return @mysql_insert_id($this->hcon);
     }
 
     public function affected_rows($qid) {
@@ -154,7 +154,11 @@ hostname, username, password and database.');
     }
 
     public function free_query($id) {
-        if(isset($this->queries[$id]))unset($this->queries[$id]);
+        if(isset($this->queries[$id]))
+        {
+            //mysql_free_result($this->queries[$id]['hres']) ;//or die($this->error());
+            unset($this->queries[$id]);
+        }
         else throw new Moonlake_Exception_ModelConnector("The given id doesn't represent a valid query. This mostly means, that the query is freed before it's used");
     }
 
@@ -164,7 +168,7 @@ hostname, username, password and database.');
     }
 
     public function __destruct() {
-        $this->disconnect();
+        $this->disconnect();                
     }
 }
 

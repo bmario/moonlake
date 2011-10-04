@@ -31,7 +31,17 @@ class Moonlake_Model_Condition {
     private $like           = array();
     private $orderdirection = null;
     private $orderfield     = null;
-
+    private $operator       = null;
+    
+    /**
+     * The constructor.
+     * @param String operator, possible Values 'AND' and 'OR'
+     */
+    public function __construct($operator = 'AND')
+    {
+        $this->operator = $operator;
+    }
+    
     /**
      * This method defines a "is" condition. This means, the given field must
      * be exactly the given value, to fit this.
@@ -44,6 +54,15 @@ class Moonlake_Model_Condition {
         return $this;
     }
 
+    /**
+     * Returns the chosen operator
+     * @return String the operator
+     */
+    public function getOperator()
+    {
+        return $this->operator;
+    }
+    
     /**
      * This method returns an array containing all "is" conditions.
      * The association is "fieldname" => "value to compare with".

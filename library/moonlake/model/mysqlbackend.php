@@ -55,14 +55,6 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
      * @return: int id of the new entry
      */
     public function createEntry($area, $fields) {
-        // generate an id for the new dataset
-
-        $sql = 'SELECT `id` FROM '.$this->tableName($area).' ORDER BY `id` DESC LIMIT 1';
-        $qid = $this->con->query($sql);
-        $row = $this->con->fetch($qid);
-        $this->con->free_query($qid);
-        $id = $row->id + 1;
-
 
         // build sql query
         $sql = 'INSERT INTO '.$this->tableName($area).' ( `id`';
@@ -71,7 +63,7 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
             $sql .= ', `'.$name.'`';
         }
 
-        $sql .= ') VALUES ( '.$id;
+        $sql .= ') VALUES ( \'\'';
 
         foreach($fields as $name => $value) {
             $sql .= ', \''.$value.'\'';
@@ -85,7 +77,7 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
         // free query
         $this->con->free_query($qid);
 
-        return $id;
+        return $this->con->last_inserted_id();
     }
 
     /**
@@ -224,7 +216,7 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
      */
     public function initArea($area, $fields) {
         $sql = 'CREATE TABLE IF NOT EXISTS `'.$this->tableName($area)."` ";
-        $sql .= '( `id` INT(11) NOT NULL PRIMARY KEY';
+        $sql .= '( `id` INT(11) AUTO_INCREMENT NOT NULL PRIMARY KEY';
         foreach($fields as $name => $type) {
             if($this->isValidType($type)) {
 
@@ -297,7 +289,7 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
                 $field = mysql_escape_string($field);
                 $val = mysql_escape_string($val);
 
-                if($count > 0) $sql .= ' AND';
+                if($count > 0) $sql .= ' '.$cond->getOperator();
                 $sql .= " `$field` = '$val'";
                 $count++;
             }
@@ -306,7 +298,7 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
                 $field = mysql_escape_string($field);
                 $val = mysql_escape_string($val);
 
-                if($count > 0) $sql .= ' AND';
+                if($count > 0) $sql .= ' '.$cond->getOperator();
                 $sql .= " `$field` LIKE '%$val%'";
                 $count++;
             }
@@ -346,7 +338,7 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
                 $field = mysql_escape_string($field);
                 $val = mysql_escape_string($val);
 
-                if($count > 0) $sql .= ' AND';
+                if($count > 0) $sql .= ' '.$cond->getOperator();
                 $sql .= " `$field` = '$val'";
                 $count++;
             }
@@ -355,7 +347,7 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
                 $field = mysql_escape_string($field);
                 $val = mysql_escape_string($val);
 
-                if($count > 0) $sql .= ' AND';
+                if($count > 0) $sql .= ' '.$cond->getOperator();
                 $sql .= " `$field` LIKE '%$val%'";
                 $count++;
             }
@@ -415,7 +407,7 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
                 $field = mysql_escape_string($field);
                 $val = mysql_escape_string($val);
 
-                if($count > 0) $sql .= ' AND';
+                if($count > 0) $sql .= ' '.$cond->getOperator();
                 $sql .= " `$field` = '$val'";
                 $count++;
             }
@@ -424,7 +416,7 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
                 $field = mysql_escape_string($field);
                 $val = mysql_escape_string($val);
 
-                if($count > 0) $sql .= ' AND';
+                if($count > 0) $sql .= ' '.$cond->getOperator();
                 $sql .= " `$field` LIKE '%$val%'";
                 $count++;
             }
