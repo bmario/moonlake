@@ -123,7 +123,7 @@ class Moonlake_View_View {
         $class = $name.'_ViewHelper';
         if(class_exists($class)) {
             $vh = new $class();
-            return $vh->execute(new Moonlake_View_View($this->__design__), $arguments);
+            return $vh->execute($this, $arguments);
         }
         else {
             throw new Moonlake_Exception_View("The ViewHelper $class could not be found.");
