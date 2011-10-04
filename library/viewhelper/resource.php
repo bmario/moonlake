@@ -1,7 +1,7 @@
 <?php
 
 /*
- *  Copyright 2009 2010 Mario Bielert <mario@moonlake.de>
+ *  Copyright 2011 Mario Bielert <mario.bielert@googlemail.com>
  *
  *  This file is part of the Moonlake Framework.
  *
@@ -20,15 +20,11 @@
  *  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * This viewhelper is used to create pathsto the data folder.
- */
-class escape_ViewHelper implements Moonlake_View_ViewHelper {
+class resource_ViewHelper implements Moonlake_View_ViewHelper
+{
+    
     public function execute(Moonlake_View_View $view, $arguments) {
-        if(isset($arguments[0])) {
-            echo 'application/data/'.$arguments[0];
-        }
-        else throw new Moonlake_Exception_View('There are to less arguments given to the data_ViewHelper. There is excatly expected one argument.');
+        echo $view->getBasePath().'resources/'.$arguments[0];
     }
 }
 
