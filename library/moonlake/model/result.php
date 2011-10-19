@@ -34,7 +34,14 @@ class Moonlake_Model_Result {
     }
 
     public function __get($name) {
-        return isset($this->__results__[$name]) ? $this->__results__[$name] : null;
+        if(isset($this->__results__[$name]))
+        {
+            return $this->__results__[$name];
+        }
+        else
+        {
+            throw new Moonlake_Exception_Model("The value '$name' was not set in this result set.");
+        }
     }
 
     public function __isset($name) {

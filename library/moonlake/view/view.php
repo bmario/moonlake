@@ -58,7 +58,8 @@ class Moonlake_View_View {
      */
     public function __get($name) {
         if(isset($this->__assigns__[$name])) return $this->__assigns__[$name];
-        return '';
+        else
+            throw new Moonlake_Exception_View("The value '$name' was not set in this view.");
     }
 
     /**

@@ -39,7 +39,7 @@ class Moonlake_Request_HttpRequest implements Moonlake_Request_Request {
         if($this->issetParam($name)) {
             return $this->parameters[$name];
         }
-        return null;
+        throw new Moonlake_Exception_Moonlake("The parameter $name was not set in the request.");
     }
     public function issetParam($name) {
         return isset($this->parameters[$name]);

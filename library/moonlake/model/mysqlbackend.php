@@ -200,6 +200,9 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
         $id = $this->con->query($sql);
         $data = $this->con->fetch($id);
 
+        if($data === null)
+            throw new Moonlake_Exception_ModelBackend("There doesn't exists an entry with '$id' in '$area.'");
+        
         $this->con->free_query($id);
 
         return $data;
