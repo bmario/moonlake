@@ -29,7 +29,7 @@ class Moonlake_Model_Result {
     private $__sealed__  = false;
 
     public function __set($name, $value) {
-        if($this->__sealed__) throw new Moonlake_Exception_Model('Moonlake_Model_Result is sealed. This means that every try to change a value is prohibited.');
+        if($this->__sealed__) throw new Moonlake_Exception_Model('This Moonlake_Model_Result is sealed. This means that every try to change a value is prohibited.');
         $this->__results__[$name] = $value;
     }
 
@@ -49,7 +49,7 @@ class Moonlake_Model_Result {
     }
 
     public function __unset($name) {
-        if($this->__sealed__) throw new Moonlake_Exception_Model('Moonlake_Model_Result is sealed. This means that every try to change a value is prohibited.');
+        if($this->__sealed__) throw new Moonlake_Exception_Model('This Moonlake_Model_Result is sealed. This means that every try to change a value is prohibited.');
         if(isset($this->__results__[$name])) unset ($this->__results__[$name]);
     }
     
@@ -57,7 +57,17 @@ class Moonlake_Model_Result {
     {
         $this->__sealed__ = true;
     }
-    
+
+	public function unseal()
+	{
+		$this->__sealed__ = false;
+	}    
+
+	public function getResults()
+	{
+		return $this->__results__;
+	}
+
     public function isSealed()
     {
         return $this->__sealed__;
