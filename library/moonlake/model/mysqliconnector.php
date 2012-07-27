@@ -28,7 +28,7 @@ class Moonlake_Model_MySQLiConnector implements Moonlake_Model_SQLConnector {
     private $queries  = array();
     private $prepares = array();
 
-    public function __construct($config) {
+    public function __construct(Moonlake_Config_Config $config) {
         $this->config = $config;
         $this->connect();
     }
@@ -39,7 +39,7 @@ class Moonlake_Model_MySQLiConnector implements Moonlake_Model_SQLConnector {
     }
 
     public function connect() {
-        $config = new Moonlake_Config_Config($this->config);
+        $config = $this->config;
 
         if(!isset($config->hostname) or
            !isset($config->username) or
