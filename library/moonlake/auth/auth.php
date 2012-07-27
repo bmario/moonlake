@@ -24,7 +24,7 @@ class Moonlake_Auth_AuthModel extends Moonlake_Model_Model {
     protected $area = 'Auth_AuthData';
     protected $fields = array(
         "context"  =>  Moonlake_Model_Backend::TYPE_STR,
-        "subject" =>  Moonlake_Model_Backend::TYPE_INT,
+        "role" =>  Moonlake_Model_Backend::TYPE_INT,
         "action"  =>  Moonlake_Model_Backend::TYPE_STR,
     );  
 }
@@ -50,7 +50,7 @@ class Moonlake_Auth_Auth {
     public function hasRoleAuthorization($context, Moonlake_Auth_Role $role, $action) {
         $cond = new Moonlake_Model_Condition();
         $cond->is('context', $context);
-        $cond->is('subject', $role->getId());
+        $cond->is('role', $role->getId());
         $cond->is('action', $action);
 
         if(count($this->model->getEntriesByCondition($cond)))
@@ -62,7 +62,7 @@ class Moonlake_Auth_Auth {
     public function createAuthorizationForRole($context, Moonlake_Auth_Role $role, $action) {
         $fields = array(
             'context'  => $context,
-            'subject' => $role->getId(),
+            'role' => $role->getId(),
             'action'  => $action,
         );
 
@@ -72,7 +72,7 @@ class Moonlake_Auth_Auth {
     public function deleteAuthorizationForRole($context, Moonlake_Auth_Role $role, $action) {
         $cond = new Moonlake_Model_Condition();
         $cond->is('context', $context);
-        $cond->is('subject', $role->getId());
+        $cond->is('role', $role->getId());
         $cond->is('action', $action);
 
         $this->model->deleteEntriesByCondition($cond);
