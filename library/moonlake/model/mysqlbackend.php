@@ -197,13 +197,13 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
      */
     public function getEntryById($area, $id) {
         $sql = 'SELECT * FROM `'.$this->tableName($area).'` WHERE `id` = \''.$id.'\'';
-        $id = $this->con->query($sql);
-        $data = $this->con->fetch($id);
+        $qid = $this->con->query($sql);
+        $data = $this->con->fetch($qid);
 
         if($data === null)
             throw new Moonlake_Exception_ModelBackend("There doesn't exists an entry with '$id' in '$area.'");
         
-        $this->con->free_query($id);
+        $this->con->free_query($qid);
 
         return $data;
     }
