@@ -47,8 +47,15 @@ abstract class Moonlake_Controller_Action {
         // if the method exists...
         if(method_exists($this, $name)) {
             try {
-                // try to execute it...
-                $this->$name();
+                // run pre action
+                $result = $this->__pre_Action();
+                
+                // try to execute it, if pre action returned true
+                if($result) $this->$name();
+                
+                // run post action
+                $this->__post_Action();
+                
             }
             catch(Exception $e) {
                 // if this fails, try the error action...
@@ -82,6 +89,26 @@ abstract class Moonlake_Controller_Action {
      */
     public function error_Action($action) {
         throw new Moonlake_Exception_ActionController("The called action ".get_class($this)."->{$action}() does not exists.");
+    }
+    
+    /**
+     * This function is called BEFORE the action.
+     * 
+     * If this function returns false, the Action WILL NOT be called.
+     * 
+     * @return boolean 
+     */
+    protected function __pre_Action()
+    {
+        return true;
+    }
+    
+    /**
+     * This function is called AFTER the action.
+     */
+    protected function __post_Action()
+    {
+        
     }
 }
 
