@@ -37,11 +37,13 @@
         <hr>
 <?php } ?>
         <form action="index.php?ctrl=guestbook&action=newentry" method="post">
+<?php if(isset($this->error)) { ?>
             <font color="red"><?php echo $this->error; ?></font><br />
+<?php } ?>
             <b> Einen Eintrag verfassen </b><br>
-            Dein Name: <input type="text" name="name" value="<?php echo $this->newname; ?>"><br>
-            Deine Email: <input type="text" name="mail" value="<?php echo $this->newmail; ?>"><br>
-            Deine Nachricht: <textarea name="message"><?php echo $this->newmsg; ?></textarea><br>
+            Dein Name: <input type="text" name="name" value="<?php if(isset($this->newname)) echo $this->newname; ?>"><br>
+            Deine Email: <input type="text" name="mail" value="<?php if(isset($this->newmail)) echo $this->newmail; ?>"><br>
+            Deine Nachricht: <textarea name="message"><?php if(isset($this->newmsg)) echo $this->newmsg; ?></textarea><br>
             <input type="submit">
         </form>
     </body>

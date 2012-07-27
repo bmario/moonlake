@@ -145,7 +145,8 @@ class guestbook_Controller extends Moonlake_Controller_Action
         // create a model instance
         $model = new guestbook_Model(
                     new Moonlake_Model_MySQLBackend(
-                        new Moonlake_Model_MySQLConnector('mysql'), 'Moonlake'));
+                        new Moonlake_Model_MySQLConnector(
+                            new Moonlake_Config_Config('mysql')), 'Moonlake'));
 
         // create a view instance
         $view = new Moonlake_View_View('newlook');

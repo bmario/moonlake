@@ -32,7 +32,7 @@ class Moonlake_Model_MySQLConnector implements Moonlake_Model_SQLConnector {
     protected $queries = array();
     protected $prepares = array();
 
-    public function  __construct($config) {
+    public function  __construct(Moonlake_Config_Config $config) {
         $this->config = $config;
         $this->connect();
     }
