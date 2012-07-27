@@ -112,6 +112,26 @@ abstract class Moonlake_Model_Model {
         return $this->mb->updateEntriesByCondition($this->area, $cond, $fields);
     }
 
+	public function matchEntriesBy($field, $entries)
+	{
+		$cache = array();
+		$result = array();
+		foreach($entries as $entry)
+		{
+			$entry->unseal();
+			
+			if(!isset($cache[$entry->$field]))
+				$cache[$entry->$field] = $this->getEntryById($entry->$field);			
+			foreach($cache[$entry->$field]->getResults() as $key => $val)
+				$entry->{"{$this->area}_$key"} = $val;
+				
+			$entry->seal();
+			$result[] = $entry;
+		}
+		
+		return $result;
+	}
+
     /**
      * This function returns an almost unique identifier for the given id.
      * This function is used together with e.g. the auth classes.
