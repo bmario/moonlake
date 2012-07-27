@@ -23,11 +23,11 @@
 class int_Validator implements Moonlake_Validation_Validator {
 
     public function cast($value) {
-        return 0;
+        return null;
     }
 
     public function castable() {
-        return true;
+        return false;
     }
 
     public function isInputValid($value) {
