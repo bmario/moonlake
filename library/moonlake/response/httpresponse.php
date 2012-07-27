@@ -32,7 +32,9 @@ class Moonlake_Response_HttpResponse implements Moonlake_Response_Response {
         foreach($this->headers as $name => $value) {
             header("{$name}: {$value}");
         }
+        ob_start('gz_handler');
         echo $this->output;
+        ob_end_flush();
         $this->headers = array();
         $this->output = null;
     }
