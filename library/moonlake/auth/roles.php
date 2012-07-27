@@ -46,6 +46,24 @@ class Moonlake_Auth_Role
     {
         $this->model->updateEntry($this->roleid, array('name' => $name));
     }
+    
+    public function delete()
+    {
+        $mb = $this->model->getBackend();
+        $auth = new Moonlake_Auth_AuthModel($mb);
+        
+        $cond = new Moonlake_Model_Condition();
+        
+        $cond->is('role', $this->roleid);
+        
+        $auth->deleteEntriesByCondition($cond);
+        
+        $roluser = new Moonlake_Auth_UsersRolesModel($mb);
+        
+        $roluser->deleteEntriesByCondition($cond);
+        
+        $this->model->deleteEntry($this->roleid);
+    } 
 }
 
 class Moonlake_Auth_RolesModel extends Moonlake_Model_Model
@@ -82,6 +100,17 @@ class Moonlake_Auth_Roles
         if(!isset($roles[0])) throw new Moonlake_Exception_Auth("The role with the name '$name' doesn't exist.");
 
         return new Moonlake_Auth_Role($roles[0]->id, $this->model);
+    }
+    
+    public function getAllRoles()
+    {
+        $roles = array();
+        foreach($this->model->getAllEntries() as $entry)
+        {
+            $roles[] = new Moonlake_Auth_Role($entry->id, $this->model);
+        }
+        
+        return $roles;
     }
     
     public function createRole($name)
