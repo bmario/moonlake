@@ -51,10 +51,16 @@ abstract class Moonlake_Autoload_Autoloader {
         }
 
         try {
-		    // try to include, if something goes wrong, then suppress error/warnings,
-		    // because this will be handled outside in Moonlake_Autoload_Autoload with
-		    // an Moonlake_Excelption_Autoloader.
-            @include_once($path);
+        	ob_start();
+		    // try to include
+	        include_once($path);
+	        
+	        $error = error_get_last();
+	        
+	        if(strpos($error['message'], 'Failed opening') === false)
+	        	ob_end_flush();
+        	else
+	        	ob_end_clean();
 
             // now test if the class or interface exists and if yes, we were successfully.
             return class_exists($classname, false) or interface_exists($classname, false);
