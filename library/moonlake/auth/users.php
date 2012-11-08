@@ -276,6 +276,11 @@ class Moonlake_Auth_Users {
         
         return $users;
     }
+    
+    public function matchUsersToEntries($entries)
+    {
+	    return $this->model->matchEntriesBy('user_id', $entries);
+    }
 }
 
 ?>
