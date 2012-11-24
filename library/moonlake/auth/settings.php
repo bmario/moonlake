@@ -38,10 +38,13 @@ class Moonlake_Auth_Settings
     private $model = null;
     private $user  = null;
 
-    public function __construct(Moonlake_Model_Backend $mb) {        
+    public function __construct(Moonlake_Model_Backend $mb, Moonlake_Auth_User $user = null) {
         $users       = new Moonlake_Auth_Users($mb);
         
-        $this->user  = $users->getAuthentificatedUser();
+        if($user === null)
+	        $this->user  = $users->getAuthentificatedUser();
+	    else
+	    	$this->user = $user;    
         $this->model = new Moonlake_Auth_UserSettingsModel($mb);
     }
     
