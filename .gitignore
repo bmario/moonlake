@@ -1,8 +1,5 @@
-testen.php
-config/mysql.config.php
-config/mysql.php
 nbproject
 .buildpath
 .settings
 .project
-*/.DS_Store
+.DS_Store
