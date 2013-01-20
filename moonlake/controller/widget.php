@@ -44,7 +44,7 @@ class Moonlake_Controller_Widget {
                 $result = call_user_func_array(array($this, $action), $arguments);
                 if($result === false)
                 {
-                    throw new Moonlake_Exception_WidgetController("There has happend a critical failure while trying to execute the action '$action'");
+                    throw new Moonlake_Exception_WidgetController("There has happen a critical failure while trying to execute the action '$action'");
                 }
                 else
                 {
