@@ -41,15 +41,21 @@ class Moonlake_Controller_Widget {
 
             if(method_exists($this, $action)) {
             try {
-                $result = call_user_func_array(array($this, $action), $arguments);
-                if($result === false)
-                {
-                    throw new Moonlake_Exception_WidgetController("There has happen a critical failure while trying to execute the action '$action'");
+                // run pre action
+                $result = $this->__pre_Action();
+
+                if($result) {
+                    $result = call_user_func_array(array($this, $action), $arguments);
+                    if($result === false)
+                    {
+                        throw new Moonlake_Exception_WidgetController("There has happen a critical failure while trying to execute the action '$action'");
+                    }
                 }
-                else
-                {
-                    return $result;
-                }
+                
+                // run post action
+                $thia->__post_Action();
+                
+                return $result;
             }
             catch(Exception $e) {
                 try{
@@ -66,10 +72,38 @@ class Moonlake_Controller_Widget {
 
     }
 
+    /**
+     * This function is for errorhandling.
+     * Override it, to get a nice output, if something goes wrong,
+     * or keep it, to use the internal error output.
+     *
+     * Also you could override it, and do nothing, so you can surpress debug
+     * informations in productive usage.
+     */
     public function error_Action() {
         throw new Moonlake_Exception_WidgetController("The given action wasn't found", get_class($this), '');
     }
-
+    
+    
+    /**
+     * This function is called BEFORE the action.
+     * 
+     * If this function returns false, the action WILL NOT be called.
+     * 
+     * @return boolean 
+     */
+    protected function __pre_Action()
+    {
+        return true;
+    }
+    
+    /**
+     * This function is called AFTER the action.
+     */
+    protected function __post_Action()
+    {
+        
+    }
 }
 
 ?>
