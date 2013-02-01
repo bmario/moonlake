@@ -27,8 +27,6 @@ class Moonlake_View_View {
 
     protected $__assigns__ = array();
     protected $__design__;
-    protected $__repsonse__;
-    protected $__request__;
 
     /**
      * The constructor needs the design name and the templatename
@@ -84,8 +82,8 @@ class Moonlake_View_View {
         ob_start();
 
         try{
-        // include file if exists and so execute the php inside
-        include($this->getPath($name));
+            // include file if exists and so execute the php inside
+            include($this->getPath($name));
         }
         catch(Exception $e) {
             ob_end_clean();
