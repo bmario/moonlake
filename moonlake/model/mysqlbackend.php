@@ -304,7 +304,25 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
                 if($count > 0) $sql .= ' '.$cond->getOperator();
                 $sql .= " `$field` LIKE '%$val%'";
                 $count++;
-            }
+			}
+
+			foreach($cond->getAllLesser() as $field => $val) {
+                $field = mysql_escape_string($field);
+				$val = mysql_escape_string($val);
+
+				if($count > 0) $ sql .= ' '.$cond->getOperator();
+				$sql .= " `$field` < '$val'";
+				$count++;
+			}
+			
+			foreach($cond->getAllGreater() as $field => $val) {
+                $field = mysql_escape_string($field);
+				$val = mysql_escape_string($val);
+
+				if($count > 0) $ sql .= ' '.$cond->getOperator();
+				$sql .= " `$field` > '$val'";
+				$count++;
+			}
         }
         else {
             // FIXME add an override for that, perhabs that could be useful?
@@ -353,7 +371,26 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
                 if($count > 0) $sql .= ' '.$cond->getOperator();
                 $sql .= " `$field` LIKE '%$val%'";
                 $count++;
-            }
+			}
+
+			foreach($cond->getAllLesser() as $field => $val) {
+                $field = mysql_escape_string($field);
+				$val = mysql_escape_string($val);
+
+				if($count > 0) $ sql .= ' '.$cond->getOperator();
+				$sql .= " `$field` < '$val'";
+				$count++;
+			}
+			
+			foreach($cond->getAllGreater() as $field => $val) {
+                $field = mysql_escape_string($field);
+				$val = mysql_escape_string($val);
+
+				if($count > 0) $ sql .= ' '.$cond->getOperator();
+				$sql .= " `$field` > '$val'";
+				$count++;
+			}
+
         }
 
         // add ordering to SQL
@@ -422,7 +459,26 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
                 if($count > 0) $sql .= ' '.$cond->getOperator();
                 $sql .= " `$field` LIKE '%$val%'";
                 $count++;
-            }
+			}
+
+			foreach($cond->getAllLesser() as $field => $val) {
+                $field = mysql_escape_string($field);
+				$val = mysql_escape_string($val);
+
+				if($count > 0) $ sql .= ' '.$cond->getOperator();
+				$sql .= " `$field` < '$val'";
+				$count++;
+			}
+			
+			foreach($cond->getAllGreater() as $field => $val) {
+                $field = mysql_escape_string($field);
+				$val = mysql_escape_string($val);
+
+				if($count > 0) $ sql .= ' '.$cond->getOperator();
+				$sql .= " `$field` > '$val'";
+				$count++;
+			}
+
         }
         else {
             // FIXME add an override for that, perhabs that could be useful?

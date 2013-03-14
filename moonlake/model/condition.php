@@ -31,7 +31,9 @@ class Moonlake_Model_Condition {
     private $like           = array();
     private $orderdirection = null;
     private $orderfield     = null;
-    private $operator       = null;
+	private $operator       = null;
+	private $lesser         = array();
+	private $greater        = array();
     
     /**
      * The constructor.
@@ -92,6 +94,28 @@ class Moonlake_Model_Condition {
     public function getAllLike() {
         return $this->like;
     }
+
+	public function lesser($field, $value)
+	{
+		$this->lesser[$field] = $value;
+		return $this;
+	}
+
+	public function greater($field, $value)
+	{
+		$this->greater[$field] = $value;
+		return $this;
+	}
+
+	public function getAllLesser()
+	{
+		return $this->lesser;
+	}
+
+	public function getAllGreater()
+	{
+		return $this->greater;
+	}
 
     /**
      * This method defines a order condition. This means the result will
@@ -170,7 +194,7 @@ class Moonlake_Model_Condition {
     public function resetOrder() {
         $this->orderdirection = null;
         $this->orderfield     = null;
-    }
+	}
 }
 
 ?>
