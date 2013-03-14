@@ -310,7 +310,7 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
                 $field = mysql_escape_string($field);
 				$val = mysql_escape_string($val);
 
-				if($count > 0) $ sql .= ' '.$cond->getOperator();
+				if($count > 0) $sql .= ' '.$cond->getOperator();
 				$sql .= " `$field` < '$val'";
 				$count++;
 			}
@@ -319,7 +319,7 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
                 $field = mysql_escape_string($field);
 				$val = mysql_escape_string($val);
 
-				if($count > 0) $ sql .= ' '.$cond->getOperator();
+				if($count > 0) $sql .= ' '.$cond->getOperator();
 				$sql .= " `$field` > '$val'";
 				$count++;
 			}
@@ -377,7 +377,7 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
                 $field = mysql_escape_string($field);
 				$val = mysql_escape_string($val);
 
-				if($count > 0) $ sql .= ' '.$cond->getOperator();
+				if($count > 0) $sql .= ' '.$cond->getOperator();
 				$sql .= " `$field` < '$val'";
 				$count++;
 			}
@@ -386,7 +386,7 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
                 $field = mysql_escape_string($field);
 				$val = mysql_escape_string($val);
 
-				if($count > 0) $ sql .= ' '.$cond->getOperator();
+				if($count > 0) $sql .= ' '.$cond->getOperator();
 				$sql .= " `$field` > '$val'";
 				$count++;
 			}
@@ -465,7 +465,7 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
                 $field = mysql_escape_string($field);
 				$val = mysql_escape_string($val);
 
-				if($count > 0) $ sql .= ' '.$cond->getOperator();
+				if($count > 0) $sql .= ' '.$cond->getOperator();
 				$sql .= " `$field` < '$val'";
 				$count++;
 			}
@@ -474,7 +474,7 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
                 $field = mysql_escape_string($field);
 				$val = mysql_escape_string($val);
 
-				if($count > 0) $ sql .= ' '.$cond->getOperator();
+				if($count > 0) $sql .= ' '.$cond->getOperator();
 				$sql .= " `$field` > '$val'";
 				$count++;
 			}
