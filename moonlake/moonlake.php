@@ -53,7 +53,7 @@ final class Moonlake_Framework {
             ob_clean();
             
             // call exception handler, so we get nice output
-            Moonlake_Application_Application::exceptionHandler($e);
+            echo Moonlake_Application_Application::exceptionHandler($e);
         }
     }
 
@@ -79,8 +79,10 @@ final class Moonlake_Framework {
             // clear all output so we have only our debug output!
             ob_clean();
 
-            // call the handler for exceptions
-            $app->exceptionHandler($e);
+            $app->getResponse()->writeContent(
+                // call the handler for exceptions
+                $app->exceptionHandler($e)
+            );
         }
     }
 }

@@ -120,7 +120,7 @@ abstract class Moonlake_Application_Application {
         }
         
         $trace = nl2br($trace);
-        echo <<<EXCEPT
+        return <<<EXCEPT
 <html>
     <head>
         <title>Exception in Moonlake Framework</title>
