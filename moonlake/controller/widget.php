@@ -53,17 +53,12 @@ class Moonlake_Controller_Widget {
                 }
                 
                 // run post action
-                $thia->__post_Action();
+                $this->__post_Action();
                 
                 return $result;
             }
             catch(Exception $e) {
-                try{
-                    $this->error_Action();
-                }
-                catch(Exception $ee) {
-                    throw $e;
-                }
+				$this->error_Action();
             }
         }
         else {
