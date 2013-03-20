@@ -37,10 +37,13 @@ class Moonlake_Controller_Widget {
         $this->view = $view;
     }
 
-    public function execute($action, $arguments) {
+    public function execute($action, $arguments)
+    {
 
-            if(method_exists($this, $action)) {
-            try {
+        if(method_exists($this, $action))
+        {
+            try
+            {
                 // run pre action
                 $result = $this->__pre_Action();
 
