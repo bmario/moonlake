@@ -289,8 +289,8 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
             $count = 0;
 
             foreach($cond->getAllIs() as $field => $val) {
-                $field = mysql_escape_string($field);
-                $val = mysql_escape_string($val);
+                $field = mysql_real_escape_string($field);
+                $val = mysql_real_escape_string($val);
 
                 if($count > 0) $sql .= ' '.$cond->getOperator();
                 $sql .= " `$field` = '$val'";
@@ -298,8 +298,8 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
             }
 
             foreach($cond->getAllLike() as $field => $val) {
-                $field = mysql_escape_string($field);
-                $val = mysql_escape_string($val);
+                $field = mysql_real_escape_string($field);
+                $val = mysql_real_escape_string($val);
 
                 if($count > 0) $sql .= ' '.$cond->getOperator();
                 $sql .= " `$field` LIKE '%$val%'";
@@ -307,8 +307,8 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
 			}
 
 			foreach($cond->getAllLesser() as $field => $val) {
-                $field = mysql_escape_string($field);
-				$val = mysql_escape_string($val);
+                $field = mysql_real_escape_string($field);
+				$val = mysql_real_escape_string($val);
 
 				if($count > 0) $sql .= ' '.$cond->getOperator();
 				$sql .= " `$field` < '$val'";
@@ -316,8 +316,8 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
 			}
 			
 			foreach($cond->getAllGreater() as $field => $val) {
-                $field = mysql_escape_string($field);
-				$val = mysql_escape_string($val);
+                $field = mysql_real_escape_string($field);
+				$val = mysql_real_escape_string($val);
 
 				if($count > 0) $sql .= ' '.$cond->getOperator();
 				$sql .= " `$field` > '$val'";
@@ -356,8 +356,8 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
             $count = 0;
 
             foreach($cond->getAllIs() as $field => $val) {
-                $field = mysql_escape_string($field);
-                $val = mysql_escape_string($val);
+                $field = mysql_real_escape_string($field);
+                $val = mysql_real_escape_string($val);
 
                 if($count > 0) $sql .= ' '.$cond->getOperator();
                 $sql .= " `$field` = '$val'";
@@ -365,8 +365,8 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
             }
 
             foreach($cond->getAllLike() as $field => $val) {
-                $field = mysql_escape_string($field);
-                $val = mysql_escape_string($val);
+                $field = mysql_real_escape_string($field);
+                $val = mysql_real_escape_string($val);
 
                 if($count > 0) $sql .= ' '.$cond->getOperator();
                 $sql .= " `$field` LIKE '%$val%'";
@@ -374,8 +374,8 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
 			}
 
 			foreach($cond->getAllLesser() as $field => $val) {
-                $field = mysql_escape_string($field);
-				$val = mysql_escape_string($val);
+                $field = mysql_real_escape_string($field);
+				$val = mysql_real_escape_string($val);
 
 				if($count > 0) $sql .= ' '.$cond->getOperator();
 				$sql .= " `$field` < '$val'";
@@ -383,8 +383,8 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
 			}
 			
 			foreach($cond->getAllGreater() as $field => $val) {
-                $field = mysql_escape_string($field);
-				$val = mysql_escape_string($val);
+                $field = mysql_real_escape_string($field);
+				$val = mysql_real_escape_string($val);
 
 				if($count > 0) $sql .= ' '.$cond->getOperator();
 				$sql .= " `$field` > '$val'";
@@ -396,7 +396,7 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
         // add ordering to SQL
         if($cond->hasOrder()) {
             // get the field, which is to be ordered
-            $field = mysql_escape_string($cond->getOrderField());
+            $field = mysql_real_escape_string($cond->getOrderField());
 
             /*
              * get the direction
@@ -444,8 +444,8 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
             $count = 0;
 
             foreach($cond->getAllIs() as $field => $val) {
-                $field = mysql_escape_string($field);
-                $val = mysql_escape_string($val);
+                $field = mysql_real_escape_string($field);
+                $val = mysql_real_escape_string($val);
 
                 if($count > 0) $sql .= ' '.$cond->getOperator();
                 $sql .= " `$field` = '$val'";
@@ -453,8 +453,8 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
             }
 
             foreach($cond->getAllLike() as $field => $val) {
-                $field = mysql_escape_string($field);
-                $val = mysql_escape_string($val);
+                $field = mysql_real_escape_string($field);
+                $val = mysql_real_escape_string($val);
 
                 if($count > 0) $sql .= ' '.$cond->getOperator();
                 $sql .= " `$field` LIKE '%$val%'";
@@ -462,8 +462,8 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
 			}
 
 			foreach($cond->getAllLesser() as $field => $val) {
-                $field = mysql_escape_string($field);
-				$val = mysql_escape_string($val);
+                $field = mysql_real_escape_string($field);
+				$val = mysql_real_escape_string($val);
 
 				if($count > 0) $sql .= ' '.$cond->getOperator();
 				$sql .= " `$field` < '$val'";
@@ -471,8 +471,8 @@ class Moonlake_Model_MySQLBackend implements Moonlake_Model_Backend {
 			}
 			
 			foreach($cond->getAllGreater() as $field => $val) {
-                $field = mysql_escape_string($field);
-				$val = mysql_escape_string($val);
+                $field = mysql_real_escape_string($field);
+				$val = mysql_real_escape_string($val);
 
 				if($count > 0) $sql .= ' '.$cond->getOperator();
 				$sql .= " `$field` > '$val'";

@@ -94,7 +94,7 @@ hostname, username, password and database.');
             $i = 2;
             foreach($parts as $part) {
                 if($i == count($parts)) $sql .= $part;
-                else $sql .= $part.mysql_escape_string($args[$i]);
+                else $sql .= $part.mysql_real_escape_string($args[$i]);
                 $i++;
 
             }
